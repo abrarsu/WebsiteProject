@@ -1,4 +1,15 @@
-﻿function jQueryAjaxPost(form)
+﻿$(function () {
+    $("#loaderbody").addClass('hide');
+
+    $(document).bind('ajaxStart', function () {
+        $("#loaderbody").removeClass('hide');
+    }).bind('ajaxStop', function () {
+        $("#loaderbody").addClass('hide');
+    });
+});
+
+
+function jQueryAjaxPost(form)
 {
     $.validator.unobtrusive.parse(form);
     if($(form).valid())
@@ -12,9 +23,13 @@
                     $("#firstTab").html(response.html);
                     refreshAddNewTab($(form).attr('data-restUrl'), true);
                     //success message 
+                    $.notify(response.message, "success");
+                    if (typeof activatejQueryTable !== 'undefined' && $.isFunction(activatejQueryTable))
+                        activatejQueryTable();
                 }
                 else {
                     //error message 
+                    $.notify(response.message, "error");
 
                 }
             }
@@ -23,7 +38,7 @@
             ajaxConfig["contentType"] = false;
             ajaxConfig["processData"] = false;
         }
-        $.ajax(ajaxConfig)
+        $.ajax(ajaxConfig);
     }
     return false;
 }
@@ -36,10 +51,48 @@ function refreshAddNewTab(resetUrl, showViewTab)
         success: function (response) {
             $("#secondTab").html(response);
             $('ul.nav.nav-tabs a:eq(1)').html('Add New Club');
-            if(showViewTab)        
+            if (showViewTab)
                 $('ul.nav.nav-tabs a:eq(0)').tab('show');
-            
-        }
-    })
 
+        }
+    });
+
+}
+
+function Edit(url) {
+
+    $.ajax({
+        type: 'GET',
+        url: url,
+        success: function (response) {
+            $("#secondTab").html(response);
+            $('ul.nav.nav-tabs a:eq(1)').html('Edit Club');
+                $('ul.nav.nav-tabs a:eq(1)').tab('show');
+
+        }
+    });
+
+}
+
+function Delete(url) {
+    if(confirm('Are you sure you want to delete this record?') == true)
+    {
+        $.ajax({
+            type: 'POST',
+            url: url,
+            success: function (response) {
+                if (response.success) {
+                    $("#firstTab").html(response.html);
+                    //success message 
+                    $.notify(response.message, "warn");
+                    if (typeof activatejQueryTable !== 'undefined' && $.isFunction(activatejQueryTable))
+                        activatejQueryTable();
+                }
+                else {
+                    $.notify(response.message, "error");
+                }
+            }
+        });
+
+    }
 }

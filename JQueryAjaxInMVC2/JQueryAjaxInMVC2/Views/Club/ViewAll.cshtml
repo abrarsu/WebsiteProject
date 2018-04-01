@@ -5,7 +5,8 @@
     Layout = null;
 }
 
-<table class="table">
+<table class="table" id="clubTable">
+ <thead>
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.ClubName)
@@ -18,24 +19,27 @@
         </th>
         <th></th>
     </tr>
+ </thead>
+ <tbody>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ClubName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ClubDescription)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ClubMembership)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ClubID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ClubID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ClubID })
-        </td>
-    </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClubName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClubDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClubMembership)
+                </td>
+                <td>
+                    <a class="btn btn-primary btn-sm" onclick="Edit('@Url.Action("AddOrEditClub", "Club", new { id =@item.ClubID})')"><i class="fa fa-pencil fa-lg"></i></a>
+                    <a class="btn btn-danger btn-sm" onclick="Delete('@Url.Action("Delete", "Club" , new { id =@item.ClubID})')"><i class="fa fa-trash fa-lg"></i></a>
 
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>

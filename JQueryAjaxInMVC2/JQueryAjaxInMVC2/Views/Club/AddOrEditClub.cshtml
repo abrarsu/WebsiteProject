@@ -41,6 +41,10 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
+                @if(Model.ClubID != 0)
+                {
+                    <a class="btn btn-success"onclick="refreshAddNewTab('@Url.Action("AddOrEditClub", "Club", new { id = 0})', false)"><i class="fa fa-plus"></i>Add New Club</a>
+                }
             </div>
         </div>
     </div>
