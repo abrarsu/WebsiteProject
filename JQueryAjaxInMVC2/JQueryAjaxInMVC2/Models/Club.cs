@@ -6,6 +6,7 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
+using System.Web;
 
 namespace JQueryAjaxInMVC2.Models
 {
@@ -13,6 +14,7 @@ namespace JQueryAjaxInMVC2.Models
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public partial class Club
     {
@@ -25,7 +27,7 @@ namespace JQueryAjaxInMVC2.Models
     
         public int ClubID { get; set; }
         [DisplayName("Club Name")]
-        [Required(ErrorMessage = "This field is required.")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "This field is required.")]
         public string ClubName { get; set; }
         [DisplayName("Club Description")]
         public string ClubDescription { get; set; }

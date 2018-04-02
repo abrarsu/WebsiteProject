@@ -11,32 +11,43 @@
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Martial Arts Class Booking Management", "Index", "Clubs", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Martial Arts Class Bookings</a>
+
+                    @*@Html.ActionLink("Martial Arts", "Index", "Club", new { area = "" }, new { @class = "navbar-brand" })*@
+                </div>
+            <div class="navbar-collapse collapse" id=".navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Clubs", "Index", "Club")</li>
+                    <li>@Html.ActionLink("Instructors", "Index", "Instructor")</li>
+                    <li>@Html.ActionLink("Bookings", "Index", "CustomerBooking")</li>
+                    </ul>
+                </div>
+             </div>
+           </div>
+
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>&copy; @DateTime.Now.Year - Booking Management Application</p>
+            </footer>
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Booking Management Application</p>
-        </footer>
-    </div>
 
-    <div class="loaderbody" id="loaderbody">
-        <div class="loader"></div>
-    </div>
+        <div class="loaderbody" id="loaderbody">
+            <div class="loader"></div>
+        </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-    <script src="~/Scripts/Scripts.js"></script>
-    <script src="~/Scripts/notify.min.js"></script>
-</body>
-</html>
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+        <script src="~/Scripts/Scripts.js"></script>
+        <script src="~/Scripts/notify.min.js"></script>
+    </body>
+    </html>
