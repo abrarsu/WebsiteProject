@@ -1,8 +1,6 @@
 ﻿using JQueryAjaxInMVC2.Models;
-using JQueryAjaxInMVC2.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -19,6 +17,7 @@ namespace JQueryAjaxInMVC2.Controllers
 
         public ActionResult ViewAll()
         {
+<<<<<<< HEAD
             DBModel db = new DBModel();
 
             List<Instructor> instructorList = db.Instructors.ToList();
@@ -46,12 +45,14 @@ namespace JQueryAjaxInMVC2.Controllers
             }).ToList();
 
             return View(instructorVMList);
+=======
+            return View(GetAllInstructors());
+>>>>>>> parent of 216a606... inctructor view
         }
 
-  
-
-        public ActionResult AddOrEditInstructor()
+        IEnumerable<Instructor> GetAllInstructors()
         {
+<<<<<<< HEAD
             DBModel db = new DBModel();
 
             List<Club> clublist = db.Clubs.ToList();
@@ -121,5 +122,28 @@ namespace JQueryAjaxInMVC2.Controllers
 
 
 
+=======
+            using (DBModel db = new DBModel())
+            {
+                return db.Instructors.ToList<Instructor>();
+               
+            }
+        } 
+
+        public ActionResult AddOrEditInstructor(int id =0)
+        {
+            Instructor instructor = new Instructor();
+            if (id !=0)
+            {
+                using (DBModel db = new DBModel())
+                {
+                    instructor = db.Instructors.Where(x => x.ClubID == id).FirstOrDefault<Instructor>();
+                    
+                }
+
+            }
+            return View(instructor);
+        }
+>>>>>>> parent of 216a606... inctructor view
     }
 }
