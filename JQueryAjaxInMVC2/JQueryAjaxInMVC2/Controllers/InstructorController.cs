@@ -18,6 +18,7 @@ namespace JQueryAjaxInMVC2.Controllers
         public ActionResult ViewAll()
         {
 <<<<<<< HEAD
+<<<<<<< HEAD
             DBModel db = new DBModel();
 
             List<Instructor> instructorList = db.Instructors.ToList();
@@ -48,10 +49,14 @@ namespace JQueryAjaxInMVC2.Controllers
 =======
             return View(GetAllInstructors());
 >>>>>>> parent of 216a606... inctructor view
+=======
+            return View(GetAllInstructors());
+>>>>>>> parent of 216a606... inctructor view
         }
 
         IEnumerable<Instructor> GetAllInstructors()
         {
+<<<<<<< HEAD
 <<<<<<< HEAD
             DBModel db = new DBModel();
 
@@ -130,6 +135,15 @@ namespace JQueryAjaxInMVC2.Controllers
             }
         } 
 
+=======
+            using (DBModel db = new DBModel())
+            {
+                return db.Instructors.ToList<Instructor>();
+               
+            }
+        } 
+
+>>>>>>> parent of 216a606... inctructor view
         public ActionResult AddOrEditInstructor(int id =0)
         {
             Instructor instructor = new Instructor();
@@ -144,6 +158,9 @@ namespace JQueryAjaxInMVC2.Controllers
             }
             return View(instructor);
         }
+<<<<<<< HEAD
+>>>>>>> parent of 216a606... inctructor view
+=======
 >>>>>>> parent of 216a606... inctructor view
     }
 }
