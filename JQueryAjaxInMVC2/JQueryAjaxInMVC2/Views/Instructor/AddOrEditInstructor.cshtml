@@ -6,12 +6,12 @@
 
 <link href="~/Content/bootstrap.min.css" rel="stylesheet"/>
 
-@using (Html.BeginForm("SaveInstructor", "ViewModelInstructor", FormMethod.Post@*, new { enctype = "multipart/form-data", onSubmit = "return jQueryAjaxPost(this);", data_restUrl = Url.Action("AddOrEditInstructor", "ViewModelInstructor", new { id = 0 }) }*@))//data-resetUrl
- { 
+@*@using (Html.BeginForm("SaveInstructor", "Instructor", FormMethod.Post, new { enctype = "multipart/form-data", onSubmit = "return jQueryAjaxPost(this);"@*, data_restUrl = Url.Action("AddOrEditInstructor", "Instructor", new { id = 0 })*@ }))//data-resetUrl
+ @*{*@*@ 
     <div class="form-horizontal">
 
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.ClubID)
+    @Html.HiddenFor(model => model.InstructorID)
 
     <div class="form-group">
         @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -30,19 +30,19 @@
     </div>
 
     @* these two are for username or password? maybe? *@
-    @*<div class="form-group">
-            @Html.LabelFor(model => model., htmlAttributes: new { @class = "control-label col-md-2" })
+    <div class="form-group">
+            @Html.LabelFor(model => model.Username, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
             </div>
-        </div>*@
+        </div>
 
     @*<div class="form-group">
-            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
             </div>
         </div>*@
 
@@ -99,11 +99,11 @@
             <input type="submit" value="Save" class="btn btn-default" />
             @*@if (Model.InstructorID != 0)
                 {
-                    <a class="btn btn-success" onclick="refreshAddNewTab('@Url.Action("AddOrEditClub", "Club", new { id = 0})', false)"><i class="fa fa-plus"></i>Add New Club</a>
+                    <a class="btn btn-success" onclick="refreshAddNewTab('@Url.Action("AddOrEditInstructor", "Instructor", new { id = 0})', false)"><i class="fa fa-plus"></i>Add New Instructor</a>
                 }*@
         </div>
     </div>
  </div>
-} 
+@*}  *@ 
 
     

@@ -25,6 +25,9 @@ namespace JQueryAjaxInMVC2.Controllers
 
             InstructorViewModel instructorVM = new InstructorViewModel();
 
+            List<InstructorPassword> instructorPasswordlist = db.InstructorPasswords.ToList();
+            ViewBag.instructorPasswordlist = new SelectList(instructorPasswordlist, "InstructorID", "Username");
+
             List<InstructorViewModel> instructorVMList = instructorList.Select(x => new InstructorViewModel
             {
                 InstructorID = x.InstructorID,
@@ -36,8 +39,8 @@ namespace JQueryAjaxInMVC2.Controllers
                 PhoneNumber = x.PhoneNumber,
                 AddressLine1 = x.AddressLine1,
                 AddressLine2 = x.AddressLine2,
-                Postcode = x.Postcode
-                //Username = x.InstructorPassword.Username,
+                Postcode = x.Postcode,
+                Username = x.InstructorPassword.Username,
                 //Password = x.InstructorPassword.Password
                 
             }).ToList();
@@ -51,52 +54,72 @@ namespace JQueryAjaxInMVC2.Controllers
         {
             DBModel db = new DBModel();
 
-            List<Club> list = db.Clubs.ToList();
-            ViewBag.ClubList = new SelectList(list, "ClubID","ClubName");
+            List<Club> clublist = db.Clubs.ToList();
+            ViewBag.ClubList = new SelectList(clublist, "ClubID","ClubName");
+
+            //List<InstructorPassword> instructorPasswordlist = db.InstructorPasswords.ToList();
+            //ViewBag.instructorPasswordlist = new SelectList(instructorPasswordlist, "InstructorID", "Username");
 
             return View();
         }
 
-        [HttpPost]
-        public ActionResult SaveClub(InstructorViewModel instructorVM)
-        {
-            try
-            {
-                using (DBModel db = new DBModel())
-                {
-                    Instructor instructor = new Instructor();
-                    instructor.FirstName = instructorVM.FirstName;
-                    instructor.LastName = instructorVM.LastName;
-                    instructor.ClubID = instructorVM.ClubID;
-                    instructor.Email = instructorVM.Email;
-                    instructor.PhoneNumber = instructorVM.PhoneNumber;
-                    instructor.AddressLine1 = instructorVM.AddressLine1;
-                    instructor.AddressLine2 = instructorVM.AddressLine2;
-                    instructor.Postcode = instructorVM.Postcode;
+        //[HttpPost]
+        //public ActionResult SaveInstructor(InstructorViewModel instructorVM)
+        //{
+        //    try
+        //    {
+        //        using (DBModel db = new DBModel())
+        //        {
+        //            List<Club> list = db.Clubs.ToList();
+        //            ViewBag.ClubList = new SelectList(list, "ClubID", "ClubName");
 
-                    if (instructorVM.InstructorID == 0)
-                    {
-                        db.Instructors.Add(instructorVM);
-                        db.SaveChanges();
-                    }
-                    else
-                    {
-                        db.Entry(instructorVM).State = EntityState.Modified;
-                        db.SaveChanges();
-                    }
-                }
+        //            Instructor instructor = new Instructor();
+        //            instructor.FirstName = instructorVM.FirstName;
+        //            instructor.LastName = instructorVM.LastName;
+        //            instructor.ClubID = instructorVM.ClubID;
+        //            instructor.Email = instructorVM.Email;
+        //            instructor.PhoneNumber = instructorVM.PhoneNumber;
+        //            instructor.AddressLine1 = instructorVM.AddressLine1;
+        //            instructor.AddressLine2 = instructorVM.AddressLine2;
+        //            instructor.Postcode = instructorVM.Postcode;
 
-                return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAll", ViewAll()), message = "Saved Successfully" }, JsonRequestBehavior.AllowGet);
-            }
-            catch (Exception ex)
-            {
+        //            //this is for edit
+        //            //if (instructorVM.InstructorID == 0)
+        //            //{
+        //                db.Instructors.Add(instructor);
+        //                db.SaveChanges();
 
-                return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
-            }
+        //                int latestInstructorID = instructor.InstructorID;
 
-        }
+        //                InstructorPassword instructorPassword = new InstructorPassword();
+        //                instructorPassword.Username = instructorVM.Username;
+        //                //instructorPassword.Password = instructorVM.Password;
+        //                instructorPassword.InstructorID = latestInstructorID;
+
+        //                db.InstructorPasswords.Add(instructorPassword);
+        //                db.SaveChanges();
+
+        //            //}
+        //            //else
+        //            //{
+        //            //    db.Entry(instructorVM).State = EntityState.Modified;
+        //            //    db.SaveChanges();
+        //            //}
+
+                   
+        //        }
+
+        //        return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAll", ViewAll()), message = "Saved Successfully" }, JsonRequestBehavior.AllowGet);
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+        //    }
+
+        //}
 
 
 
-     }
+    }
 }

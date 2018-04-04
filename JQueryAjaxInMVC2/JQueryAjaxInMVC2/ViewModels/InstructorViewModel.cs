@@ -33,8 +33,8 @@ namespace JQueryAjaxInMVC2.ViewModels
 
         [DisplayName("Club Name")]
         public string ClubName { get; set; }
-        //public string Username { get; set; }
-        //public string Password { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
 
     }
 }
