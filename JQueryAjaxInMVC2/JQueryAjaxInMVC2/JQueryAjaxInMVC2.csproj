@@ -173,6 +173,7 @@
     <Compile Include="Models\InstructorPassword.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\InstructorViewModel.cs" />
     <Compile Include="Models\Order.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
@@ -217,7 +218,7 @@
       <DependentUpon>DBModels.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\InstructorCRUDScript.js" />
+    <Content Include="Scripts\InstructorScript.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -247,6 +248,8 @@
     <Content Include="Views\Club\AddOrEditClub.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Instructor\Index.cshtml" />
+    <Content Include="Views\Instructor\ViewAllInstructors.cshtml" />
+    <Content Include="Views\Instructor\AddOrEditInstructor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

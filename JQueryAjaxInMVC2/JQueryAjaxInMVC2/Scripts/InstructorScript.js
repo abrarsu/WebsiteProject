@@ -1,4 +1,4 @@
-﻿function jQueryAjaxPost(form) {
+﻿function jQueryAjaxPostInstructor(form) {
     $.validator.unobtrusive.parse(form);
     if ($(form).valid()) {
         var ajaxConfig = {
@@ -8,11 +8,11 @@
             success: function (response) {
                 if (response.success) {
                     $("#firstTab").html(response.html);
-                   // refreshAddNewTab($(form).attr('data-restUrl'), true);
+                    refreshAddNewInstructorTab($(form).attr('data-restUrl'), true);
                     //success message 
                     $.notify(response.message, "success");
-                    //if (typeof activatejQueryTable !== 'undefined' && $.isFunction(activatejQueryTable))
-                    //    activatejQueryTable();
+                    if (typeof activatejQueryTable !== 'undefined' && $.isFunction(activatejQueryTable))
+                        activatejQueryTable();
                 }
                 else {
                     //error message 
@@ -28,4 +28,19 @@
         $.ajax(ajaxConfig);
     }
     return false;
+}
+
+function refreshAddNewInstructorTab(resetUrl, showViewTab) {
+    $.ajax({
+        type: 'GET',
+        url: resetUrl,
+        success: function (response) {
+            $("#secondTab").html(response);
+            $('ul.nav.nav-tabs a:eq(1)').html('Add New Instructor');
+            if (showViewTab)
+                $('ul.nav.nav-tabs a:eq(0)').tab('show');
+
+        }
+    });
+
 }

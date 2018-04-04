@@ -50,6 +50,7 @@ namespace JQueryAjaxInMVC2.Controllers
             {
                 using (DBModel db = new DBModel())
                 {
+                    //this checks 'if' if something has been added or not if not then it saves changes
                     if (club.ClubID == 0)
                     {
                         db.Clubs.Add(club);

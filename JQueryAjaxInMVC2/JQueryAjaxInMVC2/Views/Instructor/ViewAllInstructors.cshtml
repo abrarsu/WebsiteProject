@@ -1,0 +1,51 @@
+﻿@model IEnumerable<JQueryAjaxInMVC2.Models.InstructorViewModel>
+@{
+    ViewBag.Title = "ViewAllInstructors";
+    Layout = null;
+}
+
+<link href="~/Content/bootstrap.css" rel="stylesheet"/>
+
+@if (Model != null)
+{
+    <table class="table" id="instructorTable">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Club Name</th>
+                <th>Username</th>
+                <th>Email Address</th>
+                <th>Phone Number</th>
+                <th>Address Line 1</th>
+                <th>Address Line 2</th>
+                <th>Postcode</th>
+                <th></th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.FirstName</td>
+                    <td>@item.LastName</td>
+                    <td>@item.ClubName</td>
+                    <td>@item.Username</td>
+                    <td>@item.Email</td>
+                    <td>@item.PhoneNumber</td>
+                    <td>@item.AddressLine1</td>
+                    <td>@item.AddressLine2</td>
+                    <td>@item.Postcode</td>
+                    <td>
+                        <a class="btn btn-primary btn-sm" onclick="Edit('@Url.Action("AddOrEditInstructor", "InstructorViewModel", new { id =@item.InstructorID})')"><i class="fa fa-pencil fa-lg"></i></a>
+                        <a class="btn btn-danger btn-sm" onclick="Delete('@Url.Action("Delete", "InstructorViewModel" , new { id =@item.InstructorID})')"><i class="fa fa-trash fa-lg"></i></a>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
