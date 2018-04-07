@@ -43,69 +43,100 @@ namespace JQueryAjaxInMVC2.Controllers
             return View(instructorVMList);
         }
 
-        public ActionResult AddOrEditInstructor()
+        public ActionResult AddOrEditInstructor(int id =0)
         {
             DBModel db = new DBModel();
 
+            InstructorViewModel instructorVM = new InstructorViewModel();
+  
             List<Club> clublist = db.Clubs.ToList();
             ViewBag.ClubList = new SelectList(clublist, "ClubID", "ClubName");
 
-            List<InstructorPassword> instructorPasswordlist = db.InstructorPasswords.ToList();
-            ViewBag.instructorPasswordlist = new SelectList(instructorPasswordlist, "InstructorID", "Username");
-
-            return View();
+          
+            return View(instructorVM);
         }
 
         [HttpPost]
         public ActionResult SaveInstructor(InstructorViewModel model)
         {
-            try
+            var objInstructor = new Instructor
             {
-                using (DBModel db = new DBModel())
-                { 
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                ClubID = model.ClubID,
+                Email = model.Email,
+                PhoneNumber = model.PhoneNumber,
+                AddressLine1 = model.AddressLine1,
+                AddressLine2 = model.AddressLine2,
+                Postcode = model.Postcode,
+            };
 
-                    List<Club> clublist = db.Clubs.ToList();
-                    ViewBag.ClubList = new SelectList(clublist, "ClubID", "ClubName");
-
-                    List<InstructorPassword> instructorPasswordlist = db.InstructorPasswords.ToList();
-                    ViewBag.instructorPasswordlist = new SelectList(instructorPasswordlist, "InstructorID", "Username");
-
-                    Instructor instructor = new Instructor();
-                    instructor.FirstName = model.FirstName;
-                    instructor.LastName = model.LastName;
-                    instructor.ClubID = model.ClubID;
-                    instructor.Email = model.Email;
-                    instructor.PhoneNumber = model.PhoneNumber;
-                    instructor.AddressLine1 = model.AddressLine1;
-                    instructor.AddressLine2 = model.AddressLine2;
-                    instructor.Postcode = model.Postcode;
-
-                    db.Instructors.Add(instructor);
-                    db.SaveChanges();
-
-
-                    int latestInstructorID = instructor.InstructorID;
-
-                    InstructorPassword instructorPswd = new InstructorPassword();
-                    instructorPswd.Username = model.Username;
-                    instructorPswd.Password = model.Password;
-                    instructorPswd.InstructorID = latestInstructorID;
-
-                    db.InstructorPasswords.Add(instructorPswd);
-                    db.SaveChanges();
-                }
-
-                return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAllInstructors", ViewAllInstructors()), message = "Saved Successfully" }, JsonRequestBehavior.AllowGet);
-
-            }
-            catch (Exception ex)
+            var objInstructorPasswords = new InstructorPassword
             {
-                //throw ex;
-                return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+                Username = model.Username,
+                Password = model.Password,
 
+            };
+
+            using (var context = new DBModel())
+            {
+                context.Instructors.Add(objInstructor);
+                //objInstructorPasswords.InstructorID = Instructor.InstructorID;
+                context.InstructorPasswords.Add(objInstructorPasswords);
+                context.SaveChanges();
             }
-            //return View(model);
+                return View();
         }
+
+        //public ActionResult SaveInstructor(InstructorViewModel model)
+        //{
+        //    try
+        //    {
+        //        using (DBModel db = new DBModel())
+        //        { 
+
+        //            List<Club> clublist = db.Clubs.ToList();
+        //            ViewBag.ClubList = new SelectList(clublist, "ClubID", "ClubName");
+
+        //            //List<InstructorPassword> instructorPasswordlist = db.InstructorPasswords.ToList();
+        //            //ViewBag.instructorPasswordlist = new SelectList(instructorPasswordlist, "InstructorID", "Username");
+
+        //            Instructor instructor = new Instructor();
+        //            instructor.FirstName = model.FirstName;
+        //            instructor.LastName = model.LastName;
+        //            instructor.ClubID = model.ClubID;
+        //            instructor.Email = model.Email;
+        //            instructor.PhoneNumber = model.PhoneNumber;
+        //            instructor.AddressLine1 = model.AddressLine1;
+        //            instructor.AddressLine2 = model.AddressLine2;
+        //            instructor.Postcode = model.Postcode;
+
+        //            db.Instructors.Add(instructor);
+        //            db.SaveChanges();
+
+
+        //            int latestInstructorID = instructor.InstructorID;
+
+        //            InstructorPassword instructorPswd = new InstructorPassword();
+        //            instructorPswd.Username = model.Username;
+        //            instructorPswd.Password = model.Password;
+        //            instructorPswd.InstructorID = latestInstructorID;
+
+        //            db.InstructorPasswords.Add(instructorPswd);
+        //            db.SaveChanges();
+        //        }
+
+        //        return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAllInstructors", ViewAllInstructors()), message = "Saved Successfully" }, JsonRequestBehavior.AllowGet);
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        //throw ex;
+        //        return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+
+        //    }
+        //    //return View(model);
+        //}
 
     
 

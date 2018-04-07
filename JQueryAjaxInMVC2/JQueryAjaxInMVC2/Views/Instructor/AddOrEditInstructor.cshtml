@@ -8,7 +8,8 @@
 
 @*<form id="myForm">*@
 
-@using (Html.BeginForm("SaveInstructor", "InstructorViewModel", FormMethod.Post, new { enctype = "multipart/form-data", onSubmit = "return jQueryAjaxPostInstructor(this);", data_restUrl = Url.Action("AddOrEditInstructor", "InstructorViewModel", new { id = 0 }) }))//data-resetUrl
+@*@using (Html.BeginForm("SaveInstructor", "Instructor", FormMethod.Post, new { enctype = "multipart/form-data", onSubmit = "return jQueryAjaxPostInstructor(this);", data_restUrl = Url.Action("AddOrEditInstructor", "Instructor", new { id = 0 }) }))//data-resetUrl*@
+@using(Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
@@ -106,51 +107,60 @@
         </div>*@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-                @*@if (Model.InstructorID != 0)*@
-                @*{*@
-                    @*<a class="btn btn-success" onclick="refreshAddNewInstructorTab('@Url.Action("AddOrEditInstructor", "InstructorViewModel", new { id = 0})', false)"><i class="fa fa-plus"></i>Add New Instructor</a>*@
-                @*@}*@
+                <input id ="btnSave" type="submit" value="Save" class="btn btn-default" />
+                @*@if (Model.InstructorID != 0)
+                {*@
+                    @*<a class="btn btn-success" onclick="refreshAddNewInstructorTab('@Url.Action("AddOrEditInstructor", "Instructor", new { id = 0})', false)"><i class="fa fa-plus"></i>Add New Instructor</a>*@
+                    @*//}*@
             </div>
         </div>
     </div>
 }
 @*</form>*@
 
-@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
 
-    <script>
-        $(document).ready(function () {
+<script type="text/javascript">
 
-            $("#btnSave").click(function () {
-                debugger
-                var data = $("#myForm").serialize();
+    var InstructorInfo = {
+        FirstName: $("#FirstName").val(),
+        LastName: $("LastName").val(),
+        Username: $("Username").val(),
+        Password: $("Password").val(),
+        ClubName: $("ClubName").val(),
+        Email: $("Email").val(),
+        PhoneNumber: $("PhoneNumber").val(),
+        AddressLine1: $("AddressLine1").val(),
+        AddressLine2: $("AddressLine2").val(),
+        Postcode: $("Postcode").val()
 
-                $.ajax({
-                    type: "POST",
-                    url: "/Instructor/AddOrEditInstructor",
-                    data: data,
-                    success: function (response) {
-                        if (response.success) {
-                            $("#firstTab").html(response.html);
-                            //success message
-                            $.notify(response.message, "success");
-                        }
-                        else {
-                            //error message
-                            $.notify(response.message, "error");
-                        }
+    };
 
-                    }
+    $("btnSave").click(function() {
+        $.ajax({
+            type: "POST",
+            url: "/Instructor/SaveInstructor",
+            data: InstructorInfo,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                if (response.success) {
+                    $("/Instructor#firstTab").html(response.html);
+                    //success message 
+                    $.notify(response.message, "success");
+                    if (typeof activatejQueryTable !== 'undefined' && $.isFunction(activatejQueryTable))
+                        activatejQueryTable();
+                }
+                else {
+                    //error message 
+                    $.notify(response.message, "error");
+                }
+            }
+        });
+    });
 
 
-                })
-
-            })
-
-
-        })
-
-    </script>*@
+      
+</script>
 
 
