@@ -15,27 +15,15 @@ namespace JQueryAjaxInMVC2.Controllers
             return View();
         }
 
-        //public ActionResult ViewAll()
-        //{
-        //    return View(GetAllClubs());
-        //}
-
-        //IEnumerable<Club> GetAllClubs()
-        //{
-        //    using (BookingDBModel db = new BookingDBModel())
-        //    {
-        //        return db.Clubs.ToList<Club>();
-        //    }
-
-        //}
 
         public ActionResult ViewAllInstructors()
         {
 
             BookingDBModel db = new BookingDBModel();
 
-            //List<Instructor> instructorList = db.Instructors.ToList();
+            
             IEnumerable<Instructor> instructorList = db.Instructors.ToList();
+            
 
             InstructorViewModel instructorVM = new InstructorViewModel();
 
@@ -51,11 +39,11 @@ namespace JQueryAjaxInMVC2.Controllers
                 AddressLine1 = x.AddressLine1,
                 AddressLine2 = x.AddressLine2,
                 Postcode = x.Postcode,
-                
-                //Username = x.InstructorPassword.Username
-            }).ToList();
+                Username = db.InstructorPasswords.SingleOrDefault(y => y.InstructorID == x.InstructorID).Username}).ToList();
+
 
             return View(instructorVMList);
+           
         }
 
         public ActionResult AddOrEditInstructor(int id = 0)
@@ -68,23 +56,7 @@ namespace JQueryAjaxInMVC2.Controllers
             IEnumerable<Club> clublist = db.Clubs.ToList();
             ViewBag.ClubList = new SelectList(clublist, "ClubID", "ClubName");
             
-            //added new ar 08/04/2018
-            //IEnumerable<InstructorViewModel> listInstructor = db.Instructors.Where(x => x.InstructorID == id).Select(x => new InstructorViewModel
-            //{
-            //    FirstName = x.FirstName,
-            //    LastName = x.LastName,
-            //    ClubID = x.ClubID,
-            //    ClubName = x.Club.ClubName,
-            //    Email = x.Email,
-            //    PhoneNumber = x.PhoneNumber,
-            //    AddressLine1 = x.AddressLine1,
-            //    AddressLine2 = x.AddressLine2,
-            //    Postcode = x.Postcode
-            //}).ToList();
-
-            //ViewBag.InstructorList = listInstructor;
-
-
+           
             return View(instructorVM);
             //return View();
         }
@@ -130,7 +102,7 @@ namespace JQueryAjaxInMVC2.Controllers
 
 
                 return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAllInstructors", ViewAllInstructors()), message = "Saved Successfully" }, JsonRequestBehavior.AllowGet);
-
+                
             }
             catch (Exception ex)
             {
@@ -138,18 +110,38 @@ namespace JQueryAjaxInMVC2.Controllers
                 return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
 
             }
-           // return View(model);
+          // return View(model);
         }
 
 
-        public ActionResult DeleteInstructor(int InstructorID)
-        {
-            BookingDBModel db = new BookingDBModel();
+        public ActionResult DeleteInstructor(int id)
 
-            Instructor
+       {
+            try
+            {
+                BookingDBModel db = new BookingDBModel();
+
+                
+                    InstructorPassword instructorPswd = db.InstructorPasswords.Where(x => x.LoginID == id && x.InstructorID == id).FirstOrDefault<InstructorPassword>();
+                    db.InstructorPasswords.Remove(instructorPswd);
+                    db.SaveChanges();
+
+                    Instructor instructor = db.Instructors.Where(x => x.InstructorID == id).FirstOrDefault<Instructor>();
+                    db.Instructors.Remove(instructor);
+                    db.SaveChanges();
+
+                
+                return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAllInstructors", ViewAllInstructors()), message = "Deleted Successfully" }, JsonRequestBehavior.AllowGet);
 
 
-            return View();
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+
+            }
+
+            // return View();
         }
     }
  }
