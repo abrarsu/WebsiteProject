@@ -18,6 +18,7 @@ namespace JQueryAjaxInMVC2.Models
         public Customer()
         {
             this.CustomerBookings = new HashSet<CustomerBooking>();
+            this.CustomerPasswords = new HashSet<CustomerPassword>();
             this.Orders = new HashSet<Order>();
         }
     
@@ -33,7 +34,8 @@ namespace JQueryAjaxInMVC2.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CustomerBooking> CustomerBookings { get; set; }
-        public virtual CustomerPassword CustomerPassword { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CustomerPassword> CustomerPasswords { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
     }

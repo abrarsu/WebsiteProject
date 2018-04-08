@@ -1,15 +1,14 @@
 ﻿@model JQueryAjaxInMVC2.Models.InstructorViewModel
+
 @{
     ViewBag.Title = "AddOrEditInstructor";
     Layout = null;
 }
 
-<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 
 @*<form id="myForm">*@
 
-@*@using (Html.BeginForm("SaveInstructor", "Instructor", FormMethod.Post, new { enctype = "multipart/form-data", onSubmit = "return jQueryAjaxPostInstructor(this);", data_restUrl = Url.Action("AddOrEditInstructor", "Instructor", new { id = 0 }) }))//data-resetUrl*@
-@using(Html.BeginForm())
+@using (Html.BeginForm("SaveInstructor", "Instructor", FormMethod.Post, new { enctype = "multipart/form-data", onSubmit = "return jQueryAjaxPostInstructor(this);", data_restUrl = Url.Action("AddOrEditInstructor", "Instructor", new { id = 0 }) }))//data-resetUrl
 {
     @Html.AntiForgeryToken()
 
@@ -101,66 +100,56 @@
 
         @*<div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="button" value="Save" class="btn btn-default" id="btnSave"/>
+                <input type="button" value="Save" class="btn btn-default" id="btnSave" />
 
             </div>
         </div>*@
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input id ="btnSave" type="submit" value="Save" class="btn btn-default" />
                 @*@if (Model.InstructorID != 0)
-                {*@
-                    @*<a class="btn btn-success" onclick="refreshAddNewInstructorTab('@Url.Action("AddOrEditInstructor", "Instructor", new { id = 0})', false)"><i class="fa fa-plus"></i>Add New Instructor</a>*@
-                    @*//}*@
+                {
+                    <a class="btn btn-success" onclick="refreshAddNewInstructorTab('@Url.Action("AddOrEditInstructor", "Instructor", new { id = 0})', false)"><i class="fa fa-plus"></i>Add New Instructor</a>
+                }*@
             </div>
         </div>
+
     </div>
-}
+ } 
 @*</form>*@
 
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
 
-<script type="text/javascript">
+@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
 
-    var InstructorInfo = {
-        FirstName: $("#FirstName").val(),
-        LastName: $("LastName").val(),
-        Username: $("Username").val(),
-        Password: $("Password").val(),
-        ClubName: $("ClubName").val(),
-        Email: $("Email").val(),
-        PhoneNumber: $("PhoneNumber").val(),
-        AddressLine1: $("AddressLine1").val(),
-        AddressLine2: $("AddressLine2").val(),
-        Postcode: $("Postcode").val()
-
-    };
-
-    $("btnSave").click(function() {
-        $.ajax({
-            type: "POST",
-            url: "/Instructor/SaveInstructor",
-            data: InstructorInfo,
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-                if (response.success) {
-                    $("/Instructor#firstTab").html(response.html);
-                    //success message 
-                    $.notify(response.message, "success");
-                    if (typeof activatejQueryTable !== 'undefined' && $.isFunction(activatejQueryTable))
-                        activatejQueryTable();
+@*<script>
+    $(document).ready(function () {
+        $("#btnSave").click(function () {
+            debugger
+            var data = $("#myForm").serialize();
+            $.ajax({
+                type: "POST",
+                url: "/Instructor/SaveInstructor",
+                data: data,
+                success: function (response) {
+                    if (response.success) {
+                        $("/Instructor#firstTab").html(response.html);
+                        //success message 
+                        $.notify(response.message, "success");
+                        if (typeof activatejQueryTable !== 'undefined' && $.isFunction(activatejQueryTable))
+                            activatejQueryTable();
+                    }
+                    else {
+                        //error message 
+                        $.notify(response.message, "error");
+                    }
+                    
                 }
-                else {
-                    //error message 
-                    $.notify(response.message, "error");
-                }
-            }
-        });
-    });
 
+            })
+        })
 
-      
-</script>
-
+     })
+        
+</script>*@
 

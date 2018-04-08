@@ -1,16 +1,4 @@
-﻿//var InstructorInfo = {
-//    FirstName: $("#FirstName").val(),
-//    LastName: $("LastName").val(),
-//    Username: $("Username").val(),
-//    Password: $("Password").val(),
-//    ClubName: $("ClubName").val(),
-//    Email: $("Email").val(),
-//    PhoneNumber: $("PhoneNumber").val(),
-//    AddressLine1: $("AddressLine1").val(),
-//    AddressLine2: $("AddressLine2").val(),
-//    PostCode: $("Username").val()
-
-//};
+﻿
 
 //function jQueryAjaxPostInstructor(InstructorInfo)
 //{

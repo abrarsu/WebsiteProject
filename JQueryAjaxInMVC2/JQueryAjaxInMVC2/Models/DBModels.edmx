@@ -40,12 +40,13 @@
         </EntityType>
         <EntityType Name="CustomerPasswords">
           <Key>
-            <PropertyRef Name="CustomerID" />
+            <PropertyRef Name="CusLoginID" />
           </Key>
+          <Property Name="CusLoginID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CustomerID" Type="int" Nullable="false" />
           <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Password" Type="varchar" MaxLength="125" Nullable="false" />
-          <Property Name="Salt" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Salt" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Customers">
           <Key>
@@ -63,12 +64,13 @@
         </EntityType>
         <EntityType Name="InstructorPasswords">
           <Key>
-            <PropertyRef Name="InstructorID" />
+            <PropertyRef Name="LoginID" />
           </Key>
+          <Property Name="LoginID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="InstructorID" Type="int" Nullable="false" />
           <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Password" Type="varchar" MaxLength="125" Nullable="false" />
-          <Property Name="Salt" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="Salt" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Instructors">
           <Key>
@@ -186,7 +188,7 @@
         </Association>
         <Association Name="FK_CustomerPasswords_Customers">
           <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
-          <End Role="CustomerPasswords" Type="Self.CustomerPasswords" Multiplicity="0..1" />
+          <End Role="CustomerPasswords" Type="Self.CustomerPasswords" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Customers">
               <PropertyRef Name="CustomerID" />
@@ -210,7 +212,7 @@
         </Association>
         <Association Name="FK_InstructorPasswords_Instructors">
           <End Role="Instructors" Type="Self.Instructors" Multiplicity="1" />
-          <End Role="InstructorPasswords" Type="Self.InstructorPasswords" Multiplicity="0..1" />
+          <End Role="InstructorPasswords" Type="Self.InstructorPasswords" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Instructors">
               <PropertyRef Name="InstructorID" />
@@ -373,12 +375,13 @@
         </EntityType>
         <EntityType Name="CustomerPassword">
           <Key>
-            <PropertyRef Name="CustomerID" />
+            <PropertyRef Name="CusLoginID" />
           </Key>
+          <Property Name="CusLoginID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CustomerID" Type="Int32" Nullable="false" />
           <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="125" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Salt" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Salt" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Customer" Relationship="Self.FK_CustomerPasswords_Customers" FromRole="CustomerPasswords" ToRole="Customers" />
         </EntityType>
         <EntityType Name="Customer">
@@ -395,17 +398,18 @@
           <Property Name="AddressLine2" Type="String" MaxLength="75" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Postcode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="CustomerBookings" Relationship="Self.FK_CustomerBookings_Customers" FromRole="Customers" ToRole="CustomerBookings" />
-          <NavigationProperty Name="CustomerPassword" Relationship="Self.FK_CustomerPasswords_Customers" FromRole="Customers" ToRole="CustomerPasswords" />
+          <NavigationProperty Name="CustomerPasswords" Relationship="Self.FK_CustomerPasswords_Customers" FromRole="Customers" ToRole="CustomerPasswords" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Customers" FromRole="Customers" ToRole="Orders" />
         </EntityType>
         <EntityType Name="InstructorPassword">
           <Key>
-            <PropertyRef Name="InstructorID" />
+            <PropertyRef Name="LoginID" />
           </Key>
+          <Property Name="LoginID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="InstructorID" Type="Int32" Nullable="false" />
           <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="125" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Salt" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Salt" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Instructor" Relationship="Self.FK_InstructorPasswords_Instructors" FromRole="InstructorPasswords" ToRole="Instructors" />
         </EntityType>
         <EntityType Name="Instructor">
@@ -423,7 +427,7 @@
           <Property Name="Postcode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Classes" Relationship="Self.FK_Classes_Instructor" FromRole="Instructors" ToRole="Classes" />
           <NavigationProperty Name="Club" Relationship="Self.FK_Instructor_Club" FromRole="Instructors" ToRole="Clubs" />
-          <NavigationProperty Name="InstructorPassword" Relationship="Self.FK_InstructorPasswords_Instructors" FromRole="Instructors" ToRole="InstructorPasswords" />
+          <NavigationProperty Name="InstructorPasswords" Relationship="Self.FK_InstructorPasswords_Instructors" FromRole="Instructors" ToRole="InstructorPasswords" />
         </EntityType>
         <EntityType Name="OrderProductItem">
           <Key>
@@ -546,7 +550,7 @@
         </Association>
         <Association Name="FK_CustomerPasswords_Customers">
           <End Role="Customers" Type="Self.Customer" Multiplicity="1" />
-          <End Role="CustomerPasswords" Type="Self.CustomerPassword" Multiplicity="0..1" />
+          <End Role="CustomerPasswords" Type="Self.CustomerPassword" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Customers">
               <PropertyRef Name="CustomerID" />
@@ -570,7 +574,7 @@
         </Association>
         <Association Name="FK_InstructorPasswords_Instructors">
           <End Role="Instructors" Type="Self.Instructor" Multiplicity="1" />
-          <End Role="InstructorPasswords" Type="Self.InstructorPassword" Multiplicity="0..1" />
+          <End Role="InstructorPasswords" Type="Self.InstructorPassword" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Instructors">
               <PropertyRef Name="InstructorID" />
@@ -616,7 +620,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="DBModel" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="BookingDBModel" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Classes" EntityType="Self.Class" />
           <EntitySet Name="Clubs" EntityType="Self.Club" />
           <EntitySet Name="CustomerBookings" EntityType="Self.CustomerBooking" />
@@ -679,7 +683,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="BookingSiteDBModelStoreContainer" CdmEntityContainer="DBModel">
+        <EntityContainerMapping StorageEntityContainer="BookingSiteDBModelStoreContainer" CdmEntityContainer="BookingDBModel">
           <EntitySetMapping Name="Classes">
             <EntityTypeMapping TypeName="BookingSiteDBModel.Class">
               <MappingFragment StoreEntitySet="Classes">
@@ -719,6 +723,7 @@
           <EntitySetMapping Name="CustomerPasswords">
             <EntityTypeMapping TypeName="BookingSiteDBModel.CustomerPassword">
               <MappingFragment StoreEntitySet="CustomerPasswords">
+                <ScalarProperty Name="CusLoginID" ColumnName="CusLoginID" />
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
@@ -744,6 +749,7 @@
           <EntitySetMapping Name="InstructorPasswords">
             <EntityTypeMapping TypeName="BookingSiteDBModel.InstructorPassword">
               <MappingFragment StoreEntitySet="InstructorPasswords">
+                <ScalarProperty Name="LoginID" ColumnName="LoginID" />
                 <ScalarProperty Name="InstructorID" ColumnName="InstructorID" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Password" ColumnName="Password" />

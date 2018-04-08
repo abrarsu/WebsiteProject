@@ -9,6 +9,7 @@
 });
 
 
+//Post Club
 function jQueryAjaxPost(form)
 {
     $.validator.unobtrusive.parse(form);
@@ -43,6 +44,57 @@ function jQueryAjaxPost(form)
     return false;
 }
 
+// Post Instructor
+function jQueryAjaxPostInstructor(form) {
+    $.validator.unobtrusive.parse(form);
+    if ($(form).valid()) {
+        var ajaxConfig = {
+            type: 'POST',
+            url: form.action,
+            data: new FormData(form),
+            success: function (response) {
+                if (response.success) {
+                    $("#firstTab").html(response.html);
+                    refreshAddNewInstructorTab($(form).attr('data-restUrl'), true);
+                    //success message 
+                    $.notify(response.message, "success");
+                    if (typeof activatejQueryInstructorTable !== 'undefined' && $.isFunction(activatejQueryInstructorTable))
+                        activatejQueryInstructorTable();
+                }
+                else {
+                    //error message 
+                    $.notify(response.message, "error");
+
+                }
+            }
+        }
+        if ($(form).attr('enctype') == "multipart/form-data") {
+            ajaxConfig["contentType"] = false;
+            ajaxConfig["processData"] = false;
+        }
+        $.ajax(ajaxConfig);
+    }
+    return false;
+}
+
+//Refresh instructor tab
+function refreshAddNewInstructorTab(resetUrl, showViewTab) {
+    $.ajax({
+        type: 'GET',
+        url: resetUrl,
+        success: function (response) {
+            $("#secondTab").html(response);
+            $('ul.nav.nav-tabs a:eq(1)').html('Add New Instructor');
+            if (showViewTab)
+                $('ul.nav.nav-tabs a:eq(0)').tab('show');
+
+        }
+    });
+
+}
+
+
+//Refresh club tab
 function refreshAddNewTab(resetUrl, showViewTab)
 {
     $.ajax({
@@ -59,6 +111,7 @@ function refreshAddNewTab(resetUrl, showViewTab)
 
 }
 
+//Edit Club
 function Edit(url) {
 
     $.ajax({
@@ -74,6 +127,7 @@ function Edit(url) {
 
 }
 
+//Delete Club
 function Delete(url) {
     if(confirm('Are you sure you want to delete this record?') == true)
     {
@@ -87,6 +141,29 @@ function Delete(url) {
                     $.notify(response.message, "warn");
                     if (typeof activatejQueryTable !== 'undefined' && $.isFunction(activatejQueryTable))
                         activatejQueryTable();
+                }
+                else {
+                    $.notify(response.message, "error");
+                }
+            }
+        });
+
+    }
+}
+
+//Delete Instructor
+function DeleteInstructor(url) {
+    if (confirm('Are you sure you want to delete this record?') == true) {
+        $.ajax({
+            type: 'POST',
+            url: url,
+            success: function (response) {
+                if (response.success) {
+                    $("#firstTab").html(response.html);
+                    //success message 
+                    $.notify(response.message, "warn");
+                    if (typeof activatejQueryInstructorTable !== 'undefined' && $.isFunction(activatejQueryInstructorTable))
+                        activatejQueryInstructorTable();
                 }
                 else {
                     $.notify(response.message, "error");

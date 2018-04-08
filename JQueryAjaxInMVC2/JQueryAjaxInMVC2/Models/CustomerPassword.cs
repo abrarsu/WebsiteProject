@@ -14,6 +14,7 @@ namespace JQueryAjaxInMVC2.Models
     
     public partial class CustomerPassword
     {
+        public int CusLoginID { get; set; }
         public int CustomerID { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }

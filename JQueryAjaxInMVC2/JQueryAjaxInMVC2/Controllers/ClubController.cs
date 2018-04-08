@@ -23,7 +23,7 @@ namespace JQueryAjaxInMVC2.Controllers
 
         IEnumerable<Club> GetAllClubs()
         {
-            using (DBModel db = new DBModel())
+            using (BookingDBModel db = new BookingDBModel())
             {
                 return db.Clubs.ToList<Club>();
             }
@@ -35,20 +35,20 @@ namespace JQueryAjaxInMVC2.Controllers
             Club club = new Club();
             if (id != 0)
             {
-                using (DBModel db = new DBModel())
+                using (BookingDBModel db = new BookingDBModel())
                 {
                     club = db.Clubs.Where(x => x.ClubID == id).FirstOrDefault<Club>();
                 }
             }
             return View(club);
-        } 
+        }
 
         [HttpPost]
         public ActionResult SaveClub(Club club)
         {
             try
             {
-                using (DBModel db = new DBModel())
+                using (BookingDBModel db = new BookingDBModel())
                 {
                     //this checks 'if' if something has been added or not if not then it saves changes
                     if (club.ClubID == 0)
@@ -62,7 +62,7 @@ namespace JQueryAjaxInMVC2.Controllers
                         db.SaveChanges();
                     }
                 }
-               
+
                 return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAll", GetAllClubs()), message = "Saved Successfully" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -76,7 +76,7 @@ namespace JQueryAjaxInMVC2.Controllers
         {
             try
             {
-                using (DBModel db = new DBModel())
+                using (BookingDBModel db = new BookingDBModel())
                 {
                     Club club = db.Clubs.Where(x => x.ClubID == id).FirstOrDefault<Club>();
                     db.Clubs.Remove(club);

@@ -35,12 +35,13 @@
   </EntityType>
   <EntityType Name="CustomerPasswords">
     <Key>
-      <PropertyRef Name="CustomerID" />
+      <PropertyRef Name="CusLoginID" />
     </Key>
+    <Property Name="CusLoginID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="CustomerID" Type="int" Nullable="false" />
     <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="Password" Type="varchar" MaxLength="125" Nullable="false" />
-    <Property Name="Salt" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="Salt" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Customers">
     <Key>
@@ -58,12 +59,13 @@
   </EntityType>
   <EntityType Name="InstructorPasswords">
     <Key>
-      <PropertyRef Name="InstructorID" />
+      <PropertyRef Name="LoginID" />
     </Key>
+    <Property Name="LoginID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="InstructorID" Type="int" Nullable="false" />
     <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="Password" Type="varchar" MaxLength="125" Nullable="false" />
-    <Property Name="Salt" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="150" Nullable="false" />
+    <Property Name="Salt" Type="varchar" MaxLength="50" />
   </EntityType>
   <EntityType Name="Instructors">
     <Key>
@@ -181,7 +183,7 @@
   </Association>
   <Association Name="FK_CustomerPasswords_Customers">
     <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
-    <End Role="CustomerPasswords" Type="Self.CustomerPasswords" Multiplicity="0..1" />
+    <End Role="CustomerPasswords" Type="Self.CustomerPasswords" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Customers">
         <PropertyRef Name="CustomerID" />
@@ -205,7 +207,7 @@
   </Association>
   <Association Name="FK_InstructorPasswords_Instructors">
     <End Role="Instructors" Type="Self.Instructors" Multiplicity="1" />
-    <End Role="InstructorPasswords" Type="Self.InstructorPasswords" Multiplicity="0..1" />
+    <End Role="InstructorPasswords" Type="Self.InstructorPasswords" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Instructors">
         <PropertyRef Name="InstructorID" />

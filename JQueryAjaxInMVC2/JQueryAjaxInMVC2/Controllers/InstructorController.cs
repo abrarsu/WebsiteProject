@@ -13,19 +13,33 @@ namespace JQueryAjaxInMVC2.Controllers
         public ActionResult Index()
         {
             return View();
-        } 
+        }
+
+        //public ActionResult ViewAll()
+        //{
+        //    return View(GetAllClubs());
+        //}
+
+        //IEnumerable<Club> GetAllClubs()
+        //{
+        //    using (BookingDBModel db = new BookingDBModel())
+        //    {
+        //        return db.Clubs.ToList<Club>();
+        //    }
+
+        //}
 
         public ActionResult ViewAllInstructors()
         {
 
-            DBModel db = new DBModel();
+            BookingDBModel db = new BookingDBModel();
 
-            List<Instructor> instructorList = db.Instructors.ToList();
+            //List<Instructor> instructorList = db.Instructors.ToList();
+            IEnumerable<Instructor> instructorList = db.Instructors.ToList();
 
             InstructorViewModel instructorVM = new InstructorViewModel();
-            
 
-            List<InstructorViewModel> instructorVMList = instructorList.Select(x => new InstructorViewModel
+            IEnumerable<InstructorViewModel> instructorVMList = instructorList.Select(x => new InstructorViewModel
             {
                 InstructorID = x.InstructorID,
                 FirstName = x.FirstName,
@@ -37,108 +51,105 @@ namespace JQueryAjaxInMVC2.Controllers
                 AddressLine1 = x.AddressLine1,
                 AddressLine2 = x.AddressLine2,
                 Postcode = x.Postcode,
-                Username = x.InstructorPassword.Username 
+                
+                //Username = x.InstructorPassword.Username
             }).ToList();
 
             return View(instructorVMList);
         }
 
-        public ActionResult AddOrEditInstructor(int id =0)
+        public ActionResult AddOrEditInstructor(int id = 0)
         {
-            DBModel db = new DBModel();
+            BookingDBModel db = new BookingDBModel();
 
             InstructorViewModel instructorVM = new InstructorViewModel();
-  
-            List<Club> clublist = db.Clubs.ToList();
-            ViewBag.ClubList = new SelectList(clublist, "ClubID", "ClubName");
 
-          
+            //List<Club> clublist = db.Clubs.ToList();
+            IEnumerable<Club> clublist = db.Clubs.ToList();
+            ViewBag.ClubList = new SelectList(clublist, "ClubID", "ClubName");
+            
+            //added new ar 08/04/2018
+            //IEnumerable<InstructorViewModel> listInstructor = db.Instructors.Where(x => x.InstructorID == id).Select(x => new InstructorViewModel
+            //{
+            //    FirstName = x.FirstName,
+            //    LastName = x.LastName,
+            //    ClubID = x.ClubID,
+            //    ClubName = x.Club.ClubName,
+            //    Email = x.Email,
+            //    PhoneNumber = x.PhoneNumber,
+            //    AddressLine1 = x.AddressLine1,
+            //    AddressLine2 = x.AddressLine2,
+            //    Postcode = x.Postcode
+            //}).ToList();
+
+            //ViewBag.InstructorList = listInstructor;
+
+
             return View(instructorVM);
+            //return View();
         }
+
+
 
         [HttpPost]
         public ActionResult SaveInstructor(InstructorViewModel model)
         {
-            var objInstructor = new Instructor
+            try
             {
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                ClubID = model.ClubID,
-                Email = model.Email,
-                PhoneNumber = model.PhoneNumber,
-                AddressLine1 = model.AddressLine1,
-                AddressLine2 = model.AddressLine2,
-                Postcode = model.Postcode,
-            };
+                BookingDBModel db = new BookingDBModel();
 
-            var objInstructorPasswords = new InstructorPassword
-            {
-                Username = model.Username,
-                Password = model.Password,
 
-            };
+                //List<Club> clublist = db.Clubs.ToList();
+                IEnumerable<Club> clublist = db.Clubs.ToList();
+                ViewBag.ClubList = new SelectList(clublist, "ClubID", "ClubName");
 
-            using (var context = new DBModel())
-            {
-                context.Instructors.Add(objInstructor);
-                //objInstructorPasswords.InstructorID = Instructor.InstructorID;
-                context.InstructorPasswords.Add(objInstructorPasswords);
-                context.SaveChanges();
+                Instructor instructor = new Instructor();
+                instructor.FirstName = model.FirstName;
+                instructor.LastName = model.LastName;
+                instructor.ClubID = model.ClubID;
+                instructor.Email = model.Email;
+                instructor.PhoneNumber = model.PhoneNumber;
+                instructor.AddressLine1 = model.AddressLine1;
+                instructor.AddressLine2 = model.AddressLine2;
+                instructor.Postcode = model.Postcode;
+
+                db.Instructors.Add(instructor);
+                db.SaveChanges();
+
+
+                int latestInstructorID = instructor.InstructorID;
+
+                InstructorPassword instructorPswd = new InstructorPassword();
+                //instructorPswd.InstructorID = model.InstructorID;
+                instructorPswd.Username = model.Username;
+                instructorPswd.Password = model.Password;
+                instructorPswd.InstructorID = latestInstructorID;
+
+                db.InstructorPasswords.Add(instructorPswd);
+                db.SaveChanges();
+
+
+                return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAllInstructors", ViewAllInstructors()), message = "Saved Successfully" }, JsonRequestBehavior.AllowGet);
+
             }
-                return View();
+            catch (Exception ex)
+            {
+                //throw ex;
+                return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+
+            }
+           // return View(model);
         }
 
-        //public ActionResult SaveInstructor(InstructorViewModel model)
-        //{
-        //    try
-        //    {
-        //        using (DBModel db = new DBModel())
-        //        { 
 
-        //            List<Club> clublist = db.Clubs.ToList();
-        //            ViewBag.ClubList = new SelectList(clublist, "ClubID", "ClubName");
+        public ActionResult DeleteInstructor(int InstructorID)
+        {
+            BookingDBModel db = new BookingDBModel();
 
-        //            //List<InstructorPassword> instructorPasswordlist = db.InstructorPasswords.ToList();
-        //            //ViewBag.instructorPasswordlist = new SelectList(instructorPasswordlist, "InstructorID", "Username");
-
-        //            Instructor instructor = new Instructor();
-        //            instructor.FirstName = model.FirstName;
-        //            instructor.LastName = model.LastName;
-        //            instructor.ClubID = model.ClubID;
-        //            instructor.Email = model.Email;
-        //            instructor.PhoneNumber = model.PhoneNumber;
-        //            instructor.AddressLine1 = model.AddressLine1;
-        //            instructor.AddressLine2 = model.AddressLine2;
-        //            instructor.Postcode = model.Postcode;
-
-        //            db.Instructors.Add(instructor);
-        //            db.SaveChanges();
+            Instructor
 
 
-        //            int latestInstructorID = instructor.InstructorID;
-
-        //            InstructorPassword instructorPswd = new InstructorPassword();
-        //            instructorPswd.Username = model.Username;
-        //            instructorPswd.Password = model.Password;
-        //            instructorPswd.InstructorID = latestInstructorID;
-
-        //            db.InstructorPasswords.Add(instructorPswd);
-        //            db.SaveChanges();
-        //        }
-
-        //        return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAllInstructors", ViewAllInstructors()), message = "Saved Successfully" }, JsonRequestBehavior.AllowGet);
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        //throw ex;
-        //        return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
-
-        //    }
-        //    //return View(model);
-        //}
-
-    
-
+            return View();
+        }
     }
-}
+ }

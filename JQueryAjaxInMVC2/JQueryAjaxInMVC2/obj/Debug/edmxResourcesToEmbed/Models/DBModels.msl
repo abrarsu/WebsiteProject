@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="BookingSiteDBModelStoreContainer" CdmEntityContainer="DBModel">
+  <EntityContainerMapping StorageEntityContainer="BookingSiteDBModelStoreContainer" CdmEntityContainer="BookingDBModel">
     <EntitySetMapping Name="Classes">
       <EntityTypeMapping TypeName="BookingSiteDBModel.Class">
         <MappingFragment StoreEntitySet="Classes">
@@ -40,6 +40,7 @@
     <EntitySetMapping Name="CustomerPasswords">
       <EntityTypeMapping TypeName="BookingSiteDBModel.CustomerPassword">
         <MappingFragment StoreEntitySet="CustomerPasswords">
+          <ScalarProperty Name="CusLoginID" ColumnName="CusLoginID" />
           <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
           <ScalarProperty Name="Username" ColumnName="Username" />
           <ScalarProperty Name="Password" ColumnName="Password" />
@@ -65,6 +66,7 @@
     <EntitySetMapping Name="InstructorPasswords">
       <EntityTypeMapping TypeName="BookingSiteDBModel.InstructorPassword">
         <MappingFragment StoreEntitySet="InstructorPasswords">
+          <ScalarProperty Name="LoginID" ColumnName="LoginID" />
           <ScalarProperty Name="InstructorID" ColumnName="InstructorID" />
           <ScalarProperty Name="Username" ColumnName="Username" />
           <ScalarProperty Name="Password" ColumnName="Password" />
