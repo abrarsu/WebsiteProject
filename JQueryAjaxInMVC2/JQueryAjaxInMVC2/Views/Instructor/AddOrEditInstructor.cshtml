@@ -106,10 +106,10 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input id ="btnSave" type="submit" value="Save" class="btn btn-default" />
-                @*@if (Model.InstructorID != 0)
+                @if (Model.InstructorID != 0)
                 {
                     <a class="btn btn-success" onclick="refreshAddNewInstructorTab('@Url.Action("AddOrEditInstructor", "Instructor", new { id = 0})', false)"><i class="fa fa-plus"></i>Add New Instructor</a>
-                }*@
+                }
             </div>
         </div>
 

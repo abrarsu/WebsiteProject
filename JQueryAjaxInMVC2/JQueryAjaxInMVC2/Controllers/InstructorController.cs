@@ -15,49 +15,63 @@ namespace JQueryAjaxInMVC2.Controllers
             return View();
         }
 
-
         public ActionResult ViewAllInstructors()
         {
-
-            BookingDBModel db = new BookingDBModel();
-
-            
-            IEnumerable<Instructor> instructorList = db.Instructors.ToList();
-            
-
-            InstructorViewModel instructorVM = new InstructorViewModel();
-
-            IEnumerable<InstructorViewModel> instructorVMList = instructorList.Select(x => new InstructorViewModel
-            {
-                InstructorID = x.InstructorID,
-                FirstName = x.FirstName,
-                LastName = x.LastName,
-                ClubID = x.ClubID,
-                ClubName = x.Club.ClubName,
-                Email = x.Email,
-                PhoneNumber = x.PhoneNumber,
-                AddressLine1 = x.AddressLine1,
-                AddressLine2 = x.AddressLine2,
-                Postcode = x.Postcode,
-                Username = db.InstructorPasswords.SingleOrDefault(y => y.InstructorID == x.InstructorID).Username}).ToList();
-
-
-            return View(instructorVMList);
-           
+            return View(GetAllInstructors());
         }
 
+
+        public IEnumerable<InstructorViewModel> GetAllInstructors()
+        {
+
+            using (BookingDBModel db = new BookingDBModel())
+            {
+                IEnumerable<Instructor> instructorList = db.Instructors.ToList();
+
+                //InstructorViewModel instructorVM = new InstructorViewModel();
+
+                IEnumerable<InstructorViewModel> instructorVMList = instructorList.Select(x => new InstructorViewModel
+                {
+                    InstructorID = x.InstructorID,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    ClubID = x.ClubID,
+                    ClubName = x.Club.ClubName,
+                    Email = x.Email,
+                    PhoneNumber = x.PhoneNumber,
+                    AddressLine1 = x.AddressLine1,
+                    AddressLine2 = x.AddressLine2,
+                    Postcode = x.Postcode,
+                    Username = db.InstructorPasswords.SingleOrDefault(y => y.InstructorID == x.InstructorID).Username
+                }).ToList();
+
+                return instructorVMList;
+            }
+
+        }
+
+        //this need some more work
         public ActionResult AddOrEditInstructor(int id = 0)
         {
-            BookingDBModel db = new BookingDBModel();
-
+            Instructor instructor = new Instructor();
+            InstructorPassword instructorPswd = new InstructorPassword();
             InstructorViewModel instructorVM = new InstructorViewModel();
 
-            //List<Club> clublist = db.Clubs.ToList();
-            IEnumerable<Club> clublist = db.Clubs.ToList();
-            ViewBag.ClubList = new SelectList(clublist, "ClubID", "ClubName");
-            
-           
-            return View(instructorVM);
+            if(id != 0)
+            {
+                using (BookingDBModel db = new BookingDBModel())
+                {
+                    IEnumerable<Club> clublist = db.Clubs.ToList();
+                    ViewBag.ClubList = new SelectList(clublist, "ClubID", "ClubName");
+                    instructor = db.Instructors.Where(x => x.InstructorID == id).FirstOrDefault<Instructor>();
+                    instructorPswd = db.InstructorPasswords.Where(x => x.InstructorID == id).FirstOrDefault<InstructorPassword>();
+                   
+                    
+                }
+
+            }
+        
+            return View(instructor);
             //return View();
         }
 
@@ -101,7 +115,7 @@ namespace JQueryAjaxInMVC2.Controllers
                 db.SaveChanges();
 
 
-                return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAllInstructors", ViewAllInstructors()), message = "Saved Successfully" }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAllInstructors", GetAllInstructors()), message = "Saved Successfully" }, JsonRequestBehavior.AllowGet);
                 
             }
             catch (Exception ex)
@@ -115,14 +129,13 @@ namespace JQueryAjaxInMVC2.Controllers
 
 
         public ActionResult DeleteInstructor(int id)
-
-       {
+        {
             try
             {
                 BookingDBModel db = new BookingDBModel();
 
                 
-                    InstructorPassword instructorPswd = db.InstructorPasswords.Where(x => x.LoginID == id && x.InstructorID == id).FirstOrDefault<InstructorPassword>();
+                    InstructorPassword instructorPswd = db.InstructorPasswords.Where(x => x.InstructorID == id).FirstOrDefault<InstructorPassword>();
                     db.InstructorPasswords.Remove(instructorPswd);
                     db.SaveChanges();
 
@@ -131,7 +144,7 @@ namespace JQueryAjaxInMVC2.Controllers
                     db.SaveChanges();
 
                 
-                return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAllInstructors", ViewAllInstructors()), message = "Deleted Successfully" }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAllInstructors", GetAllInstructors()), message = "Deleted Successfully" }, JsonRequestBehavior.AllowGet);
 
 
             }

@@ -130,6 +130,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ClassController.cs" />
     <Compile Include="Controllers\ClubController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InstructorController.cs" />
@@ -140,6 +141,7 @@
     <Compile Include="Models\Class.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ClassViewModel.cs" />
     <Compile Include="Models\Club.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
@@ -250,6 +252,8 @@
     <Content Include="Views\Instructor\Index.cshtml" />
     <Content Include="Views\Instructor\ViewAllInstructors.cshtml" />
     <Content Include="Views\Instructor\AddOrEditInstructor.cshtml" />
+    <Content Include="Views\Class\Index.cshtml" />
+    <Content Include="Views\Class\ViewAll.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

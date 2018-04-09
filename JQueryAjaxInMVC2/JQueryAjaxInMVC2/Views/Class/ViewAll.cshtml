@@ -1,0 +1,46 @@
+﻿@model IEnumerable<JQueryAjaxInMVC2.Models.ClassViewModel>
+@{
+    ViewBag.Title = "ViewAll";
+    Layout = null;
+}
+
+<table class="table" id="classTable">
+    <thead>
+        <tr>
+            <th>Class Name</th>
+            <th>Instructor Name</th>
+            <th>Class Date</th>
+            <th>Class Time</th>
+            <th>GIAG Price</th>
+            <th>Venue Name</th>
+            <th>Address Line 1</th>
+            <th>Address Line 2</th>
+            <th>Postcode</th>
+            <th></th>
+           
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ClubName</td>
+                <td>@item.FirstName @item.LastName</td>
+                <td>@item.ClassDate</td>
+                <td>@item.ClassTime</td>
+                <td>@item.ClassGIAGPrice</td>
+                <td>@item.VenueName</td>
+                <td>@item.AddressLine1</td>
+                <td>@item.AddressLine2</td>
+                <td>@item.Postcode</td>
+                <td>
+                    <a class="btn btn-primary btn-sm" onclick="Edit('@Url.Action("AddOrEditClass", "Class", new { id =@item.ClassID})')"><i class="fa fa-pencil fa-lg"></i></a>
+                    <a class="btn btn-danger btn-sm" onclick="Delete('@Url.Action("DeleteClass", "Class" , new { id =@item.ClassID})')"><i class="fa fa-trash fa-lg"></i></a>
+                </td>
+            </tr>
+
+        }
+
+    </tbody>
+</table>
