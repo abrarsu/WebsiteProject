@@ -1,0 +1,122 @@
+﻿@model JQueryAjaxInMVC2.Models.ClassViewModel
+@{
+    ViewBag.Title = "AddOrEditClass";
+    Layout = null;
+}
+
+@using (Html.BeginForm("SaveClass", "Class", FormMethod.Post, new { enctype = "multipart/form-data", onSubmit = "return jQueryAjaxPostClass(this);", data_restUrl = Url.Action("AddOrEditClass", "Class", new { id = 0 }) }))//data-resetUrl
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ClassID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ClubName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.ClubID, ViewBag.ClubList as SelectList, "--select--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ClubID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.FirstName, ViewBag.InstructorList as SelectList, "--select--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.FirstName , "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="input-group ui-datepicker">
+            <input type="date" class="form-control ui-datepicker"/>
+            <span class="input-group-addon datepicker-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
+        
+         <div class="form-group">
+            @Html.LabelFor(model => model.ClassDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ClassDate, new { htmlAttributes = new { @class = "datepicker" } })
+                
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ClassTime, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ClassTime, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ClassTime, "", new { @class = "text-danger" })
+            </div>
+        </div> 
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ClassGIAGPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ClassGIAGPrice, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ClassGIAGPrice, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.VenueName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.VenueName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.VenueName, "", new { @class = "text-danger" })
+            </div>
+        </div> 
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AddressLine1, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AddressLine1, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AddressLine1, "", new { @class = "text-danger" })
+            </div>
+        </div> 
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AddressLine2, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AddressLine2, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AddressLine2, "", new { @class = "text-danger" })
+            </div>
+        </div> 
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Postcode, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Postcode, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Postcode, "", new { @class = "text-danger" })
+            </div>
+        </div> 
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+                @*@if (Model.ClassID != 0)
+                {
+                    <a class="btn btn-success" onclick="refreshAddNewClassTab('@Url.Action("AddOrEditClass", "Class", new { id = 0})', false)"><i class="fa fa-plus"></i>Add New Class</a>
+                }*@
+            </div>
+        </div>
+
+
+    </div>
+}
+
+@*<link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+
+@section scripts{
+
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+
+    <script> 
+        $(function () {
+            $(".datepicker").datepicker({
+                dateFormat : "yy-mm-dd"
+            });
+        });
+    </script>
+    }*@
