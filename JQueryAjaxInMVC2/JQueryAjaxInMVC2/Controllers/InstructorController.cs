@@ -57,19 +57,17 @@ namespace JQueryAjaxInMVC2.Controllers
             InstructorPassword instructorPswd = new InstructorPassword();
             InstructorViewModel instructorVM = new InstructorViewModel();
 
-            //if(id != 0)
-            //{
-            using (BookingDBModel db = new BookingDBModel())
-            {
-                    IEnumerable<Club> clublist = db.Clubs.ToList();
-                    ViewBag.ClubList = new SelectList(clublist, "ClubID", "ClubName");
-                    //instructor = db.Instructors.Where(x => x.InstructorID == id).FirstOrDefault<Instructor>();
-                    //instructorPswd = db.InstructorPasswords.Where(x => x.InstructorID == id).FirstOrDefault<InstructorPassword>();
-                   
-                    
-                }
+            BookingDBModel db = new BookingDBModel();
 
-           // }
+            IEnumerable<Club> clublist = db.Clubs.ToList();
+            ViewBag.ClubList = new SelectList(clublist, "ClubID", "ClubName");
+
+            if(id != 0)
+            {
+                
+                instructor = db.Instructors.Where(x => x.InstructorID == id).FirstOrDefault<Instructor>();
+                instructorPswd = db.InstructorPasswords.Where(x => x.InstructorID == id).FirstOrDefault<InstructorPassword>();       
+           }
         
             //return View(instructor);
             return View();
@@ -88,6 +86,7 @@ namespace JQueryAjaxInMVC2.Controllers
                 //List<Club> clublist = db.Clubs.ToList();
                 IEnumerable<Club> clublist = db.Clubs.ToList();
                 ViewBag.ClubList = new SelectList(clublist, "ClubID", "ClubName");
+
 
                 Instructor instructor = new Instructor();
                 instructor.FirstName = model.FirstName;

@@ -54,51 +54,89 @@ namespace JQueryAjaxInMVC2.Controllers
        
         public ActionResult AddOrEditClass(int id = 0)
         {
+            BookingDBModel db = new BookingDBModel();
             Class classes = new Class();
-            //if(id != 0)
-            //{
-                using (BookingDBModel db = new BookingDBModel())
-                {
-                    IEnumerable<Club> clublist = db.Clubs.ToList();
-                    ViewBag.ClubList = new SelectList(clublist, "ClubID", "ClubName");
+            ClassViewModel model = new ClassViewModel();
 
-                    IEnumerable<Instructor> instructorlist = db.Instructors.ToList();
-                    ViewBag.instructorlist = new SelectList(instructorlist, "InstructorID", "FirstName", "LastName");
+            IEnumerable<Club> clublist = db.Clubs.ToList();
+            ViewBag.ClubList = new SelectList(clublist, "ClubID", "ClubName");
 
-                    classes = db.Classes.Where(x => x.ClassID == id).FirstOrDefault<Class>();
-                }
-            //}
+            
+            //this will get the firstName + lastName in the dropDown list
+            var instructors = db.Instructors.Select(s => new { Text = s.FirstName + " " + s.LastName, Value = s.InstructorID }).ToList();
+            ViewBag.InstructorList = new SelectList(instructors, "Value", "Text");
 
-            return View();
+            if (id != 0)
+            {
+               classes = db.Classes.SingleOrDefault(x => x.ClassID == id);
+                model.ClassID = classes.ClassID;
+                model.ClubID = classes.ClubID;
+                model.InstructorID = classes.InstructorID;
+                model.ClassDate = classes.ClassDate;
+                model.ClassTime = classes.ClassTime;
+                model.ClassGIAGPrice = classes.ClassGIAGPrice;
+                model.VenueName = classes.VenueName;
+                model.AddressLine1 = classes.AddressLine1;
+                model.AddressLine2 = classes.AddressLine2;
+                model.Postcode = classes.Postcode;
+
+            }
+
+            return View(model);
         }
 
 
         [HttpPost]
-        public ActionResult SaveClass(Class classes)
+        public ActionResult SaveClass(ClassViewModel model)
         {
             try
             {
-                using (BookingDBModel db = new BookingDBModel())
+                BookingDBModel db = new BookingDBModel();
+
+                IEnumerable<Club> clublist = db.Clubs.ToList();
+                ViewBag.ClubList = new SelectList(clublist, "ClubID", "ClubName");
+
+                //this will get the firstName + lastName in the dropDown list
+                var instructors = db.Instructors.Select(s => new { Text = s.FirstName + " " + s.LastName, Value = s.InstructorID }).ToList();
+                ViewBag.InstructorList = new SelectList(instructors, "Value", "Text");
+
+                //this checks 'if' if something has been added or not if not then it saves changes
+                if (model.ClassID > 0)
                 {
-                    //this checks 'if' if something has been added or not if not then it saves changes
-                    if (classes.ClassID == 0)
-                    {
-                        //IEnumerable<Club> clublist = db.Clubs.ToList();
-                        //ViewBag.ClubList = new SelectList(clublist, "ClubID", "ClubName");
+                    //Update
+                   Class clas = db.Classes.SingleOrDefault(x => x.ClassID == model.ClassID);
+                   
+                    clas.ClubID = model.ClubID;
+                    clas.InstructorID = model.InstructorID;
+                    clas.ClassDate = model.ClassDate;
+                    clas.ClassTime = model.ClassTime;
+                    clas.ClassGIAGPrice = model.ClassGIAGPrice;
+                    clas.VenueName = model.VenueName;
+                    clas.AddressLine1 = model.AddressLine1;
+                    clas.AddressLine2 = model.AddressLine2;
+                    clas.Postcode = model.Postcode;
 
-                        //IEnumerable<Instructor> instructorlist = db.Instructors.ToList();
-                        //ViewBag.instructorlist = new SelectList(instructorlist, "InstructorID", "FirstName", "LastName");
+                    db.SaveChanges();
 
+                }
+                else
+                {
+                    //This is going to insert data into the databse
+                    Class classs = new Class();
+                    model.ClassID = classs.ClassID;
+                    model.ClubID = classs.ClubID;
+                    model.InstructorID = classs.InstructorID;
+                    model.ClassDate = classs.ClassDate;
+                    model.ClassTime = classs.ClassTime;
+                    model.ClassGIAGPrice = classs.ClassGIAGPrice;
+                    model.VenueName = classs.VenueName;
+                    model.AddressLine1 = classs.AddressLine1;
+                    model.AddressLine2 = classs.AddressLine2;
+                    model.Postcode = classs.Postcode;
 
+                    db.Classes.Add(classs);
+                    db.SaveChanges();
 
-                        db.Classes.Add(classes);
-                        db.SaveChanges();
-                    }
-                    else
-                    {
-                        db.Entry(classes).State = EntityState.Modified;
-                        db.SaveChanges();
-                    }
                 }
 
                 return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAll", GetAllClasses()), message = "Saved Successfully" }, JsonRequestBehavior.AllowGet);
