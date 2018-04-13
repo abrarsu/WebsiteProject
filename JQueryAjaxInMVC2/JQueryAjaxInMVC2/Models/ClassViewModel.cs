@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -16,6 +17,7 @@ namespace JQueryAjaxInMVC2.Models
         public int InstructorID { get; set; }
 
         [DisplayName("Class Date")]
+        
         public System.DateTime ClassDate { get; set; }
 
         [DisplayName("Class Time")]

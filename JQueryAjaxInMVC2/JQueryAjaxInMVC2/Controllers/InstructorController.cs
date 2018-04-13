@@ -28,8 +28,6 @@ namespace JQueryAjaxInMVC2.Controllers
             {
                 IEnumerable<Instructor> instructorList = db.Instructors.ToList();
 
-                //InstructorViewModel instructorVM = new InstructorViewModel();
-
                 IEnumerable<InstructorViewModel> instructorVMList = instructorList.Select(x => new InstructorViewModel
                 {
                     InstructorID = x.InstructorID,
@@ -50,27 +48,37 @@ namespace JQueryAjaxInMVC2.Controllers
 
         }
 
-        //this need some more work
+        
         public ActionResult AddOrEditInstructor(int id = 0)
         {
-            Instructor instructor = new Instructor();
-            InstructorPassword instructorPswd = new InstructorPassword();
-            InstructorViewModel instructorVM = new InstructorViewModel();
-
             BookingDBModel db = new BookingDBModel();
 
             IEnumerable<Club> clublist = db.Clubs.ToList();
             ViewBag.ClubList = new SelectList(clublist, "ClubID", "ClubName");
 
-            if(id != 0)
+            InstructorViewModel model = new InstructorViewModel();
+
+            if (id != 0)
             {
-                
-                instructor = db.Instructors.Where(x => x.InstructorID == id).FirstOrDefault<Instructor>();
-                instructorPswd = db.InstructorPasswords.Where(x => x.InstructorID == id).FirstOrDefault<InstructorPassword>();       
-           }
+                Instructor instructor = db.Instructors.SingleOrDefault(x => x.InstructorID == id);
+                model.InstructorID = instructor.InstructorID;
+                model.FirstName = instructor.FirstName;
+                model.LastName = instructor.LastName;
+                model.ClubID = instructor.ClubID;
+                model.PhoneNumber = instructor.PhoneNumber;
+                model.Email = instructor.Email;
+                model.AddressLine1 = instructor.AddressLine1;
+                model.AddressLine2 = instructor.AddressLine2;
+                model.Postcode = instructor.Postcode;
+
+                InstructorPassword instrPswd = db.InstructorPasswords.SingleOrDefault(x => x.InstructorID == id);
+                model.Username = instrPswd.Username;
+                model.Password = instrPswd.Password;
+
+            }
         
-            //return View(instructor);
-            return View();
+            return View(model);
+            
         }
 
 
@@ -82,48 +90,71 @@ namespace JQueryAjaxInMVC2.Controllers
             {
                 BookingDBModel db = new BookingDBModel();
 
-
-                //List<Club> clublist = db.Clubs.ToList();
                 IEnumerable<Club> clublist = db.Clubs.ToList();
                 ViewBag.ClubList = new SelectList(clublist, "ClubID", "ClubName");
 
+                if(model.InstructorID > 0)
+                {
+                    //Update
+                    Instructor instruct = db.Instructors.SingleOrDefault(x => x.InstructorID == model.InstructorID);
+                    instruct.FirstName = model.FirstName;
+                    instruct.LastName = model.LastName;
+                    instruct.ClubID = model.ClubID;
+                    instruct.Email = model.Email;
+                    instruct.PhoneNumber = model.PhoneNumber;
+                    instruct.AddressLine1 = model.AddressLine1;
+                    instruct.AddressLine2 = model.AddressLine2;
+                    instruct.Postcode = model.Postcode;
 
-                Instructor instructor = new Instructor();
-                instructor.FirstName = model.FirstName;
-                instructor.LastName = model.LastName;
-                instructor.ClubID = model.ClubID;
-                instructor.Email = model.Email;
-                instructor.PhoneNumber = model.PhoneNumber;
-                instructor.AddressLine1 = model.AddressLine1;
-                instructor.AddressLine2 = model.AddressLine2;
-                instructor.Postcode = model.Postcode;
+                    db.SaveChanges();
+                    int latestInstructorID = instruct.InstructorID;
 
-                db.Instructors.Add(instructor);
-                db.SaveChanges();
+                    InstructorPassword instrPswd = db.InstructorPasswords.SingleOrDefault(x => x.InstructorID == model.InstructorID);
+                    instrPswd.Username = model.Username;
+                    instrPswd.Password = model.Password;
+                    instrPswd.InstructorID = latestInstructorID;
+
+                    db.SaveChanges();
+
+                }
+                else {
+                    //Insert
+                    Instructor instructor = new Instructor();
+                    instructor.FirstName = model.FirstName;
+                    instructor.LastName = model.LastName;
+                    instructor.ClubID = model.ClubID;
+                    instructor.Email = model.Email;
+                    instructor.PhoneNumber = model.PhoneNumber;
+                    instructor.AddressLine1 = model.AddressLine1;
+                    instructor.AddressLine2 = model.AddressLine2;
+                    instructor.Postcode = model.Postcode;
+
+                    db.Instructors.Add(instructor);
+                    db.SaveChanges();
 
 
-                int latestInstructorID = instructor.InstructorID;
+                    int latestInstructorID = instructor.InstructorID;
 
-                InstructorPassword instructorPswd = new InstructorPassword();
-                //instructorPswd.InstructorID = model.InstructorID;
-                instructorPswd.Username = model.Username;
-                instructorPswd.Password = model.Password;
-                instructorPswd.InstructorID = latestInstructorID;
+                    InstructorPassword instructorPswd = new InstructorPassword();
+                    //instructorPswd.InstructorID = model.InstructorID;
+                    instructorPswd.Username = model.Username;
+                    instructorPswd.Password = model.Password;
+                    instructorPswd.InstructorID = latestInstructorID;
 
-                db.InstructorPasswords.Add(instructorPswd);
-                db.SaveChanges();
+                    db.InstructorPasswords.Add(instructorPswd);
+                    db.SaveChanges();
 
+                }
 
                 return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAllInstructors", GetAllInstructors()), message = "Saved Successfully" }, JsonRequestBehavior.AllowGet);
                 
             }
             catch (Exception ex)
             {
-                //throw ex;
                 return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
 
             }
-          // return View(model);
+          
         }
 
 
