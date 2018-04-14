@@ -41,7 +41,7 @@
     <Property Name="CustomerID" Type="int" Nullable="false" />
     <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Password" Type="varchar" MaxLength="150" Nullable="false" />
-    <Property Name="Salt" Type="varchar" MaxLength="50" />
+    <Property Name="Salt" Type="varchar" MaxLength="150" />
   </EntityType>
   <EntityType Name="Customers">
     <Key>
@@ -65,7 +65,7 @@
     <Property Name="InstructorID" Type="int" Nullable="false" />
     <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Password" Type="varchar" MaxLength="150" Nullable="false" />
-    <Property Name="Salt" Type="varchar" MaxLength="50" />
+    <Property Name="Salt" Type="varchar" MaxLength="150" />
   </EntityType>
   <EntityType Name="Instructors">
     <Key>

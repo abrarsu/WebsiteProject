@@ -48,7 +48,7 @@
     <Property Name="CustomerID" Type="Int32" Nullable="false" />
     <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Password" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Salt" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Salt" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Customer" Relationship="Self.FK_CustomerPasswords_Customers" FromRole="CustomerPasswords" ToRole="Customers" />
   </EntityType>
   <EntityType Name="Customer">
@@ -76,7 +76,7 @@
     <Property Name="InstructorID" Type="Int32" Nullable="false" />
     <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Password" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Salt" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Salt" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Instructor" Relationship="Self.FK_InstructorPasswords_Instructors" FromRole="InstructorPasswords" ToRole="Instructors" />
   </EntityType>
   <EntityType Name="Instructor">

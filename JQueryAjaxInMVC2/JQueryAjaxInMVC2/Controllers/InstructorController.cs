@@ -116,6 +116,9 @@ namespace JQueryAjaxInMVC2.Controllers
 
                     db.SaveChanges();
 
+                    return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAllInstructors", GetAllInstructors()), message = "Updated Successfully" }, JsonRequestBehavior.AllowGet);
+
+
                 }
                 else {
                     //Insert
@@ -136,18 +139,26 @@ namespace JQueryAjaxInMVC2.Controllers
                     int latestInstructorID = instructor.InstructorID;
 
                     InstructorPassword instructorPswd = new InstructorPassword();
-                    //instructorPswd.InstructorID = model.InstructorID;
+
+                    var crypto = new SimpleCrypto.PBKDF2();
+
+                    var encrpPass = crypto.Compute(model.Password);
+                    
+
                     instructorPswd.Username = model.Username;
-                    instructorPswd.Password = model.Password;
+                    instructorPswd.Password = encrpPass;
+                    instructorPswd.Salt = crypto.Salt;
                     instructorPswd.InstructorID = latestInstructorID;
 
                     db.InstructorPasswords.Add(instructorPswd);
                     db.SaveChanges();
 
+                    return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAllInstructors", GetAllInstructors()), message = "Saved Successfully" }, JsonRequestBehavior.AllowGet);
+
+
                 }
 
-                return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAllInstructors", GetAllInstructors()), message = "Saved Successfully" }, JsonRequestBehavior.AllowGet);
-                
+
             }
             catch (Exception ex)
             {
@@ -155,6 +166,23 @@ namespace JQueryAjaxInMVC2.Controllers
 
             }
           
+        }
+
+
+        private bool IsValid(string username, string password)
+        {
+            var crypto = new SimpleCrypto.PBKDF2();
+
+            bool isValid = false;
+
+            using (var db = new BookingDBModel())
+            {
+
+            }
+
+
+
+                return isValid;
         }
 
 

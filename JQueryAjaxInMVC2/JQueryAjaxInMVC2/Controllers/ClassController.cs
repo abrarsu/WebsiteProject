@@ -118,6 +118,9 @@ namespace JQueryAjaxInMVC2.Controllers
 
                     db.SaveChanges();
 
+                    return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAll", GetAllClasses()), message = "Updated Successfully" }, JsonRequestBehavior.AllowGet);
+
+
                 }
                 else
                 {
@@ -137,9 +140,10 @@ namespace JQueryAjaxInMVC2.Controllers
                     db.Classes.Add(classs);
                     db.SaveChanges();
 
+                    return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAll", GetAllClasses()), message = "Saved Successfully" }, JsonRequestBehavior.AllowGet);
+
                 }
 
-                return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAll", GetAllClasses()), message = "Saved Successfully" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

@@ -55,15 +55,20 @@ namespace JQueryAjaxInMVC2.Controllers
                     {
                         db.Clubs.Add(club);
                         db.SaveChanges();
+
+                        return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAll", GetAllClubs()), message = "Saved Successfully" }, JsonRequestBehavior.AllowGet);
+
                     }
                     else
                     {
                         db.Entry(club).State = EntityState.Modified;
                         db.SaveChanges();
+
+                        return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAll", GetAllClubs()), message = "Updated Successfully" }, JsonRequestBehavior.AllowGet);
+
                     }
                 }
 
-                return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAll", GetAllClubs()), message = "Saved Successfully" }, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

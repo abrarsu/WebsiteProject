@@ -11,9 +11,7 @@ namespace JQueryAjaxInMVC2.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Club
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,16 +22,8 @@ namespace JQueryAjaxInMVC2.Models
         }
     
         public int ClubID { get; set; }
-        [DisplayName("Club Name")]
-        [Required(ErrorMessage = "This field is Required!")]
         public string ClubName { get; set; }
-
-        [DisplayName("Club Description")]
-        [Required(ErrorMessage = "This field is Required!")]
         public string ClubDescription { get; set; }
-
-        [DisplayName("Club Membership")]
-        [Required(ErrorMessage = "This field is Required!")]
         public Nullable<decimal> ClubMembership { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

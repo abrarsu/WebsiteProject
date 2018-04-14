@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="BookingSiteDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="BookingSiteDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Classes">
           <Key>
             <PropertyRef Name="ClassID" />
@@ -46,7 +46,7 @@
           <Property Name="CustomerID" Type="int" Nullable="false" />
           <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="150" Nullable="false" />
-          <Property Name="Salt" Type="varchar" MaxLength="50" />
+          <Property Name="Salt" Type="varchar" MaxLength="150" />
         </EntityType>
         <EntityType Name="Customers">
           <Key>
@@ -70,7 +70,7 @@
           <Property Name="InstructorID" Type="int" Nullable="false" />
           <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="150" Nullable="false" />
-          <Property Name="Salt" Type="varchar" MaxLength="50" />
+          <Property Name="Salt" Type="varchar" MaxLength="150" />
         </EntityType>
         <EntityType Name="Instructors">
           <Key>
@@ -328,8 +328,7 @@
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BookingSiteDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -381,7 +380,7 @@
           <Property Name="CustomerID" Type="Int32" Nullable="false" />
           <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Salt" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Salt" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Customer" Relationship="Self.FK_CustomerPasswords_Customers" FromRole="CustomerPasswords" ToRole="Customers" />
         </EntityType>
         <EntityType Name="Customer">
@@ -409,7 +408,7 @@
           <Property Name="InstructorID" Type="Int32" Nullable="false" />
           <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Salt" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Salt" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Instructor" Relationship="Self.FK_InstructorPasswords_Instructors" FromRole="InstructorPasswords" ToRole="Instructors" />
         </EntityType>
         <EntityType Name="Instructor">

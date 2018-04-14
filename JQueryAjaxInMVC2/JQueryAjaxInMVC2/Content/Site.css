@@ -51,6 +51,15 @@ input[type="checkbox"].input-validation-error{
     display: none;
 }
 
+.field-validation-error{
+    color: #e80c4d;
+    font-weight: bold;
+}
+
+input.input-validation-error{
+    border: 1px solid #e80c4d;
+}
+
 ul.nav.nav-tabs{
     margin : 10px 0px;
 }

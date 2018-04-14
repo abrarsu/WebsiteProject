@@ -39,7 +39,10 @@ namespace JQueryAjaxInMVC2.Models
 
         public string Username { get; set; }
 
+        [Required(AllowEmptyStrings = false, ErrorMessage ="Password is rrequired")]
         [DataType(DataType.Password)]
+        [MinLength(6, ErrorMessage = "Minimum 6 characters required")]
+        [MaxLength(10, ErrorMessage = "Maximum 10 characters required")]
         public string Password { get; set; }
         //public string Salt { }
     }

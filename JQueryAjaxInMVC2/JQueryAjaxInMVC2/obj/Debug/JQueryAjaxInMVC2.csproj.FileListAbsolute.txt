@@ -86,3 +86,4 @@ C:\Users\Abrar\Documents\GitHub\WebsiteProject\JQueryAjaxInMVC2\JQueryAjaxInMVC2
 C:\Users\Abrar\Documents\GitHub\WebsiteProject\JQueryAjaxInMVC2\JQueryAjaxInMVC2\obj\Debug\JQueryAjaxInMVC2.dll
 C:\Users\Abrar\Documents\GitHub\WebsiteProject\JQueryAjaxInMVC2\JQueryAjaxInMVC2\obj\Debug\JQueryAjaxInMVC2.pdb
 C:\Users\Abrar\Documents\GitHub\WebsiteProject\JQueryAjaxInMVC2\JQueryAjaxInMVC2\obj\Debug\JQueryAjaxInMVC2.csprojResolveAssemblyReference.cache
+C:\Users\Abrar\Documents\GitHub\WebsiteProject\JQueryAjaxInMVC2\JQueryAjaxInMVC2\bin\SimpleCrypto.dll
