@@ -109,9 +109,14 @@ namespace JQueryAjaxInMVC2.Controllers
                     db.SaveChanges();
                     int latestInstructorID = instruct.InstructorID;
 
+                    var crypto = new SimpleCrypto.PBKDF2();
+
+                    var encrpPass = crypto.Compute(model.Password);
+
                     InstructorPassword instrPswd = db.InstructorPasswords.SingleOrDefault(x => x.InstructorID == model.InstructorID);
                     instrPswd.Username = model.Username;
-                    instrPswd.Password = model.Password;
+                    instrPswd.Password = encrpPass;
+                    instrPswd.Salt = crypto.Salt;
                     instrPswd.InstructorID = latestInstructorID;
 
                     db.SaveChanges();

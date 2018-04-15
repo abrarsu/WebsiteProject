@@ -227,6 +227,7 @@ function jQueryAjaxPostClass(form) {
     return false;
 }
 
+
 //Refresh class tab
 function refreshAddNewClassTab(resetUrl, showViewTab) {
     $.ajax({

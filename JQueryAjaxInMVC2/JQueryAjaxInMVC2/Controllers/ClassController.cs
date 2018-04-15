@@ -52,19 +52,18 @@ namespace JQueryAjaxInMVC2.Controllers
         }
 
        
-        public ActionResult AddOrEditClass(int id = 0)
+        public ActionResult AddOrEditClass( int id = 0)
         {
             BookingDBModel db = new BookingDBModel();
             Class classes = new Class();
             ClassViewModel model = new ClassViewModel();
 
-            IEnumerable<Club> clublist = db.Clubs.ToList();
-            ViewBag.ClubList = new SelectList(clublist, "ClubID", "ClubName");
+            ViewBag.ClubList = new SelectList(GetClubList(), "ClubID", "ClubName");
 
-            
+
             //this will get the firstName + lastName in the dropDown list
-            var instructors = db.Instructors.Select(s => new { Text = s.FirstName + " " + s.LastName, Value = s.InstructorID }).ToList();
-            ViewBag.InstructorList = new SelectList(instructors, "Value", "Text");
+            //var instructors = db.Instructors.Where(y => y.ClubID == clubID ).Select(s => new { Text = s.FirstName + " " + s.LastName, Value = s.InstructorID }).ToList();
+            //ViewBag.InstructorList = new SelectList(instructors, "Value", "Text");
 
             if (id != 0)
             {
@@ -85,6 +84,28 @@ namespace JQueryAjaxInMVC2.Controllers
             return View(model);
         }
 
+        //These next two functions are for filtering the dropdownlist 
+        // according to the club chosen and it gives a list of instructors for that club 
+        public IEnumerable<Club> GetClubList()
+        {
+            BookingDBModel db = new BookingDBModel();
+
+            IEnumerable<Club> clubs = db.Clubs.ToList();
+
+            return clubs;
+        }
+
+        public ActionResult  GetInstructorList(int clubID)
+        {
+            BookingDBModel db = new BookingDBModel();
+
+            //this will get the firstName + lastName in the dropDown list
+            var instructors = db.Instructors.Where(y => y.ClubID == clubID).Select(s => new { Text = s.FirstName + " " + s.LastName, Value = s.InstructorID }).ToList();
+            ViewBag.InstructorOptions = new SelectList(instructors, "Value", "Text");
+
+            return PartialView("InstructorOptionPartial");
+        }
+
 
         [HttpPost]
         public ActionResult SaveClass(ClassViewModel model)
@@ -93,12 +114,11 @@ namespace JQueryAjaxInMVC2.Controllers
             {
                 BookingDBModel db = new BookingDBModel();
 
-                IEnumerable<Club> clublist = db.Clubs.ToList();
-                ViewBag.ClubList = new SelectList(clublist, "ClubID", "ClubName");
+                ViewBag.ClubList = new SelectList(GetClubList(), "ClubID", "ClubName");
 
                 //this will get the firstName + lastName in the dropDown list
-                var instructors = db.Instructors.Select(s => new { Text = s.FirstName + " " + s.LastName, Value = s.InstructorID }).ToList();
-                ViewBag.InstructorList = new SelectList(instructors, "Value", "Text");
+                //var instructors = db.Instructors.Select(s => new { Text = s.FirstName + " " + s.LastName, Value = s.InstructorID }).ToList();
+                //ViewBag.InstructorList = new SelectList(instructors, "Value", "Text");
 
                 //this checks 'if' if something has been added or not if not then it saves changes
                 if (model.ClassID > 0)
@@ -126,16 +146,16 @@ namespace JQueryAjaxInMVC2.Controllers
                 {
                     //This is going to insert data into the databse
                     Class classs = new Class();
-                    model.ClassID = classs.ClassID;
-                    model.ClubID = classs.ClubID;
-                    model.InstructorID = classs.InstructorID;
-                    model.ClassDate = classs.ClassDate;
-                    model.ClassTime = classs.ClassTime;
-                    model.ClassGIAGPrice = classs.ClassGIAGPrice;
-                    model.VenueName = classs.VenueName;
-                    model.AddressLine1 = classs.AddressLine1;
-                    model.AddressLine2 = classs.AddressLine2;
-                    model.Postcode = classs.Postcode;
+                    classs.ClassID = model.ClassID;
+                    classs.ClubID = model.ClubID;
+                    classs.InstructorID = model.InstructorID;
+                    classs.ClassDate = model.ClassDate;
+                    classs.ClassTime = model.ClassTime;
+                    classs.ClassGIAGPrice = model.ClassGIAGPrice;
+                    classs.VenueName = model.VenueName;
+                    classs.AddressLine1 = model.AddressLine1;
+                    classs.AddressLine2 = model.AddressLine2;
+                    classs.Postcode = model.Postcode;
 
                     db.Classes.Add(classs);
                     db.SaveChanges();

@@ -304,6 +304,7 @@
     <Content Include="Views\Class\Index.cshtml" />
     <Content Include="Views\Class\ViewAll.cshtml" />
     <Content Include="Views\Class\AddOrEditClass.cshtml" />
+    <Content Include="Views\Shared\InstructorOptionPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
