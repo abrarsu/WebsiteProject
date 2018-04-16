@@ -244,6 +244,7 @@ function refreshAddNewClassTab(resetUrl, showViewTab) {
 
 }
 
+
 //Edit Class
 function EditClass(url) {
 
@@ -283,3 +284,5 @@ function DeleteClass(url) {
 
     }
 }
+
+

@@ -4,7 +4,7 @@
     Layout = null;
 }
 
-<table class="table" id="classTable">
+<table class="table" id="ClassTable">
     <thead>
         <tr>
             <th>Class Name</th>
@@ -27,7 +27,7 @@
             <tr>
                 <td>@item.ClubName</td>
                 <td>@item.FirstName @item.LastName</td>
-                <td>@item.ClassDate</td>
+                <td>@item.ClassDate.ToString("dd/MM/yyyy")</td>
                 <td>@item.ClassTime</td>
                 <td>@item.ClassGIAGPrice</td>
                 <td>@item.VenueName</td>
@@ -35,8 +35,10 @@
                 <td>@item.AddressLine2</td>
                 <td>@item.Postcode</td>
                 <td>
+
                     <a class="btn btn-primary btn-sm" onclick="Edit('@Url.Action("AddOrEditClass", "Class", new { id =@item.ClassID})')"><i class="fa fa-pencil fa-lg"></i></a>
                     <a class="btn btn-danger btn-sm" onclick="Delete('@Url.Action("DeleteClass", "Class" , new { id =@item.ClassID})')"><i class="fa fa-trash fa-lg"></i></a>
+
                 </td>
             </tr>
 

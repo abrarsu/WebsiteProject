@@ -11,7 +11,8 @@ namespace JQueryAjaxInMVC2.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Class
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,6 +24,7 @@ namespace JQueryAjaxInMVC2.Models
         public int ClassID { get; set; }
         public int ClubID { get; set; }
         public int InstructorID { get; set; }
+        //[DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}")]
         public System.DateTime ClassDate { get; set; }
         public string ClassTime { get; set; }
         public Nullable<decimal> ClassGIAGPrice { get; set; }

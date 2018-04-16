@@ -60,11 +60,6 @@ namespace JQueryAjaxInMVC2.Controllers
 
             ViewBag.ClubList = new SelectList(GetClubList(), "ClubID", "ClubName");
 
-
-            //this will get the firstName + lastName in the dropDown list
-            //var instructors = db.Instructors.Where(y => y.ClubID == clubID ).Select(s => new { Text = s.FirstName + " " + s.LastName, Value = s.InstructorID }).ToList();
-            //ViewBag.InstructorList = new SelectList(instructors, "Value", "Text");
-
             if (id != 0)
             {
                classes = db.Classes.SingleOrDefault(x => x.ClassID == id);
@@ -115,10 +110,6 @@ namespace JQueryAjaxInMVC2.Controllers
                 BookingDBModel db = new BookingDBModel();
 
                 ViewBag.ClubList = new SelectList(GetClubList(), "ClubID", "ClubName");
-
-                //this will get the firstName + lastName in the dropDown list
-                //var instructors = db.Instructors.Select(s => new { Text = s.FirstName + " " + s.LastName, Value = s.InstructorID }).ToList();
-                //ViewBag.InstructorList = new SelectList(instructors, "Value", "Text");
 
                 //this checks 'if' if something has been added or not if not then it saves changes
                 if (model.ClassID > 0)

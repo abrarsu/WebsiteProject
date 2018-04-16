@@ -4,6 +4,36 @@
     Layout = null;
 }
 
+<script src="~/Scripts/jquery-1.12.4.js"></script>
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+
+        $("#ClubID").change(function () {
+
+            var clubID = $(this).val();
+            debugger
+            $.ajax({
+                type: "Post",
+                url: "/Class/GetInstructorList?ClubID=" + clubID,
+                contentType: "html",
+                success: function (response) {
+                    debugger
+                    $("#InstructorID").empty();
+                    $("#InstructorID").append(response);
+                }
+            });
+
+        });
+
+    });
+
+
+</script>
+
+
+
 @using (Html.BeginForm("SaveClass", "Class", FormMethod.Post, new { enctype = "multipart/form-data", onSubmit = "return jQueryAjaxPostClass(this);", data_restUrl = Url.Action("AddOrEditClass", "Class", new { id = 0 }) }))//data-resetUrl
 {
     @Html.AntiForgeryToken()
@@ -114,7 +144,7 @@
     </div>
 }
 
-<script src="~/Scripts/jquery-1.12.4.js"></script>
+@*<script src="~/Scripts/jquery-1.12.4.js"></script>
 <script src="~/Scripts/jquery-1.12.4.min.js"></script>
 
 <script>
@@ -140,25 +170,6 @@
     });
    
 
-</script>
+</script>*@
 
-@*<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
-
-    <script> 
-        $(document).ready(function () {
-
-            $("#ClubID").change(function () {
-                var clubID = $(this).val();
-                $.get("/Class/GetInstructorList", { ClubID: $("#ClubID").val() }, function (data) {
-                    $("#InstructorID").empty();
-                    $.each(data, function (index, row) {
-                        $("#InstructorID").append("<option value='"+row.InstrucorID+"'>"+ row.FirstName +  + row.LastName + "</option>")
-
-                    });
-
-                });
-            })
-            
-        });
-    </script>*@
     
