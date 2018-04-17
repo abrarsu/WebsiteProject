@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace JQueryAjaxInMVC2.Controllers
 {
@@ -23,8 +24,30 @@ namespace JQueryAjaxInMVC2.Controllers
         [HttpPost]
         public ActionResult LogIn(Models.InstructorViewModel instructor)
         {
+            if (ModelState.IsValid)
+            {
+                if(IsValid(instructor.Username, instructor.Password))
+                {
+                    FormsAuthentication.SetAuthCookie(instructor.Username, false);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Login Data is incorrect.");
+                }
+
+            }
+            return View(instructor);
+        }
+
+        public ActionResult LogOut()
+        {
+            FormsAuthentication.SignOut();
+            //return RedirectToAction("","");
             return View();
         }
+
+
 
         private bool IsValid(string username, string password)
         {
@@ -46,6 +69,7 @@ namespace JQueryAjaxInMVC2.Controllers
             }
                 return isValid;
 
-        }
+        } 
+
     }
 }
