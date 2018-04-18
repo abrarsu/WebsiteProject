@@ -3,42 +3,43 @@
     ViewBag.Title = "Index";
 }
 
-<h3>WELCOME</h3>
+<div class="container">
 
-<p>Martial Arts Clubs Booking Management</p>
+    <h3>WELCOME TO</h3>
 
-@*<div class="container">
-    @*<h2>Dynamic Tabs</h2>
-    <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
-        <li><a data-toggle="tab" href="#menu1">Menu 1</a></li>
-        <li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
-        <li><a data-toggle="tab" href="#menu3">Menu 3</a></li>
-    </ul>
+    <p>Martial Arts Clubs Booking Management</p>
+    <p>
+         
+    </p>
 
-    <div class="tab-content">
-        <div id="home" class="tab-pane fade in active">
-            <h3>WELCOME</h3>
-           
-            <p>Martial Arts Clubs Booking Management</p>
+</div>
+
+
+<div class="container">
+    
+    <div class="row">
+        <div class="col-lg-3">
+            <input type="button" value="Clubs" class="btn btn-info btn-lg btn-block btn-huge" onclick="location.href='@Url.Action("Index", "Club")'" />
         </div>
 
-        <div id="menu1" class="tab-pane fade">
-            <h3>Menu 1</h3>
-            <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <div class="col-lg-3">
+            <input type="button" value="Instructors" class="btn btn-info btn-lg btn-block btn-huge" onclick="location.href='@Url.Action("Index", "Instructor")'" />
         </div>
 
-        <div id="menu2" class="tab-pane fade">
-            @*<h3>Menu 2</h3>*@
-            @*@Html.ActionLink("Index", "Club")
-            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+        <div class="col-lg-3">
+            <input type="button" value="Classes" class="btn btn-info btn-lg btn-block btn-huge" onclick="location.href='@Url.Action("Index", "Class")'" />
         </div>
-        <div id="menu3" class="tab-pane fade">
-            <h3>Menu 3</h3>
-            <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+
+        <div class="col-lg-3">
+            <input type="button" value="Bookings" class="btn btn-info btn-lg btn-block btn-huge" onclick="location.href='@Url.Action("Index", "Booking")'" />
         </div>
-    </div>*@
-@*</div>*@
+    </div>
+
+</div>
+
+
+
+   
 
 
 
