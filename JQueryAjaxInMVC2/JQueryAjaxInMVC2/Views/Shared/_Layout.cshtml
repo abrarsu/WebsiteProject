@@ -25,8 +25,16 @@
                     @*@Html.ActionLink("Martial Arts", "Index", "Club", new { area = "" }, new { @class = "navbar-brand" })*@
                 </div>
             <div class="navbar-collapse collapse" id=".navbar-collapse">
-                <script>alert(@Request.IsAuthenticated)</script>
+                @*<script>alert(@Request.IsAuthenticated)</script>*@
                 @if (Request.IsAuthenticated)
+                {
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>@Html.ActionLink("Log In", "Login", "User")</li>
+                    </ul>
+
+
+                }
+                else
                 {
 
                     <ul class="nav navbar-nav">
@@ -38,16 +46,8 @@
                         <li>@Html.ActionLink("Log Out", "Logout", "User")</li>
                     </ul>
 
+
                 }
-                @*else
-                {
-                    @*<ul class="nav navbar-nav navbar-right">
-                        <li>@Html.ActionLink("Log In", "Login", "User")</li>
-                    </ul>*@
-
-                    
-
-                @*}*@
 
 
              </div>
