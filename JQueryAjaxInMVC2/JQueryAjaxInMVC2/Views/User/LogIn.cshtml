@@ -10,11 +10,18 @@
 <script src="~/Scripts/bootstrap.min.js"></script>
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 
+<style type="text/css">
+    h2{text-align:center;}
+    h2{text-align:center;}
+</style>
 
 
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true, "Login failed. Check your login details.")
+    <br />
+    <h2>Welcome to Martial Arts Classes Booking Management</h2>
+    <h2>Please login!</h2>
 
     <div class="container" style="margin-top:10%">
         <div class="row">

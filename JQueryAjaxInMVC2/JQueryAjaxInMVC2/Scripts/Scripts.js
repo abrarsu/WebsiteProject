@@ -116,8 +116,8 @@ function jQueryAjaxPostInstructor(form) {
                     refreshAddNewInstructorTab($(form).attr('data-restUrl'), true);
                     //success message 
                     $.notify(response.message, "success");
-                    if (typeof activatejQueryInstructorTable !== 'undefined' && $.isFunction(activatejQueryInstructorTable))
-                        activatejQueryInstructorTable();
+                    if (typeof activatejQueryTable !== 'undefined' && $.isFunction(activatejQueryTable))
+                        activatejQueryTable();
                 }
                 else {
                     //error message 
@@ -180,8 +180,8 @@ function DeleteInstructor(url) {
                     $("#firstTab").html(response.html);
                     //success message 
                     $.notify(response.message, "warn");
-                    if (typeof activatejQueryInstructorTable !== 'undefined' && $.isFunction(activatejQueryInstructorTable))
-                        activatejQueryInstructorTable();
+                    if (typeof activatejQueryTable !== 'undefined' && $.isFunction(activatejQueryTable))
+                        activatejQueryTable();
                 }
                 else {
                     $.notify(response.message, "error");
