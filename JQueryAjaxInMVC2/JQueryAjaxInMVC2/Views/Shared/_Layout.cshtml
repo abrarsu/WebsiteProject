@@ -22,10 +22,10 @@
                     </button>
                     <a class="navbar-brand" href="#">Martial Arts Class Bookings</a>
 
-                    @*@Html.ActionLink("Martial Arts", "Index", "Club", new { area = "" }, new { @class = "navbar-brand" })*@
+                    @Html.ActionLink("Martial Arts", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 </div>
             <div class="navbar-collapse collapse" id=".navbar-collapse">
-                @*<script>alert(@Request.IsAuthenticated)</script>*@
+               
                 @if (Request.IsAuthenticated)
                 {
                     <ul class="nav navbar-nav navbar-right">
@@ -69,18 +69,21 @@
             <div class="loader"></div>
         </div>
 
-     <script src="~/Scripts/jquery-1.12.4.min.js"></script>
+     @*<script src="~/Scripts/jquery-1.12.4.min.js"></script>
      <script src="~/Scripts/jquery.validate.min.js"></script>
-     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>  
+     <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>*@  
 
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrap")
         @RenderSection("scripts", required: false)
+        
+    <script src="~/Scripts/jquery-1.12.4.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
     
         <script src="~/Scripts/Scripts.js"></script>
         <script src="~/Scripts/notify.min.js"></script>
-        
     
 
     </body>

@@ -136,6 +136,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ClassController.cs" />
     <Compile Include="Controllers\ClubController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InstructorController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -201,6 +202,10 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\celebrate-success-FUN.jpg" />
+    <Content Include="Content\Images\confidence_0.jpg" />
+    <Content Include="Content\Images\Muay-Thai.jpg" />
+    <Content Include="Content\Images\o-KARATE-SILHOUETTE-facebook.jpg" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -308,6 +313,8 @@
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\LogIn.cshtml" />
     <Content Include="Views\User\LogOut.cshtml" />
+    <Content Include="Views\Shared\_LayoutCustomer.cshtml" />
+    <Content Include="Views\Customer\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
