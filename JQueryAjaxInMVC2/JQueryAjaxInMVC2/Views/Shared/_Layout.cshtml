@@ -20,16 +20,16 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Martial Arts Class Bookings</a>
 
-                    @Html.ActionLink("Martial Arts", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    <a class="navbar-brand" href="#">Martial Arts Class Bookings</a>
                 </div>
+
             <div class="navbar-collapse collapse" id=".navbar-collapse">
                
                 @if (Request.IsAuthenticated)
                 {
                     <ul class="nav navbar-nav navbar-right">
-                        <li>@Html.ActionLink("Log In", "Login", "User")</li>
+                        <li>@*<span class="glyphicon glyphicon-log-in"></span>*@@Html.ActionLink("Login", "LogIn", "User")</li>
                     </ul>
 
 
@@ -39,11 +39,15 @@
 
                     <ul class="nav navbar-nav">
                         <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Clubs", "Index", "Club")</li>
+                        <li>@Html.ActionLink("Instructors", "Index", "Instructor")</li>
+                        <li>@Html.ActionLink("Classes", "Index", "Class")</li>
+                        <li>@Html.ActionLink("Bookings", "Index", "CustomerBooking")</li>
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
                         <li>@Html.Encode(User.Identity.Name)</li>
-                        <li>@Html.ActionLink("Log Out", "Logout", "User")</li>
+                        <li>@*<span class="glyphicon glyphicon-log-out"></span>*@@Html.ActionLink("Log out", "LogOut", "User")</li>
                     </ul>
 
 

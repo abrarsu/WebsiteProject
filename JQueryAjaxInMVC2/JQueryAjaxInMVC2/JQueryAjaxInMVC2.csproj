@@ -204,6 +204,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\celebrate-success-FUN.jpg" />
     <Content Include="Content\Images\confidence_0.jpg" />
+    <Content Include="Content\Images\logo.jpg" />
     <Content Include="Content\Images\Muay-Thai.jpg" />
     <Content Include="Content\Images\o-KARATE-SILHOUETTE-facebook.jpg" />
     <Content Include="Content\themes\base\accordion.css" />

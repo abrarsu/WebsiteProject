@@ -116,8 +116,8 @@ function jQueryAjaxPostInstructor(form) {
                     refreshAddNewInstructorTab($(form).attr('data-restUrl'), true);
                     //success message 
                     $.notify(response.message, "success");
-                    if (typeof activatejQueryTable !== 'undefined' && $.isFunction(activatejQueryTable))
-                        activatejQueryTable();
+                    if (typeof activateInstructorjQueryTable !== 'undefined' && $.isFunction(activateInstructorjQueryTable))
+                        activateInstructorjQueryTable();
                 }
                 else {
                     //error message 
@@ -180,8 +180,8 @@ function DeleteInstructor(url) {
                     $("#firstTab").html(response.html);
                     //success message 
                     $.notify(response.message, "warn");
-                    if (typeof activatejQueryTable !== 'undefined' && $.isFunction(activatejQueryTable))
-                        activatejQueryTable();
+                    if (typeof activateInstructorjQueryTable !== 'undefined' && $.isFunction(activateInstructorjQueryTable))
+                        activateInstructorjQueryTable();
                 }
                 else {
                     $.notify(response.message, "error");
@@ -208,8 +208,8 @@ function jQueryAjaxPostClass(form) {
                     refreshAddNewClassTab($(form).attr('data-restUrl'), true);
                     //success message 
                     $.notify(response.message, "success");
-                    if (typeof activatejQueryTable !== 'undefined' && $.isFunction(activatejQueryTable))
-                        activatejQueryTable();
+                    if (typeof activateClassjQueryTable !== 'undefined' && $.isFunction(activateClassjQueryTable))
+                        activateClassjQueryTable();
                 }
                 else {
                     //error message 
