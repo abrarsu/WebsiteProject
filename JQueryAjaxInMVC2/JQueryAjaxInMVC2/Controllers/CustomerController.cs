@@ -13,5 +13,16 @@ namespace JQueryAjaxInMVC2.Controllers
         {
             return View();
         }
+
+        public ActionResult RegisterOrEdit()
+        {
+
+            return View();
+        }
+
+        public ActionResult RegisterCustomer()
+        {
+            return View();
+        }
     }
 }

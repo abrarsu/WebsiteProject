@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -24,7 +25,7 @@ namespace JQueryAjaxInMVC2.Controllers
 
         public IEnumerable<ClassViewModel> GetAllClasses()
         {
-            using (BookingDBModel db = new BookingDBModel())
+            using (DBModel db = new DBModel())
             {
                 IEnumerable<Class> classList = db.Classes.ToList();
                 //ClassViewModel classVM = new ClassViewModel();
@@ -42,19 +43,20 @@ namespace JQueryAjaxInMVC2.Controllers
                     VenueName = x.VenueName,
                     AddressLine1 = x.AddressLine1,
                     AddressLine2 = x.AddressLine2,
-                    Postcode = x.Postcode}).ToList();
+                    Postcode = x.Postcode
+                }).ToList();
 
-                
-               // return db.Classes.ToList<Class>();
-                return  classVMList;
+
+                // return db.Classes.ToList<Class>();
+                return classVMList;
             }
 
         }
 
-       
-        public ActionResult AddOrEditClass( int id = 0)
+
+        public ActionResult AddOrEditClass(int id = 0)
         {
-            BookingDBModel db = new BookingDBModel();
+            DBModel db = new DBModel();
             Class classes = new Class();
             ClassViewModel model = new ClassViewModel();
 
@@ -62,7 +64,7 @@ namespace JQueryAjaxInMVC2.Controllers
 
             if (id != 0)
             {
-               classes = db.Classes.SingleOrDefault(x => x.ClassID == id);
+                classes = db.Classes.SingleOrDefault(x => x.ClassID == id);
                 model.ClassID = classes.ClassID;
                 model.ClubID = classes.ClubID;
                 model.InstructorID = classes.InstructorID;
@@ -83,16 +85,16 @@ namespace JQueryAjaxInMVC2.Controllers
         // according to the club chosen and it gives a list of instructors for that club 
         public IEnumerable<Club> GetClubList()
         {
-            BookingDBModel db = new BookingDBModel();
+            DBModel db = new DBModel();
 
             IEnumerable<Club> clubs = db.Clubs.ToList();
 
             return clubs;
         }
 
-        public ActionResult  GetInstructorList(int clubID)
+        public ActionResult GetInstructorList(int clubID)
         {
-            BookingDBModel db = new BookingDBModel();
+            DBModel db = new DBModel();
 
             //this will get the firstName + lastName in the dropDown list
             var instructors = db.Instructors.Where(y => y.ClubID == clubID).Select(s => new { Text = s.FirstName + " " + s.LastName, Value = s.InstructorID }).ToList();
@@ -107,16 +109,17 @@ namespace JQueryAjaxInMVC2.Controllers
         {
             try
             {
-                BookingDBModel db = new BookingDBModel();
+                DBModel db = new DBModel();
 
                 ViewBag.ClubList = new SelectList(GetClubList(), "ClubID", "ClubName");
-
+                
                 //this checks 'if' if something has been added or not if not then it saves changes
                 if (model.ClassID > 0)
                 {
+                    
                     //Update
-                   Class clas = db.Classes.SingleOrDefault(x => x.ClassID == model.ClassID);
-                   
+                    Class clas = db.Classes.SingleOrDefault(x => x.ClassID == model.ClassID);
+
                     clas.ClubID = model.ClubID;
                     clas.InstructorID = model.InstructorID;
                     clas.ClassDate = model.ClassDate;
@@ -161,15 +164,15 @@ namespace JQueryAjaxInMVC2.Controllers
 
                 return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
             }
-            
+
         }
 
 
-        public ActionResult DeleteClass( int id)
+        public ActionResult DeleteClass(int id)
         {
             try
             {
-                using (BookingDBModel db = new BookingDBModel())
+                using (DBModel db = new DBModel())
                 {
                     Class classes = db.Classes.Where(x => x.ClassID == id).FirstOrDefault<Class>();
                     db.Classes.Remove(classes);

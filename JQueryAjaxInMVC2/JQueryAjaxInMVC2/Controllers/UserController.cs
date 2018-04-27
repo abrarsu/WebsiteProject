@@ -43,8 +43,8 @@ namespace JQueryAjaxInMVC2.Controllers
         public ActionResult LogOut()
         {
             FormsAuthentication.SignOut();
-            //return RedirectToAction("","");
-            return View();
+            return RedirectToAction("LogOut", "User");
+            //return View();
         }
 
 
@@ -55,7 +55,7 @@ namespace JQueryAjaxInMVC2.Controllers
 
             bool isValid = false;
 
-            using (var db = new Models.BookingDBModel())
+            using (var db = new Models.DBModel())
             {
                 var instructor = db.InstructorPasswords.FirstOrDefault(u => u.Username == username);
 

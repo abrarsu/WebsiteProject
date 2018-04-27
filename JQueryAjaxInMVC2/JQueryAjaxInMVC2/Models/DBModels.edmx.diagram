@@ -4,30 +4,30 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="6fb454d02f8442d1b79148db63f02fe3" Name="Diagram1">
-        <EntityTypeShape EntityType="BookingSiteDBModel.Class" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookingSiteDBModel.Club" Width="1.5" PointX="1.5" PointY="13.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookingSiteDBModel.CustomerBooking" Width="1.5" PointX="3" PointY="7.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookingSiteDBModel.CustomerPassword" Width="1.5" PointX="3" PointY="10.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookingSiteDBModel.Customer" Width="1.5" PointX="0.75" PointY="6.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookingSiteDBModel.InstructorPassword" Width="1.5" PointX="4.125" PointY="18.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookingSiteDBModel.Instructor" Width="1.5" PointX="1.5" PointY="17.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookingSiteDBModel.OrderProductItem" Width="1.5" PointX="8.25" PointY="7.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookingSiteDBModel.Order" Width="1.5" PointX="6" PointY="6.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookingSiteDBModel.OrderStatus" Width="1.5" PointX="3.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookingSiteDBModel.Product" Width="1.5" PointX="6" PointY="3.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="BookingSiteDBModel.sysdiagram" Width="1.5" PointX="8.75" PointY="3.125" IsExpanded="true" />
-        <AssociationConnector Association="BookingSiteDBModel.FK_Classes_Club" ManuallyRouted="false" />
-        <AssociationConnector Association="BookingSiteDBModel.FK_Classes_Instructor" ManuallyRouted="false" />
-        <AssociationConnector Association="BookingSiteDBModel.FK_CustomerBookings_Classes" ManuallyRouted="false" />
-        <AssociationConnector Association="BookingSiteDBModel.FK_Instructor_Club" ManuallyRouted="false" />
-        <AssociationConnector Association="BookingSiteDBModel.FK_CustomerBookings_Customers" ManuallyRouted="false" />
-        <AssociationConnector Association="BookingSiteDBModel.FK_CustomerPasswords_Customers" ManuallyRouted="false" />
-        <AssociationConnector Association="BookingSiteDBModel.FK_Orders_Customers" ManuallyRouted="false" />
-        <AssociationConnector Association="BookingSiteDBModel.FK_InstructorPasswords_Instructors" ManuallyRouted="false" />
-        <AssociationConnector Association="BookingSiteDBModel.FK_OrderProductItems_Orders" ManuallyRouted="false" />
-        <AssociationConnector Association="BookingSiteDBModel.FK_OrderProductItems_Products" ManuallyRouted="false" />
-        <AssociationConnector Association="BookingSiteDBModel.FK_Orders_OrderStatuses" ManuallyRouted="false" />
+      <Diagram DiagramId="1dbae03857da4816af159292d3a6fef1" Name="Diagram1">
+        <EntityTypeShape EntityType="BookingSiteDBModels.Class" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingSiteDBModels.Club" Width="1.5" PointX="1.5" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingSiteDBModels.CustomerBooking" Width="1.5" PointX="3" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingSiteDBModels.CustomerPassword" Width="1.5" PointX="3" PointY="10.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingSiteDBModels.Customer" Width="1.5" PointX="0.75" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingSiteDBModels.InstructorPassword" Width="1.5" PointX="3.75" PointY="17.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingSiteDBModels.Instructor" Width="1.5" PointX="1.5" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingSiteDBModels.OrderProductItem" Width="1.5" PointX="8.25" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingSiteDBModels.Order" Width="1.5" PointX="6" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingSiteDBModels.OrderStatus" Width="1.5" PointX="3.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingSiteDBModels.Product" Width="1.5" PointX="6" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BookingSiteDBModels.sysdiagram" Width="1.5" PointX="8.75" PointY="3.125" IsExpanded="true" />
+        <AssociationConnector Association="BookingSiteDBModels.FK_Classes_Club" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingSiteDBModels.FK_Classes_Instructor" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingSiteDBModels.FK_CustomerBookings_Classes" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingSiteDBModels.FK_Instructor_Club" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingSiteDBModels.FK_CustomerBookings_Customers" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingSiteDBModels.FK_CustomerPasswords_Customers" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingSiteDBModels.FK_Orders_Customers" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingSiteDBModels.FK_InstructorPasswords_Instructors" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingSiteDBModels.FK_OrderProductItems_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingSiteDBModels.FK_OrderProductItems_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="BookingSiteDBModels.FK_Orders_OrderStatuses" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

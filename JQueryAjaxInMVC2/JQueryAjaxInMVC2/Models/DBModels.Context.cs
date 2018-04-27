@@ -13,10 +13,10 @@ namespace JQueryAjaxInMVC2.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class BookingDBModel : DbContext
+    public partial class DBModel : DbContext
     {
-        public BookingDBModel()
-            : base("name=BookingDBModel")
+        public DBModel()
+            : base("name=DBModel")
         {
         }
     

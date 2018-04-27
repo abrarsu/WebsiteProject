@@ -24,7 +24,7 @@ namespace JQueryAjaxInMVC2.Controllers
         public IEnumerable<InstructorViewModel> GetAllInstructors()
         {
 
-            using (BookingDBModel db = new BookingDBModel())
+            using (DBModel db = new DBModel())
             {
                 IEnumerable<Instructor> instructorList = db.Instructors.ToList();
 
@@ -48,10 +48,10 @@ namespace JQueryAjaxInMVC2.Controllers
 
         }
 
-        
+
         public ActionResult AddOrEditInstructor(int id = 0)
         {
-            BookingDBModel db = new BookingDBModel();
+            DBModel db = new DBModel();
 
             IEnumerable<Club> clublist = db.Clubs.ToList();
             ViewBag.ClubList = new SelectList(clublist, "ClubID", "ClubName");
@@ -76,9 +76,9 @@ namespace JQueryAjaxInMVC2.Controllers
                 model.Password = instrPswd.Password;
 
             }
-        
+
             return View(model);
-            
+
         }
 
 
@@ -88,12 +88,12 @@ namespace JQueryAjaxInMVC2.Controllers
         {
             try
             {
-                BookingDBModel db = new BookingDBModel();
+                DBModel db = new DBModel();
 
                 IEnumerable<Club> clublist = db.Clubs.ToList();
                 ViewBag.ClubList = new SelectList(clublist, "ClubID", "ClubName");
 
-                if(model.InstructorID > 0)
+                if (model.InstructorID > 0)
                 {
                     //Update
                     Instructor instruct = db.Instructors.SingleOrDefault(x => x.InstructorID == model.InstructorID);
@@ -125,7 +125,8 @@ namespace JQueryAjaxInMVC2.Controllers
 
 
                 }
-                else {
+                else
+                {
                     //Insert
                     Instructor instructor = new Instructor();
                     instructor.FirstName = model.FirstName;
@@ -148,7 +149,7 @@ namespace JQueryAjaxInMVC2.Controllers
                     var crypto = new SimpleCrypto.PBKDF2();
 
                     var encrpPass = crypto.Compute(model.Password);
-                    
+
 
                     instructorPswd.Username = model.Username;
                     instructorPswd.Password = encrpPass;
@@ -170,7 +171,7 @@ namespace JQueryAjaxInMVC2.Controllers
                 return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
 
             }
-          
+
         }
 
 
@@ -180,14 +181,14 @@ namespace JQueryAjaxInMVC2.Controllers
 
             bool isValid = false;
 
-            using (var db = new BookingDBModel())
+            using (var db = new DBModel())
             {
 
             }
 
 
 
-                return isValid;
+            return isValid;
         }
 
 
@@ -195,18 +196,18 @@ namespace JQueryAjaxInMVC2.Controllers
         {
             try
             {
-                BookingDBModel db = new BookingDBModel();
+                DBModel db = new DBModel();
 
-                
-                    InstructorPassword instructorPswd = db.InstructorPasswords.Where(x => x.InstructorID == id).FirstOrDefault<InstructorPassword>();
-                    db.InstructorPasswords.Remove(instructorPswd);
-                    db.SaveChanges();
 
-                    Instructor instructor = db.Instructors.Where(x => x.InstructorID == id).FirstOrDefault<Instructor>();
-                    db.Instructors.Remove(instructor);
-                    db.SaveChanges();
+                InstructorPassword instructorPswd = db.InstructorPasswords.Where(x => x.InstructorID == id).FirstOrDefault<InstructorPassword>();
+                db.InstructorPasswords.Remove(instructorPswd);
+                db.SaveChanges();
 
-                
+                Instructor instructor = db.Instructors.Where(x => x.InstructorID == id).FirstOrDefault<Instructor>();
+                db.Instructors.Remove(instructor);
+                db.SaveChanges();
+
+
                 return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "ViewAllInstructors", GetAllInstructors()), message = "Deleted Successfully" }, JsonRequestBehavior.AllowGet);
 
 

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="BookingSiteDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="BookingSiteDBModels.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="Classes">
     <Key>
       <PropertyRef Name="ClassID" />
@@ -8,7 +8,7 @@
     <Property Name="ClubID" Type="int" Nullable="false" />
     <Property Name="InstructorID" Type="int" Nullable="false" />
     <Property Name="ClassDate" Type="date" Nullable="false" />
-    <Property Name="ClassTime" Type="varchar" MaxLength="6" Nullable="false" />
+    <Property Name="ClassTime" Type="varchar" MaxLength="50" />
     <Property Name="ClassGIAGPrice" Type="numeric" Precision="6" Scale="2" />
     <Property Name="VenueName" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="AddressLine1" Type="varchar" MaxLength="75" Nullable="false" />
@@ -50,7 +50,7 @@
     <Property Name="CustomerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="BeltLevel" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="BeltLevel" Type="int" Nullable="false" />
     <Property Name="Email" Type="varchar" MaxLength="60" Nullable="false" />
     <Property Name="PhoneNumber" Type="varchar" MaxLength="30" Nullable="false" />
     <Property Name="AddressLine1" Type="varchar" MaxLength="75" Nullable="false" />
@@ -265,7 +265,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="BookingSiteDBModelStoreContainer">
+  <EntityContainer Name="BookingSiteDBModelsStoreContainer">
     <EntitySet Name="Classes" EntityType="Self.Classes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Clubs" EntityType="Self.Clubs" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CustomerBookings" EntityType="Self.CustomerBookings" Schema="dbo" store:Type="Tables" />

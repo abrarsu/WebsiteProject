@@ -160,6 +160,7 @@
     <Compile Include="Models\CustomerPassword.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CustomerViewModel.cs" />
     <Compile Include="Models\DBModels.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -264,6 +265,7 @@
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\InstructorScript.js" />
     <EntityDeploy Include="Models\DBModels.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DBModels.Designer.cs</LastGenOutput>
@@ -271,7 +273,6 @@
     <Content Include="Models\DBModels.edmx.diagram">
       <DependentUpon>DBModels.edmx</DependentUpon>
     </Content>
-    <Content Include="Scripts\InstructorScript.js" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />

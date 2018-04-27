@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="BookingSiteDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="BookingSiteDBModels.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Classes">
           <Key>
             <PropertyRef Name="ClassID" />
@@ -13,7 +13,7 @@
           <Property Name="ClubID" Type="int" Nullable="false" />
           <Property Name="InstructorID" Type="int" Nullable="false" />
           <Property Name="ClassDate" Type="date" Nullable="false" />
-          <Property Name="ClassTime" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="ClassTime" Type="varchar" MaxLength="50" />
           <Property Name="ClassGIAGPrice" Type="numeric" Precision="6" Scale="2" />
           <Property Name="VenueName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="AddressLine1" Type="varchar" MaxLength="75" Nullable="false" />
@@ -55,7 +55,7 @@
           <Property Name="CustomerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="BeltLevel" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="BeltLevel" Type="int" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="60" Nullable="false" />
           <Property Name="PhoneNumber" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="AddressLine1" Type="varchar" MaxLength="75" Nullable="false" />
@@ -270,7 +270,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="BookingSiteDBModelStoreContainer">
+        <EntityContainer Name="BookingSiteDBModelsStoreContainer">
           <EntitySet Name="Classes" EntityType="Self.Classes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Clubs" EntityType="Self.Clubs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CustomerBookings" EntityType="Self.CustomerBookings" Schema="dbo" store:Type="Tables" />
@@ -328,10 +328,11 @@
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="BookingSiteDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="BookingSiteDBModels" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Class">
           <Key>
             <PropertyRef Name="ClassID" />
@@ -340,7 +341,7 @@
           <Property Name="ClubID" Type="Int32" Nullable="false" />
           <Property Name="InstructorID" Type="Int32" Nullable="false" />
           <Property Name="ClassDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="ClassTime" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ClassTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ClassGIAGPrice" Type="Decimal" Precision="6" Scale="2" />
           <Property Name="VenueName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="AddressLine1" Type="String" MaxLength="75" FixedLength="false" Unicode="false" Nullable="false" />
@@ -390,7 +391,7 @@
           <Property Name="CustomerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="BeltLevel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BeltLevel" Type="Int32" Nullable="false" />
           <Property Name="Email" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PhoneNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="AddressLine1" Type="String" MaxLength="75" FixedLength="false" Unicode="false" Nullable="false" />
@@ -619,7 +620,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="BookingDBModel" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="DBModel" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Classes" EntityType="Self.Class" />
           <EntitySet Name="Clubs" EntityType="Self.Club" />
           <EntitySet Name="CustomerBookings" EntityType="Self.CustomerBooking" />
@@ -682,9 +683,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="BookingSiteDBModelStoreContainer" CdmEntityContainer="BookingDBModel">
+        <EntityContainerMapping StorageEntityContainer="BookingSiteDBModelsStoreContainer" CdmEntityContainer="DBModel">
           <EntitySetMapping Name="Classes">
-            <EntityTypeMapping TypeName="BookingSiteDBModel.Class">
+            <EntityTypeMapping TypeName="BookingSiteDBModels.Class">
               <MappingFragment StoreEntitySet="Classes">
                 <ScalarProperty Name="ClassID" ColumnName="ClassID" />
                 <ScalarProperty Name="ClubID" ColumnName="ClubID" />
@@ -700,7 +701,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Clubs">
-            <EntityTypeMapping TypeName="BookingSiteDBModel.Club">
+            <EntityTypeMapping TypeName="BookingSiteDBModels.Club">
               <MappingFragment StoreEntitySet="Clubs">
                 <ScalarProperty Name="ClubID" ColumnName="ClubID" />
                 <ScalarProperty Name="ClubName" ColumnName="ClubName" />
@@ -710,7 +711,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CustomerBookings">
-            <EntityTypeMapping TypeName="BookingSiteDBModel.CustomerBooking">
+            <EntityTypeMapping TypeName="BookingSiteDBModels.CustomerBooking">
               <MappingFragment StoreEntitySet="CustomerBookings">
                 <ScalarProperty Name="BookingID" ColumnName="BookingID" />
                 <ScalarProperty Name="ClassID" ColumnName="ClassID" />
@@ -720,7 +721,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CustomerPasswords">
-            <EntityTypeMapping TypeName="BookingSiteDBModel.CustomerPassword">
+            <EntityTypeMapping TypeName="BookingSiteDBModels.CustomerPassword">
               <MappingFragment StoreEntitySet="CustomerPasswords">
                 <ScalarProperty Name="CusLoginID" ColumnName="CusLoginID" />
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
@@ -731,7 +732,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Customers">
-            <EntityTypeMapping TypeName="BookingSiteDBModel.Customer">
+            <EntityTypeMapping TypeName="BookingSiteDBModels.Customer">
               <MappingFragment StoreEntitySet="Customers">
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
@@ -746,7 +747,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="InstructorPasswords">
-            <EntityTypeMapping TypeName="BookingSiteDBModel.InstructorPassword">
+            <EntityTypeMapping TypeName="BookingSiteDBModels.InstructorPassword">
               <MappingFragment StoreEntitySet="InstructorPasswords">
                 <ScalarProperty Name="LoginID" ColumnName="LoginID" />
                 <ScalarProperty Name="InstructorID" ColumnName="InstructorID" />
@@ -757,7 +758,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Instructors">
-            <EntityTypeMapping TypeName="BookingSiteDBModel.Instructor">
+            <EntityTypeMapping TypeName="BookingSiteDBModels.Instructor">
               <MappingFragment StoreEntitySet="Instructors">
                 <ScalarProperty Name="InstructorID" ColumnName="InstructorID" />
                 <ScalarProperty Name="ClubID" ColumnName="ClubID" />
@@ -772,7 +773,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderProductItems">
-            <EntityTypeMapping TypeName="BookingSiteDBModel.OrderProductItem">
+            <EntityTypeMapping TypeName="BookingSiteDBModels.OrderProductItem">
               <MappingFragment StoreEntitySet="OrderProductItems">
                 <ScalarProperty Name="ProductItemID" ColumnName="ProductItemID" />
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
@@ -782,7 +783,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Orders">
-            <EntityTypeMapping TypeName="BookingSiteDBModel.Order">
+            <EntityTypeMapping TypeName="BookingSiteDBModels.Order">
               <MappingFragment StoreEntitySet="Orders">
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
@@ -799,7 +800,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderStatuses">
-            <EntityTypeMapping TypeName="BookingSiteDBModel.OrderStatus">
+            <EntityTypeMapping TypeName="BookingSiteDBModels.OrderStatus">
               <MappingFragment StoreEntitySet="OrderStatuses">
                 <ScalarProperty Name="OrderStatusID" ColumnName="OrderStatusID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -807,7 +808,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Products">
-            <EntityTypeMapping TypeName="BookingSiteDBModel.Product">
+            <EntityTypeMapping TypeName="BookingSiteDBModels.Product">
               <MappingFragment StoreEntitySet="Products">
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
                 <ScalarProperty Name="ProductName" ColumnName="ProductName" />
@@ -818,7 +819,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="BookingSiteDBModel.sysdiagram">
+            <EntityTypeMapping TypeName="BookingSiteDBModels.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />

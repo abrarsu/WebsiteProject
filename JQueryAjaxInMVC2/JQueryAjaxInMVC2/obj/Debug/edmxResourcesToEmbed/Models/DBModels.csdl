@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="BookingSiteDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+<Schema Namespace="BookingSiteDBModels" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityType Name="Class">
     <Key>
       <PropertyRef Name="ClassID" />
@@ -8,7 +8,7 @@
     <Property Name="ClubID" Type="Int32" Nullable="false" />
     <Property Name="InstructorID" Type="Int32" Nullable="false" />
     <Property Name="ClassDate" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="ClassTime" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ClassTime" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
     <Property Name="ClassGIAGPrice" Type="Decimal" Precision="6" Scale="2" />
     <Property Name="VenueName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="AddressLine1" Type="String" MaxLength="75" FixedLength="false" Unicode="false" Nullable="false" />
@@ -58,7 +58,7 @@
     <Property Name="CustomerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="BeltLevel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="BeltLevel" Type="Int32" Nullable="false" />
     <Property Name="Email" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="PhoneNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="AddressLine1" Type="String" MaxLength="75" FixedLength="false" Unicode="false" Nullable="false" />
@@ -287,7 +287,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="BookingDBModel" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="DBModel" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Classes" EntityType="Self.Class" />
     <EntitySet Name="Clubs" EntityType="Self.Club" />
     <EntitySet Name="CustomerBookings" EntityType="Self.CustomerBooking" />

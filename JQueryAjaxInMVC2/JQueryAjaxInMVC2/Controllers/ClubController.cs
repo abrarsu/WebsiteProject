@@ -23,7 +23,7 @@ namespace JQueryAjaxInMVC2.Controllers
 
         IEnumerable<Club> GetAllClubs()
         {
-            using (BookingDBModel db = new BookingDBModel())
+            using (DBModel db = new DBModel())
             {
                 return db.Clubs.ToList<Club>();
             }
@@ -35,7 +35,7 @@ namespace JQueryAjaxInMVC2.Controllers
             Club club = new Club();
             if (id != 0)
             {
-                using (BookingDBModel db = new BookingDBModel())
+                using (DBModel db = new DBModel())
                 {
                     club = db.Clubs.Where(x => x.ClubID == id).FirstOrDefault<Club>();
                 }
@@ -48,7 +48,7 @@ namespace JQueryAjaxInMVC2.Controllers
         {
             try
             {
-                using (BookingDBModel db = new BookingDBModel())
+                using (DBModel db = new DBModel())
                 {
                     //this checks 'if' if something has been added or not if not then it saves changes
                     if (club.ClubID == 0)
@@ -81,7 +81,7 @@ namespace JQueryAjaxInMVC2.Controllers
         {
             try
             {
-                using (BookingDBModel db = new BookingDBModel())
+                using (DBModel db = new DBModel())
                 {
                     Club club = db.Clubs.Where(x => x.ClubID == id).FirstOrDefault<Club>();
                     db.Clubs.Remove(club);
