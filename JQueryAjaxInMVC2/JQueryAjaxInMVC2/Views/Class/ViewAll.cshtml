@@ -4,7 +4,7 @@
     Layout = null;
 }
 
-<table class="table" id="ClassTable">
+<table class="table" id="classTable">
     <thead>
         <tr>
             <th>Class Name</th>
@@ -36,8 +36,8 @@
                 <td>@item.Postcode</td>
                 <td>
 
-                    <a class="btn btn-primary btn-sm" onclick="Edit('@Url.Action("AddOrEditClass", "Class", new { id =@item.ClassID})')"><i class="fa fa-pencil fa-lg"></i></a>
-                    <a class="btn btn-danger btn-sm" onclick="Delete('@Url.Action("DeleteClass", "Class" , new { id =@item.ClassID})')"><i class="fa fa-trash fa-lg"></i></a>
+                    <a class="btn btn-primary btn-sm" onclick="EditClass('@Url.Action("AddOrEditClass", "Class", new { id = @item.ClassID})')"><i class="fa fa-pencil fa-lg"></i></a>
+                    <a class="btn btn-danger btn-sm" onclick="DeleteClass('@Url.Action("DeleteClass", "Class" , new { id = @item.ClassID})')"><i class="fa fa-trash fa-lg"></i></a>
 
                 </td>
             </tr>
