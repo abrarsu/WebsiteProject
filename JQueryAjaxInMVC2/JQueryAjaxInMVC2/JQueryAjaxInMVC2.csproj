@@ -317,6 +317,7 @@
     <Content Include="Views\User\LogOut.cshtml" />
     <Content Include="Views\Shared\_LayoutCustomer.cshtml" />
     <Content Include="Views\Customer\Index.cshtml" />
+    <Content Include="Views\Customer\RegisterOrEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

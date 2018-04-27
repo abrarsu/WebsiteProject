@@ -13,7 +13,7 @@ namespace JQueryAjaxInMVC2.Models
 
         public int ClubID { get; set; }
 
-        [DisplayName("Instructor Name")]
+        //[DisplayName("Instructor Name")]
         public int InstructorID { get; set; }
 
         [DisplayName("Class Date")]
