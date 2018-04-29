@@ -176,6 +176,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DBModels.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\GradeBelt.cs">
+      <DependentUpon>DBModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Instructor.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>

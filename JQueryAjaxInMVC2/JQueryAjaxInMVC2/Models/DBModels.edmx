@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="BookingSiteDBModels.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="BookingSiteDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Classes">
           <Key>
             <PropertyRef Name="ClassID" />
@@ -61,6 +61,13 @@
           <Property Name="AddressLine1" Type="varchar" MaxLength="75" Nullable="false" />
           <Property Name="AddressLine2" Type="varchar" MaxLength="75" Nullable="false" />
           <Property Name="Postcode" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GradeBelts">
+          <Key>
+            <PropertyRef Name="BeltLevel" />
+          </Key>
+          <Property Name="BeltLevel" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BeltLevelColour" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="InstructorPasswords">
           <Key>
@@ -198,6 +205,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Customers_GradeBelts">
+          <End Role="GradeBelts" Type="Self.GradeBelts" Multiplicity="1" />
+          <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GradeBelts">
+              <PropertyRef Name="BeltLevel" />
+            </Principal>
+            <Dependent Role="Customers">
+              <PropertyRef Name="BeltLevel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Instructor_Club">
           <End Role="Clubs" Type="Self.Clubs" Multiplicity="1" />
           <End Role="Instructors" Type="Self.Instructors" Multiplicity="*" />
@@ -270,12 +289,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="BookingSiteDBModelsStoreContainer">
+        <EntityContainer Name="BookingSiteDBModelStoreContainer">
           <EntitySet Name="Classes" EntityType="Self.Classes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Clubs" EntityType="Self.Clubs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CustomerBookings" EntityType="Self.CustomerBookings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CustomerPasswords" EntityType="Self.CustomerPasswords" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GradeBelts" EntityType="Self.GradeBelts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InstructorPasswords" EntityType="Self.InstructorPasswords" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Instructors" EntityType="Self.Instructors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderProductItems" EntityType="Self.OrderProductItems" Schema="dbo" store:Type="Tables" />
@@ -302,6 +322,10 @@
           <AssociationSet Name="FK_CustomerPasswords_Customers" Association="Self.FK_CustomerPasswords_Customers">
             <End Role="Customers" EntitySet="Customers" />
             <End Role="CustomerPasswords" EntitySet="CustomerPasswords" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customers_GradeBelts" Association="Self.FK_Customers_GradeBelts">
+            <End Role="GradeBelts" EntitySet="GradeBelts" />
+            <End Role="Customers" EntitySet="Customers" />
           </AssociationSet>
           <AssociationSet Name="FK_Instructor_Club" Association="Self.FK_Instructor_Club">
             <End Role="Clubs" EntitySet="Clubs" />
@@ -332,7 +356,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="BookingSiteDBModels" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="BookingSiteDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Class">
           <Key>
             <PropertyRef Name="ClassID" />
@@ -399,7 +423,16 @@
           <Property Name="Postcode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="CustomerBookings" Relationship="Self.FK_CustomerBookings_Customers" FromRole="Customers" ToRole="CustomerBookings" />
           <NavigationProperty Name="CustomerPasswords" Relationship="Self.FK_CustomerPasswords_Customers" FromRole="Customers" ToRole="CustomerPasswords" />
+          <NavigationProperty Name="GradeBelt" Relationship="Self.FK_Customers_GradeBelts" FromRole="Customers" ToRole="GradeBelts" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Customers" FromRole="Customers" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="GradeBelt">
+          <Key>
+            <PropertyRef Name="BeltLevel" />
+          </Key>
+          <Property Name="BeltLevel" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BeltLevelColour" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Customers" Relationship="Self.FK_Customers_GradeBelts" FromRole="GradeBelts" ToRole="Customers" />
         </EntityType>
         <EntityType Name="InstructorPassword">
           <Key>
@@ -560,6 +593,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Customers_GradeBelts">
+          <End Role="GradeBelts" Type="Self.GradeBelt" Multiplicity="1" />
+          <End Role="Customers" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GradeBelts">
+              <PropertyRef Name="BeltLevel" />
+            </Principal>
+            <Dependent Role="Customers">
+              <PropertyRef Name="BeltLevel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Orders_Customers">
           <End Role="Customers" Type="Self.Customer" Multiplicity="1" />
           <End Role="Orders" Type="Self.Order" Multiplicity="*" />
@@ -626,6 +671,7 @@
           <EntitySet Name="CustomerBookings" EntityType="Self.CustomerBooking" />
           <EntitySet Name="CustomerPasswords" EntityType="Self.CustomerPassword" />
           <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="GradeBelts" EntityType="Self.GradeBelt" />
           <EntitySet Name="InstructorPasswords" EntityType="Self.InstructorPassword" />
           <EntitySet Name="Instructors" EntityType="Self.Instructor" />
           <EntitySet Name="OrderProductItems" EntityType="Self.OrderProductItem" />
@@ -657,6 +703,10 @@
             <End Role="Customers" EntitySet="Customers" />
             <End Role="CustomerPasswords" EntitySet="CustomerPasswords" />
           </AssociationSet>
+          <AssociationSet Name="FK_Customers_GradeBelts" Association="Self.FK_Customers_GradeBelts">
+            <End Role="GradeBelts" EntitySet="GradeBelts" />
+            <End Role="Customers" EntitySet="Customers" />
+          </AssociationSet>
           <AssociationSet Name="FK_Orders_Customers" Association="Self.FK_Orders_Customers">
             <End Role="Customers" EntitySet="Customers" />
             <End Role="Orders" EntitySet="Orders" />
@@ -683,9 +733,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="BookingSiteDBModelsStoreContainer" CdmEntityContainer="DBModel">
+        <EntityContainerMapping StorageEntityContainer="BookingSiteDBModelStoreContainer" CdmEntityContainer="DBModel">
           <EntitySetMapping Name="Classes">
-            <EntityTypeMapping TypeName="BookingSiteDBModels.Class">
+            <EntityTypeMapping TypeName="BookingSiteDBModel.Class">
               <MappingFragment StoreEntitySet="Classes">
                 <ScalarProperty Name="ClassID" ColumnName="ClassID" />
                 <ScalarProperty Name="ClubID" ColumnName="ClubID" />
@@ -701,7 +751,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Clubs">
-            <EntityTypeMapping TypeName="BookingSiteDBModels.Club">
+            <EntityTypeMapping TypeName="BookingSiteDBModel.Club">
               <MappingFragment StoreEntitySet="Clubs">
                 <ScalarProperty Name="ClubID" ColumnName="ClubID" />
                 <ScalarProperty Name="ClubName" ColumnName="ClubName" />
@@ -711,7 +761,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CustomerBookings">
-            <EntityTypeMapping TypeName="BookingSiteDBModels.CustomerBooking">
+            <EntityTypeMapping TypeName="BookingSiteDBModel.CustomerBooking">
               <MappingFragment StoreEntitySet="CustomerBookings">
                 <ScalarProperty Name="BookingID" ColumnName="BookingID" />
                 <ScalarProperty Name="ClassID" ColumnName="ClassID" />
@@ -721,7 +771,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="CustomerPasswords">
-            <EntityTypeMapping TypeName="BookingSiteDBModels.CustomerPassword">
+            <EntityTypeMapping TypeName="BookingSiteDBModel.CustomerPassword">
               <MappingFragment StoreEntitySet="CustomerPasswords">
                 <ScalarProperty Name="CusLoginID" ColumnName="CusLoginID" />
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
@@ -732,7 +782,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Customers">
-            <EntityTypeMapping TypeName="BookingSiteDBModels.Customer">
+            <EntityTypeMapping TypeName="BookingSiteDBModel.Customer">
               <MappingFragment StoreEntitySet="Customers">
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
@@ -746,8 +796,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="GradeBelts">
+            <EntityTypeMapping TypeName="BookingSiteDBModel.GradeBelt">
+              <MappingFragment StoreEntitySet="GradeBelts">
+                <ScalarProperty Name="BeltLevel" ColumnName="BeltLevel" />
+                <ScalarProperty Name="BeltLevelColour" ColumnName="BeltLevelColour" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="InstructorPasswords">
-            <EntityTypeMapping TypeName="BookingSiteDBModels.InstructorPassword">
+            <EntityTypeMapping TypeName="BookingSiteDBModel.InstructorPassword">
               <MappingFragment StoreEntitySet="InstructorPasswords">
                 <ScalarProperty Name="LoginID" ColumnName="LoginID" />
                 <ScalarProperty Name="InstructorID" ColumnName="InstructorID" />
@@ -758,7 +816,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Instructors">
-            <EntityTypeMapping TypeName="BookingSiteDBModels.Instructor">
+            <EntityTypeMapping TypeName="BookingSiteDBModel.Instructor">
               <MappingFragment StoreEntitySet="Instructors">
                 <ScalarProperty Name="InstructorID" ColumnName="InstructorID" />
                 <ScalarProperty Name="ClubID" ColumnName="ClubID" />
@@ -773,7 +831,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderProductItems">
-            <EntityTypeMapping TypeName="BookingSiteDBModels.OrderProductItem">
+            <EntityTypeMapping TypeName="BookingSiteDBModel.OrderProductItem">
               <MappingFragment StoreEntitySet="OrderProductItems">
                 <ScalarProperty Name="ProductItemID" ColumnName="ProductItemID" />
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
@@ -783,7 +841,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Orders">
-            <EntityTypeMapping TypeName="BookingSiteDBModels.Order">
+            <EntityTypeMapping TypeName="BookingSiteDBModel.Order">
               <MappingFragment StoreEntitySet="Orders">
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
@@ -800,7 +858,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderStatuses">
-            <EntityTypeMapping TypeName="BookingSiteDBModels.OrderStatus">
+            <EntityTypeMapping TypeName="BookingSiteDBModel.OrderStatus">
               <MappingFragment StoreEntitySet="OrderStatuses">
                 <ScalarProperty Name="OrderStatusID" ColumnName="OrderStatusID" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -808,7 +866,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Products">
-            <EntityTypeMapping TypeName="BookingSiteDBModels.Product">
+            <EntityTypeMapping TypeName="BookingSiteDBModel.Product">
               <MappingFragment StoreEntitySet="Products">
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
                 <ScalarProperty Name="ProductName" ColumnName="ProductName" />
@@ -819,7 +877,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="BookingSiteDBModels.sysdiagram">
+            <EntityTypeMapping TypeName="BookingSiteDBModel.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />

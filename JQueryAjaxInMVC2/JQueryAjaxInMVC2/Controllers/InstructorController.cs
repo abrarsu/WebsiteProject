@@ -175,21 +175,21 @@ namespace JQueryAjaxInMVC2.Controllers
         }
 
 
-        private bool IsValid(string username, string password)
-        {
-            var crypto = new SimpleCrypto.PBKDF2();
+        //private bool IsValid(string username, string password)
+        //{
+        //    var crypto = new SimpleCrypto.PBKDF2();
 
-            bool isValid = false;
+        //    bool isValid = false;
 
-            using (var db = new DBModel())
-            {
+        //    using (var db = new DBModel())
+        //    {
 
-            }
+        //    }
 
 
 
-            return isValid;
-        }
+        //    return isValid;
+        //}
 
 
         public ActionResult DeleteInstructor(int id)

@@ -12,23 +12,18 @@ namespace JQueryAjaxInMVC2.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Club
+    public partial class GradeBelt
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Club()
+        public GradeBelt()
         {
-            this.Classes = new HashSet<Class>();
-            this.Instructors = new HashSet<Instructor>();
+            this.Customers = new HashSet<Customer>();
         }
     
-        public int ClubID { get; set; }
-        public string ClubName { get; set; }
-        public string ClubDescription { get; set; }
-        public Nullable<decimal> ClubMembership { get; set; }
+        public int BeltLevel { get; set; }
+        public string BeltLevelColour { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Class> Classes { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Instructor> Instructors { get; set; }
+        public virtual ICollection<Customer> Customers { get; set; }
     }
 }

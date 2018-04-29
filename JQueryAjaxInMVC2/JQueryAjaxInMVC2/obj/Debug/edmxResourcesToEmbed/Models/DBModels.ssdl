@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="BookingSiteDBModels.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="BookingSiteDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="Classes">
     <Key>
       <PropertyRef Name="ClassID" />
@@ -56,6 +56,13 @@
     <Property Name="AddressLine1" Type="varchar" MaxLength="75" Nullable="false" />
     <Property Name="AddressLine2" Type="varchar" MaxLength="75" Nullable="false" />
     <Property Name="Postcode" Type="varchar" MaxLength="20" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GradeBelts">
+    <Key>
+      <PropertyRef Name="BeltLevel" />
+    </Key>
+    <Property Name="BeltLevel" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BeltLevelColour" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
   <EntityType Name="InstructorPasswords">
     <Key>
@@ -193,6 +200,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Customers_GradeBelts">
+    <End Role="GradeBelts" Type="Self.GradeBelts" Multiplicity="1" />
+    <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GradeBelts">
+        <PropertyRef Name="BeltLevel" />
+      </Principal>
+      <Dependent Role="Customers">
+        <PropertyRef Name="BeltLevel" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Instructor_Club">
     <End Role="Clubs" Type="Self.Clubs" Multiplicity="1" />
     <End Role="Instructors" Type="Self.Instructors" Multiplicity="*" />
@@ -265,12 +284,13 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="BookingSiteDBModelsStoreContainer">
+  <EntityContainer Name="BookingSiteDBModelStoreContainer">
     <EntitySet Name="Classes" EntityType="Self.Classes" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Clubs" EntityType="Self.Clubs" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CustomerBookings" EntityType="Self.CustomerBookings" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CustomerPasswords" EntityType="Self.CustomerPasswords" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GradeBelts" EntityType="Self.GradeBelts" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="InstructorPasswords" EntityType="Self.InstructorPasswords" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Instructors" EntityType="Self.Instructors" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="OrderProductItems" EntityType="Self.OrderProductItems" Schema="dbo" store:Type="Tables" />
@@ -297,6 +317,10 @@
     <AssociationSet Name="FK_CustomerPasswords_Customers" Association="Self.FK_CustomerPasswords_Customers">
       <End Role="Customers" EntitySet="Customers" />
       <End Role="CustomerPasswords" EntitySet="CustomerPasswords" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Customers_GradeBelts" Association="Self.FK_Customers_GradeBelts">
+      <End Role="GradeBelts" EntitySet="GradeBelts" />
+      <End Role="Customers" EntitySet="Customers" />
     </AssociationSet>
     <AssociationSet Name="FK_Instructor_Club" Association="Self.FK_Instructor_Club">
       <End Role="Clubs" EntitySet="Clubs" />

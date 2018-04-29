@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="BookingSiteDBModelsStoreContainer" CdmEntityContainer="DBModel">
+  <EntityContainerMapping StorageEntityContainer="BookingSiteDBModelStoreContainer" CdmEntityContainer="DBModel">
     <EntitySetMapping Name="Classes">
-      <EntityTypeMapping TypeName="BookingSiteDBModels.Class">
+      <EntityTypeMapping TypeName="BookingSiteDBModel.Class">
         <MappingFragment StoreEntitySet="Classes">
           <ScalarProperty Name="ClassID" ColumnName="ClassID" />
           <ScalarProperty Name="ClubID" ColumnName="ClubID" />
@@ -18,7 +18,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Clubs">
-      <EntityTypeMapping TypeName="BookingSiteDBModels.Club">
+      <EntityTypeMapping TypeName="BookingSiteDBModel.Club">
         <MappingFragment StoreEntitySet="Clubs">
           <ScalarProperty Name="ClubID" ColumnName="ClubID" />
           <ScalarProperty Name="ClubName" ColumnName="ClubName" />
@@ -28,7 +28,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="CustomerBookings">
-      <EntityTypeMapping TypeName="BookingSiteDBModels.CustomerBooking">
+      <EntityTypeMapping TypeName="BookingSiteDBModel.CustomerBooking">
         <MappingFragment StoreEntitySet="CustomerBookings">
           <ScalarProperty Name="BookingID" ColumnName="BookingID" />
           <ScalarProperty Name="ClassID" ColumnName="ClassID" />
@@ -38,7 +38,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="CustomerPasswords">
-      <EntityTypeMapping TypeName="BookingSiteDBModels.CustomerPassword">
+      <EntityTypeMapping TypeName="BookingSiteDBModel.CustomerPassword">
         <MappingFragment StoreEntitySet="CustomerPasswords">
           <ScalarProperty Name="CusLoginID" ColumnName="CusLoginID" />
           <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
@@ -49,7 +49,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Customers">
-      <EntityTypeMapping TypeName="BookingSiteDBModels.Customer">
+      <EntityTypeMapping TypeName="BookingSiteDBModel.Customer">
         <MappingFragment StoreEntitySet="Customers">
           <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
           <ScalarProperty Name="FirstName" ColumnName="FirstName" />
@@ -63,8 +63,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="GradeBelts">
+      <EntityTypeMapping TypeName="BookingSiteDBModel.GradeBelt">
+        <MappingFragment StoreEntitySet="GradeBelts">
+          <ScalarProperty Name="BeltLevel" ColumnName="BeltLevel" />
+          <ScalarProperty Name="BeltLevelColour" ColumnName="BeltLevelColour" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="InstructorPasswords">
-      <EntityTypeMapping TypeName="BookingSiteDBModels.InstructorPassword">
+      <EntityTypeMapping TypeName="BookingSiteDBModel.InstructorPassword">
         <MappingFragment StoreEntitySet="InstructorPasswords">
           <ScalarProperty Name="LoginID" ColumnName="LoginID" />
           <ScalarProperty Name="InstructorID" ColumnName="InstructorID" />
@@ -75,7 +83,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Instructors">
-      <EntityTypeMapping TypeName="BookingSiteDBModels.Instructor">
+      <EntityTypeMapping TypeName="BookingSiteDBModel.Instructor">
         <MappingFragment StoreEntitySet="Instructors">
           <ScalarProperty Name="InstructorID" ColumnName="InstructorID" />
           <ScalarProperty Name="ClubID" ColumnName="ClubID" />
@@ -90,7 +98,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="OrderProductItems">
-      <EntityTypeMapping TypeName="BookingSiteDBModels.OrderProductItem">
+      <EntityTypeMapping TypeName="BookingSiteDBModel.OrderProductItem">
         <MappingFragment StoreEntitySet="OrderProductItems">
           <ScalarProperty Name="ProductItemID" ColumnName="ProductItemID" />
           <ScalarProperty Name="OrderID" ColumnName="OrderID" />
@@ -100,7 +108,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Orders">
-      <EntityTypeMapping TypeName="BookingSiteDBModels.Order">
+      <EntityTypeMapping TypeName="BookingSiteDBModel.Order">
         <MappingFragment StoreEntitySet="Orders">
           <ScalarProperty Name="OrderID" ColumnName="OrderID" />
           <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
@@ -117,7 +125,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="OrderStatuses">
-      <EntityTypeMapping TypeName="BookingSiteDBModels.OrderStatus">
+      <EntityTypeMapping TypeName="BookingSiteDBModel.OrderStatus">
         <MappingFragment StoreEntitySet="OrderStatuses">
           <ScalarProperty Name="OrderStatusID" ColumnName="OrderStatusID" />
           <ScalarProperty Name="Description" ColumnName="Description" />
@@ -125,7 +133,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Products">
-      <EntityTypeMapping TypeName="BookingSiteDBModels.Product">
+      <EntityTypeMapping TypeName="BookingSiteDBModel.Product">
         <MappingFragment StoreEntitySet="Products">
           <ScalarProperty Name="ProductID" ColumnName="ProductID" />
           <ScalarProperty Name="ProductName" ColumnName="ProductName" />
@@ -136,7 +144,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="sysdiagrams">
-      <EntityTypeMapping TypeName="BookingSiteDBModels.sysdiagram">
+      <EntityTypeMapping TypeName="BookingSiteDBModel.sysdiagram">
         <MappingFragment StoreEntitySet="sysdiagrams">
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="principal_id" ColumnName="principal_id" />

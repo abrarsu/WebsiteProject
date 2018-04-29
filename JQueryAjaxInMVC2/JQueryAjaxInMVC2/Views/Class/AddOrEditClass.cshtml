@@ -33,7 +33,6 @@
 </script>
 
 
-
 @using (Html.BeginForm("SaveClass", "Class", FormMethod.Post, new { enctype = "multipart/form-data", onSubmit = "return jQueryAjaxPostClass(this);", data_restUrl = Url.Action("AddOrEditClass", "Class", new { id = 0 }) }))//data-resetUrl
 {
     @Html.AntiForgeryToken()

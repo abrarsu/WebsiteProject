@@ -41,5 +41,7 @@ namespace JQueryAjaxInMVC2.Models
         [MinLength(6, ErrorMessage = "Minimum 6 characters required")]
         [MaxLength(10, ErrorMessage = "Maximum 10 characters required")]
         public string Password { get; set; }
+
+        public string BeltLevelColour { get; set; }
     }
 }

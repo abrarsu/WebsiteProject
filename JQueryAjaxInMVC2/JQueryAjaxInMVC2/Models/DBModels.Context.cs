@@ -30,6 +30,7 @@ namespace JQueryAjaxInMVC2.Models
         public virtual DbSet<CustomerBooking> CustomerBookings { get; set; }
         public virtual DbSet<CustomerPassword> CustomerPasswords { get; set; }
         public virtual DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<GradeBelt> GradeBelts { get; set; }
         public virtual DbSet<InstructorPassword> InstructorPasswords { get; set; }
         public virtual DbSet<Instructor> Instructors { get; set; }
         public virtual DbSet<OrderProductItem> OrderProductItems { get; set; }

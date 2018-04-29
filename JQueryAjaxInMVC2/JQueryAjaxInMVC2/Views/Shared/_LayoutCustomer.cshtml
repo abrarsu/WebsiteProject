@@ -30,8 +30,8 @@
 
         <div class="navbar-collapse collapse" id=".navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><a href="#">Home</a></li>
-                <li><a href="~/Views/Customer/Index.cshtml">Register</a></li>
+                <li>@Html.ActionLink("Home", "Index", "Customer")</li>
+                <li>@Html.ActionLink("Register", "RegisterOrEdit", "Customer")</li>
 
             </ul>
 
@@ -58,8 +58,8 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 
-    @*<script src="~/Scripts/Scripts.js"></script>
-    <script src="~/Scripts/notify.min.js"></script>*@
+    <script src="~/Scripts/Scripts.js"></script>
+    <script src="~/Scripts/notify.min.js"></script>
 
 </body>
 </html>

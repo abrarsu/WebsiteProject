@@ -36,6 +36,7 @@ namespace JQueryAjaxInMVC2.Models
         public virtual ICollection<CustomerBooking> CustomerBookings { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CustomerPassword> CustomerPasswords { get; set; }
+        public virtual GradeBelt GradeBelt { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Orders { get; set; }
     }
