@@ -85,7 +85,7 @@ namespace JQueryAjaxInMVC2.Controllers
 
                     db.SaveChanges();
 
-                    return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "Index"), message = "Updated Successfully" }, JsonRequestBehavior.AllowGet);
+                    return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "Index", Index()), message = "Updated Successfully" }, JsonRequestBehavior.AllowGet);
 
 
                 }

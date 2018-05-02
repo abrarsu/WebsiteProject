@@ -31,10 +31,13 @@
         <div class="navbar-collapse collapse" id=".navbar-collapse">
             <ul class="nav navbar-nav">
                 <li>@Html.ActionLink("Home", "Index", "Customer")</li>
-                <li>@Html.ActionLink("Register", "RegisterOrEdit", "Customer")</li>
-
             </ul>
 
+            <ul class="nav navbar-nav navbar-right">
+                <li>@Html.ActionLink("Login", "CustoLogin", "Customer")</li>
+
+                <li>@Html.ActionLink("Register", "RegisterOrEdit", "Customer")</li>
+            </ul>
         </div>
     </div>
 </div>

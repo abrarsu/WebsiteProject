@@ -40,6 +40,11 @@ namespace JQueryAjaxInMVC2.Models
         [DisplayName("Class Name")]
         public string ClubName { get; set; }
 
+        public string ClubDescription { get; set; }
+
+        public Nullable<decimal> ClubMembership { get; set; }
+
+
         [DisplayName("Instructor Name")]
         public string FirstName { get; set; }
 
