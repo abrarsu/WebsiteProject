@@ -4,7 +4,9 @@
     Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
 }
 
+<script>
 
+</script>
 
 @using (Html.BeginForm("SaveCustomer", "Customer", FormMethod.Post, new { enctype = "multipart/form-data", onSubmit = "return jQueryAjaxPostCustomer(this);", data_restUrl = Url.Action("RegisterOrEdit", "Customer", new { id = 0 }) }))//data-resetUrl
 {
@@ -104,3 +106,4 @@
   </div>
 
 }
+

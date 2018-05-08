@@ -13,6 +13,47 @@ namespace JQueryAjaxInMVC2.Controllers
         // GET: Customer
         public ActionResult Index()
         {
+            return View(GetAllClasses());
+        }
+
+        public IEnumerable<ClassViewModel> GetAllClasses()
+        {
+            using (DBModel db = new DBModel())
+            {
+                IEnumerable<Class> classList = db.Classes.ToList();
+                //ClassViewModel classVM = new ClassViewModel();
+
+                IEnumerable<ClassViewModel> classVMList = classList.Select(x => new ClassViewModel
+                {
+                    ClassID = x.ClassID,
+                    ClubID = x.ClubID,
+                    ClubName = x.Club.ClubName,
+                    FirstName = x.Instructor.FirstName,
+                    LastName = x.Instructor.LastName,
+                    ClassDate = x.ClassDate,
+                    ClassTime = x.ClassTime,
+                    ClassGIAGPrice = x.ClassGIAGPrice,
+                    VenueName = x.VenueName,
+                    AddressLine1 = x.AddressLine1,
+                    AddressLine2 = x.AddressLine2,
+                    Postcode = x.Postcode
+                }).ToList();
+
+
+                // return db.Classes.ToList<Class>();
+                return classVMList;
+            }
+
+        }
+
+        public ActionResult AddBooking()
+        {
+            DBModel db = new DBModel();
+
+            BookingViewModel model = new BookingViewModel();
+
+
+            
             return View();
         }
 

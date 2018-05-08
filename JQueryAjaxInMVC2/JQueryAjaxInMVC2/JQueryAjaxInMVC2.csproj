@@ -144,6 +144,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="GlobalClass.cs" />
+    <Compile Include="Models\BookingViewModel.cs" />
     <Compile Include="Models\Class.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
     </Compile>
