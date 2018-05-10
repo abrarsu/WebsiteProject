@@ -288,7 +288,7 @@ function DeleteClass(url) {
 
 //////////////////////////////////////CUSTOMER CRUD FUNCTIONALITY///////////////////////////////////
 
-//Post Customer
+//Post - Customer Registration
 function jQueryAjaxPostCustomer(form)
 {
     $.validator.unobtrusive.parse(form);
@@ -321,4 +321,10 @@ function jQueryAjaxPostCustomer(form)
         $.ajax(ajaxConfig);
     }
     return false;
+}
+
+//Post - Add Booking 
+function JQueryAjaxPostBooking(url)
+{
+
 }

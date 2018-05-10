@@ -46,15 +46,22 @@ namespace JQueryAjaxInMVC2.Controllers
 
         }
 
-        public ActionResult AddBooking()
+        [HttpPost]
+        public ActionResult AddBooking(BookingViewModel model)
         {
             DBModel db = new DBModel();
 
-            BookingViewModel model = new BookingViewModel();
+            CustomerBooking booking = new CustomerBooking();
+            booking.ClassID = model.ClassID;
+            booking.CustomerID = model.CustomerID;
+            booking.BookingTotalCost = model.BookingTotalCost;
 
+            db.CustomerBookings.Add(booking);
+            db.SaveChanges();
 
-            
-            return View();
+            return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "Index"), message = "Registered Successfully" }, JsonRequestBehavior.AllowGet);
+
+            //return View();
         }
 
         public ActionResult RegisterOrEdit(int id = 0)
@@ -126,7 +133,7 @@ namespace JQueryAjaxInMVC2.Controllers
 
                     db.SaveChanges();
 
-                    return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "Index", Index()), message = "Updated Successfully" }, JsonRequestBehavior.AllowGet);
+                    return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "Index"), message = "Updated Successfully" }, JsonRequestBehavior.AllowGet);
 
 
                 }
@@ -164,7 +171,7 @@ namespace JQueryAjaxInMVC2.Controllers
                     db.CustomerPasswords.Add(customPswd);
                     db.SaveChanges();
 
-                    return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "Index"), message = "Registered Successfully" }, JsonRequestBehavior.AllowGet);
+                    return Json(new { success = true, message = "Registered Successfully" }, JsonRequestBehavior.AllowGet);
 
 
                 }
