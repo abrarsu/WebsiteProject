@@ -4,7 +4,6 @@
     Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
 }
 
-@*<h2>Customer Index</h2>*@
 
 <script>
     
@@ -90,7 +89,7 @@
     tr:hover{background-color:#f5f5f5;}
 </style>
 
-<table class="table" id="classTable" sstyle="width: 60%">
+<table id="classTable" class="table  table-bordered" style="width:100%">
     <thead>
         <tr>
             <th>Class Date</th>
@@ -126,6 +125,7 @@
                 
                 <td>
                     <a class="btn btn-primary btn-sm" onclick="BookClass('@Url.Action("AddBooking", "Customer", new { id = @item.ClassID})')"><i class="fa fa-plus"></i> Book</a>
+                    <a class="btn btn-primary btn-sm" onclick="DisplayClub('@Url.Action("DisplayClub", "Customer", new { id = @item.ClubID})')">Club Details</a>
 
                 </td>
             </tr>
@@ -135,4 +135,20 @@
     </tbody>
 </table>
 
+<link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css"  rel="stylesheet"/>
 
+@section scripts{
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+  
+
+    <script>
+        $(document).ready(function () {
+            $('#classTable').DataTable();
+        });
+
+    </script> 
+    
+    
+     }
