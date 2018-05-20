@@ -46,6 +46,16 @@ namespace JQueryAjaxInMVC2.Controllers
 
         }
 
+        public ActionResult ClubInfo(int id)
+        {
+            DBModel db = new DBModel();
+            Club currentClub = new Club();
+
+            currentClub = db.Clubs.Find(id);
+
+            return PartialView("_ClubInfo", currentClub);
+        }
+
         [HttpPost]
         public ActionResult AddBooking(BookingViewModel model)
         {

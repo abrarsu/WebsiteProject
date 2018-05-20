@@ -1,0 +1,33 @@
+﻿@model JQueryAjaxInMVC2.Models.Club
+
+<div>
+    <div class="modal-header">
+        <button type="button" class="close" data-dissmiss="modal" aria-hidden="true">x</button>
+
+        <h4 class="modal-title" id="myModalLabel">Club Information</h4>
+
+    </div>
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ClubName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ClubName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClubDescription)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ClubDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClubMembership)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ClubMembership)
+        </dd>
+    </dl>
+</div>
