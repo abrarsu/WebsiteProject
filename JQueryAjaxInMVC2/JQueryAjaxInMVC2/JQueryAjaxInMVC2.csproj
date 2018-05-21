@@ -134,6 +134,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BookingListController.cs" />
     <Compile Include="Controllers\ClassController.cs" />
     <Compile Include="Controllers\ClubController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
@@ -146,6 +147,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="GlobalClass.cs" />
+    <Compile Include="Models\BookingListViewModel.cs" />
     <Compile Include="Models\BookingViewModel.cs" />
     <Compile Include="Models\Class.cs">
       <DependentUpon>DBModels.tt</DependentUpon>
@@ -327,6 +329,8 @@
     <Content Include="Views\ShoppingCart\Index.cshtml" />
     <Content Include="Views\ShoppingCart\Cart.cshtml" />
     <Content Include="Views\Customer\ClubInfo.cshtml" />
+    <Content Include="Views\BookingList\ViewBookingList.cshtml" />
+    <Content Include="Views\BookingList\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

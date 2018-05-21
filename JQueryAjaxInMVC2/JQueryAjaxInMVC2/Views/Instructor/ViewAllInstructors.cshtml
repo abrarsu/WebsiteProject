@@ -5,9 +5,13 @@
     Layout = null;
 }
 
+<style>
+    tr:hover {
+        background-color: #f5f5f5;
+    }
+</style>
 
-
-<table class="table" id="instructorTable">
+<table id="instructorTable" class="table table-bordered" style="width:100%" >
     <thead>
             <tr>
                 <th>Name</th>
@@ -28,7 +32,6 @@
                 {
                     <tr>
                         <td>@item.FirstName @item.LastName</td>
-                        @*<td>@item.LastName</td>*@
                         <td>@item.ClubName</td>
                         <td>@item.Username</td>
                         <td>@item.Email</td>

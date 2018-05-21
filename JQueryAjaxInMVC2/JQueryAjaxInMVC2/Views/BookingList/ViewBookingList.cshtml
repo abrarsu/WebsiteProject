@@ -1,0 +1,74 @@
+﻿@model IEnumerable<JQueryAjaxInMVC2.Models.BookingViewModel>
+@{
+    ViewBag.Title = "ViewBookingList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4>Bookings List</h4>
+
+<style>
+    tr:hover {
+        background-color: #f5f5f5;
+    }
+</style>
+
+<table id="bookingsTable" class="table  table-bordered" style="width:100%">
+    <thead>
+        <tr>
+            <th>Customer Name</th>
+            <th>Belt Grade</th>
+            <th>Class Name</th>
+            <th>Instructor Name</th>
+            <th>Class Date Time</th>
+            <th>Venue Address</th>
+            <th>GIAG Price</th>
+           
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.FirstName @item.LastName</td>
+                <td>@item.BeltLevelColour</td>
+                <td>@item.ClubName</td>
+                <td>@item.instrFirstName @item.instrLastName</td>
+                <td>
+                    <strong>Date:</strong> @item.ClassDate.ToString("dd/MM/yyyy")
+                    <br />
+                    <strong>Time:</strong> @item.ClassTime</td>
+                <td>
+                    @item.VenueName,
+                    <br />
+                    @item.AddressLine1,
+                    <br />
+                    @item.AddressLine2,
+                    <br />
+                    @item.Postcode
+                </td>
+                <td>@item.ClassGIAGPrice</td>
+               
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+<link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+
+@section scripts{
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+
+
+    <script>
+        $(document).ready(function () {
+            $('#bookingsTable').DataTable();
+        });
+
+    </script>
+
+}
