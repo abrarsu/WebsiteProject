@@ -7,18 +7,18 @@ namespace JQueryAjaxInMVC2.Controllers
 {
     public class Item
     {
-        private CustomerBooking booking = new CustomerBooking();
+        private Class bookclass = new Class();
 
-        public CustomerBooking Booking
+        public Class BookClass
         {
             get
             {
-                return booking;
+                return bookclass;
             }
 
             set
             {
-                booking = value;
+                bookclass = value;
             }
         }
 
@@ -42,9 +42,9 @@ namespace JQueryAjaxInMVC2.Controllers
 
         }
 
-        public Item(CustomerBooking booking, int quantity)
+        public Item(Class bookclass, int quantity)
         {
-            this.Booking = booking;
+            this.BookClass = bookclass;
             this.Quantity = quantity;
         }
 

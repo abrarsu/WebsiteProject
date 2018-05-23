@@ -55,6 +55,20 @@ namespace JQueryAjaxInMVC2.Controllers
 
             return PartialView("_ClubInfo", currentClub);
         }
+        //this is to copy the selected classto a differet table to be saved to the da
+        public ActionResult SelectedClass(int id = 0)
+        {
+            DBModel db = new DBModel();
+            Class selectedClass = new Class();
+            ClassViewModel model = new ClassViewModel();
+            if (id != 0)
+            {   
+               selectedClass = db.Classes.SingleOrDefault(x => x.ClassID == id);
+
+            }
+            return View(selectedClass);
+        }
+
 
         [HttpPost]
         public ActionResult AddBooking(BookingViewModel model)
@@ -181,7 +195,8 @@ namespace JQueryAjaxInMVC2.Controllers
                     db.CustomerPasswords.Add(customPswd);
                     db.SaveChanges();
 
-                    return Json(new { success = true, message = "Registered Successfully" }, JsonRequestBehavior.AllowGet);
+                    //return Json(new { success = true, message = "Registered Successfully" }, JsonRequestBehavior.AllowGet);
+                    return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "Index", GetAllClasses()), message = "Registered Successfully" }, JsonRequestBehavior.AllowGet);
 
 
                 }

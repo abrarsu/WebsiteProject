@@ -8,6 +8,11 @@
 
 </script>
 
+
+
+<br />
+<br />
+
 @using (Html.BeginForm("SaveCustomer", "Customer", FormMethod.Post, new { enctype = "multipart/form-data", onSubmit = "return jQueryAjaxPostCustomer(this);", data_restUrl = Url.Action("RegisterOrEdit", "Customer", new { id = 0 }) }))//data-resetUrl
 {
     @Html.AntiForgeryToken()
@@ -98,13 +103,16 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input id="btnSave" type="submit" value="Save" class="btn btn-default" />
+                <input id="btnSave" type="submit" value="Submit" class="btn btn-default" />
 
             </div>
 
         </div>
 
-  </div>
-
+    </div>
 }
 
+
+<div class="form-group">
+
+</div>
