@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using System.Web.Security;
 
 namespace JQueryAjaxInMVC2.Controllers
 {
@@ -55,6 +55,7 @@ namespace JQueryAjaxInMVC2.Controllers
 
             return PartialView("_ClubInfo", currentClub);
         }
+
         //this is to copy the selected classto a differet table to be saved to the da
         public ActionResult SelectedClass(int id = 0)
         {
@@ -78,16 +79,17 @@ namespace JQueryAjaxInMVC2.Controllers
             CustomerBooking booking = new CustomerBooking();
             booking.ClassID = model.ClassID;
             booking.CustomerID = model.CustomerID;
-            booking.BookingTotalCost = model.BookingTotalCost;
+            booking.BookingTotalCost = model.ClassGIAGPrice;
 
             db.CustomerBookings.Add(booking);
             db.SaveChanges();
 
-            return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "Index"), message = "Registered Successfully" }, JsonRequestBehavior.AllowGet);
-
-            //return View();
+            return View();
+            //return RedirectAction("Checkout", "Customer");
         }
 
+
+        //returns/displays the registeration form
         public ActionResult RegisterOrEdit(int id = 0)
         {
             DBModel db = new DBModel();
@@ -119,9 +121,12 @@ namespace JQueryAjaxInMVC2.Controllers
             return View(model);
         }
 
+        //Checks if customer exists first if not saves to database
+    
         [HttpPost]
         public ActionResult SaveCustomer(CustomerViewModel model)
         {
+            
             try
             {
                 DBModel db = new DBModel();
@@ -131,7 +136,7 @@ namespace JQueryAjaxInMVC2.Controllers
 
                 if (model.CustomerID > 0)
                 {
-                    //update
+                    //this part update data of existing customers
                     Customer customer = db.Customers.SingleOrDefault(x => x.CustomerID == model.CustomerID);
                     customer.FirstName = model.FirstName;
                     customer.LastName = model.LastName;
@@ -163,7 +168,8 @@ namespace JQueryAjaxInMVC2.Controllers
                 }
                 else
                 {
-                    //insert
+                    
+                   //insert
                     Customer custom = new Customer();
                     custom.FirstName = model.FirstName;
                     custom.LastName = model.LastName;
@@ -195,13 +201,15 @@ namespace JQueryAjaxInMVC2.Controllers
                     db.CustomerPasswords.Add(customPswd);
                     db.SaveChanges();
 
-                    //return Json(new { success = true, message = "Registered Successfully" }, JsonRequestBehavior.AllowGet);
-                    return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "Index", GetAllClasses()), message = "Registered Successfully" }, JsonRequestBehavior.AllowGet);
+                    return RedirectToAction("Index", "Customer");
 
+                        //return Json(new { success = true, message = "Registered Successfully" }, JsonRequestBehavior.AllowGet);
 
+                        //return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "Index", GetAllClasses()), message = "Registered Successfully" },JsonRequestBehavior.AllowGet);  
                 }
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
 
@@ -209,20 +217,60 @@ namespace JQueryAjaxInMVC2.Controllers
             //return View();
         }
 
-        //private bool IsValid(string username, string password)
-        //{
-        //    var crypto = new SimpleCrypto.PBKDF2();
-
-        //    bool isValid = false;
-
-        //    using (var db = new DBModel())
-        //    {
-
-        //    }
 
 
 
-        //    return isValid;
-        //}
+        [HttpGet]
+        public ActionResult customerLogin()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CustomerLogin(CustomerViewModel customer)
+        {
+            if(ModelState.IsValid)
+            {
+                if(IsValid(customer.Username, customer.Password))
+                {
+                    FormsAuthentication.SetAuthCookie(customer.Username, false);
+                    return RedirectToAction("Index", "Customer");
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("", "Login Data is incorrect");
+            }
+            return View(customer);
+        }
+
+
+
+        public ActionResult CustomerLogout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Customer");
+        }
+
+        private bool IsValid(string username, string password)
+        {
+            var crypto = new SimpleCrypto.PBKDF2();
+
+            bool isValid = false;
+
+            using (var db = new DBModel())
+            {
+                var customer = db.CustomerPasswords.FirstOrDefault(c => c.Username == username);
+                if (customer != null)
+                {
+                    if (customer.Password == crypto.Compute(password, customer.Salt))
+                    {
+                        isValid = true;
+                    }
+                }
+            }
+
+            return isValid;
+        }
     }
 }

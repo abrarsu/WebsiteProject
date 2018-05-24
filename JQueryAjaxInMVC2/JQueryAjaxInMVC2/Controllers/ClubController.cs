@@ -10,7 +10,9 @@ namespace JQueryAjaxInMVC2.Controllers
 {
     public class ClubController : Controller
     {
+
         // GET: Club
+        [Authorize]
         public ActionResult Index()
         {
             return View();

@@ -16,6 +16,7 @@
 @using (Html.BeginForm("SaveCustomer", "Customer", FormMethod.Post, new { enctype = "multipart/form-data", onSubmit = "return jQueryAjaxPostCustomer(this);", data_restUrl = Url.Action("RegisterOrEdit", "Customer", new { id = 0 }) }))//data-resetUrl
 {
     @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "Register customer failed, check you details")
 
     <div class="form-horizontal" style="width: auto">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -107,12 +108,14 @@
 
             </div>
 
+            @*<div class="col-md-offset-2 col-md-10">
+                <input type="button" value="Go back to Home page" class="btn btn-info btn-sm" onclick="location.href='@Url.Action("Index", "Customer")'" />
+
+            </div>*@
+
         </div>
 
     </div>
 }
 
 
-<div class="form-group">
-
-</div>

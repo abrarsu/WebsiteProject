@@ -331,6 +331,8 @@
     <Content Include="Views\Customer\ClubInfo.cshtml" />
     <Content Include="Views\BookingList\ViewBookingList.cshtml" />
     <Content Include="Views\BookingList\Index.cshtml" />
+    <Content Include="Views\Customer\customerLogin.cshtml" />
+    <Content Include="Views\Customer\CustomerLogout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -12,6 +12,7 @@ namespace JQueryAjaxInMVC2.Controllers
     public class ClassController : Controller
     {
         // GET: Class
+        [Authorize]
         public ActionResult Index()
         {
             return View();

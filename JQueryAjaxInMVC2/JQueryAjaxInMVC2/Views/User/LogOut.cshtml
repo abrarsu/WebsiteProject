@@ -1,8 +1,35 @@
 ﻿
 @{
     ViewBag.Title = "LogOut";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
 }
 
-<h2>Thank you </h2>
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable = no" name="viewport">
 
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+<style type="text/css">
+    h2 {
+        text-align: center;
+    }
+
+    h2 {
+        text-align: center;
+    }
+
+     div {
+        text-align: center;
+    }
+</style>
+
+<h2>Thank you for using our system</h2>
+<h2>To log back in click the login button below</h2>
+
+
+
+<div>
+     <input type="button" value="Login" class="btn btn-info btn-lg btn-block btn-huge" onclick="location.href='@Url.Action("Login", "User")'" />
+   
+</div>	       

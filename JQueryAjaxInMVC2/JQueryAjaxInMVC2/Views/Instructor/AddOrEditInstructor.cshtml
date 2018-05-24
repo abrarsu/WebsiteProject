@@ -12,7 +12,7 @@
 
     <div class="form-horizontal" style="width: auto">
 
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.ValidationSummary(true, "Data entered invalid, Please try again", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.InstructorID)
 
         <div class="form-group">

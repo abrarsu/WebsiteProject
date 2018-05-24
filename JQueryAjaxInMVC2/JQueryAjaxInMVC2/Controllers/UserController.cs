@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JQueryAjaxInMVC2.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -22,8 +23,9 @@ namespace JQueryAjaxInMVC2.Controllers
         }
 
         [HttpPost]
-        public ActionResult LogIn(Models.InstructorViewModel instructor)
+        public ActionResult LogIn(InstructorPassword instructor)
         {
+            DBModel db = new DBModel();
             if (ModelState.IsValid)
             {
                 if(IsValid(instructor.Username, instructor.Password))
@@ -33,7 +35,9 @@ namespace JQueryAjaxInMVC2.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Login Data is incorrect.");
+                   
+                   ModelState.AddModelError("", "Invalid user!");
+                    
                 }
 
             }
@@ -43,8 +47,8 @@ namespace JQueryAjaxInMVC2.Controllers
         public ActionResult LogOut()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction("LogOut", "User");
-            //return View();
+            //return RedirectToAction("LogOut", "User");
+            return View();
         }
 
 

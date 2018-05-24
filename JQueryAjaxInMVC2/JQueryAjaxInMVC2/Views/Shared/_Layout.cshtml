@@ -7,12 +7,14 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>*@
+    @* if issues starts to happen comment out these 2 below *@
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     
 
 </head>
 <body>
+
     <div class="navbar navbar-inverse navbar-fixed-top" >
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -26,15 +28,7 @@
 
             <div class="navbar-collapse collapse" id=".navbar-collapse">
                
-                @if (Request.IsAuthenticated)
-                {
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>@*<span class="glyphicon glyphicon-log-in"></span>*@@Html.ActionLink("Login", "LogIn", "User")</li>
-                    </ul>
-
-
-                }
-                else
+                @if (User.Identity.IsAuthenticated)
                 {
 
                     <ul class="nav navbar-nav">
@@ -46,10 +40,25 @@
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
-                        <li>@Html.Encode(User.Identity.Name)</li>
-                        <li>@*<span class="glyphicon glyphicon-log-out"></span>*@@Html.ActionLink("Log out", "LogOut", "User")</li>
+                        <li><a href="#">Welcome: @User.Identity.Name</a></li>
+                        <li>@Html.ActionLink("Log out", "LogOut", "User")</li>
                     </ul>
 
+                }
+                else
+                {
+                    @*<ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Clubs", "Index", "Club")</li>
+                        <li>@Html.ActionLink("Instructors", "Index", "Instructor")</li>
+                        <li>@Html.ActionLink("Classes", "Index", "Class")</li>
+                        <li>@Html.ActionLink("Bookings", "ViewBookingList", "BookingList")</li>
+                    </ul>*@
+
+                    <ul class="nav navbar-nav">
+                        @*<li>@Html.Encode(User.Identity.Name)</li>*@
+                        <li>@Html.ActionLink("Login", "LogIn", "User")</li>
+                    </ul>
 
                 }
 

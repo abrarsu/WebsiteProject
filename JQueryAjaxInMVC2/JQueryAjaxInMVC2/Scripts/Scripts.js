@@ -300,7 +300,7 @@ function jQueryAjaxPostCustomer(form)
             data: new FormData(form),
             success: function (response) {
                 if (response.success) {
-                    $("Index").html(response.html);
+                    $("#Index").html(response.html);
                     //refreshAddNewTab($(form).attr('data-restUrl'), true);
                     //success message 
                     $.notify(response.message, "success");
@@ -326,5 +326,22 @@ function jQueryAjaxPostCustomer(form)
 //Post - Add Booking 
 function JQueryAjaxPostBooking(url)
 {
+    if (confirm('Are you sure you want to Book this Class?') == true) {
+        $.ajax({
+            type: 'POST',
+            url: url,
+            success: function (response) {
+                if (response.success) {
+                    $("#Index").html(response.html);
+                    //success message 
+                    $.notify(response.message, "success");
+                }
+                else {
+                    $.notify(response.message, "error");
+                }
+            }
+        });
+
+    }
 
 }

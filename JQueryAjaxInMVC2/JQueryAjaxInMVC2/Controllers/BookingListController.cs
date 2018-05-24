@@ -10,11 +10,12 @@ namespace JQueryAjaxInMVC2.Controllers
     public class BookingListController : Controller
     {
         // GET: BookingList
+        [Authorize]
         public ActionResult Index()
         {
             return View();
         }
-
+        [Authorize]
         public ActionResult ViewBookingList()
         {
             return View(GetAllBookings());
