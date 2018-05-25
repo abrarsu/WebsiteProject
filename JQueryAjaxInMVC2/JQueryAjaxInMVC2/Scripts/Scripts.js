@@ -300,7 +300,7 @@ function jQueryAjaxPostCustomer(form)
             data: new FormData(form),
             success: function (response) {
                 if (response.success) {
-                    $("#Index").html(response.html);
+                    $("#classTable").html(response.html);
                     //refreshAddNewTab($(form).attr('data-restUrl'), true);
                     //success message 
                     $.notify(response.message, "success");

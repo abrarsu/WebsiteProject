@@ -31,28 +31,28 @@
         <div class="item active">
             <img src="~/Content/Images/o-KARATE-SILHOUETTE-facebook.jpg" />
             <div class="carousel-caption">
-                <p>There is never a good time Join now</p>
+                <p>There is never a good time, Join now!</p>
             </div>
         </div>
 
         <div class="item ">
             <img src="~/Content/Images/confidence_0.jpg" />
             <div class="carousel-caption">
-                <p>There is never a good time Join now</p>
+                <p>There is never a good time, Join now!</p>
             </div>
         </div>
 
         <div class="item">
             <img src="~/Content/Images/Muay-Thai.jpg" />
             <div class="carousel-caption">
-                <p>There is never a good time Join now</p>
+                <p>There is never a good time, Join now!</p>
             </div>
         </div>
 
         <div class="item">
             <img src="~/Content/Images/celebrate-success-FUN.jpg" />
             <div class="carousel-caption">
-                <p>There is never a good time Join now</p>
+                <p>There is never a good time, Join now!</p>
             </div>
         </div>
 
@@ -118,10 +118,12 @@
                     <br />
                     @item.Postcode
                 </td>
-                
+                            @*new { id =@item.ClubID})*@
                 <td>
-                    <a class="btn btn-info btn-sm" data-toggle="modal" data-target="#bootstapmodal" ><i class="fa fa-info"></i> Club Information</a>
-                    <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#loginORregisterModal"><i class="fa fa-plus"></i> Book</a>
+                    @*<a class="btn btn-info btn-sm" data-toggle="modal" data-target="#bootstapmodal" ><i class="fa fa-info"></i> Club Information</a>*@
+
+                    <a href="#" class="clubDetails" data-id="@item.ClubID"><i class="fa fa-info"></i> Club Information</a>
+                    <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#loginORregisterModal"><i class="fa fa-plus"></i> Book Class</a>
                 </td>
             </tr>
 
@@ -141,18 +143,16 @@ else
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <a href="#" class="close" data-dissmiss="modal">&times;</a>
+                    @*<a href="#" class="close" data-dissmiss="modal">&times;</a>*@
                     <h4 class="modal-title">To book you must Login or Rigister first! </h4>
 
                 </div>
                 <div class="modal-body">
-                    <a href="#loginModal" class="btn btn-default" data-dissmiss="modal">Login</a>
+                    <a href="@Url.Action("customerLogin", "Customer")" class="btn btn-default">Login</a>
                     OR
-                    <a href="#" class="btn btn-default" data-dissmiss="modal">Register</a>
+                    <a href="@Url.Action("RegisterOrEdit", "Customer")" class="btn btn-default">Register</a>
                 </div>
-                <div class="modal-footer">
-                    <a href="#" class="btn btn-danger" data-dissmiss="modal" aria-hidden="true">Close</a>
-                </div>
+                
             </div>
 
         </div>
@@ -160,30 +160,26 @@ else
 }
 
 @*@foreach (var club in Model)
-{*@
+{
     <div class="modal fade " id="bootstapmodal">
         <div class="modal-dialog">
 
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <button type="button" class="close" data-dissmiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    
 
                     <div class="modal-title"><h2>Club Information</h2></div>
 
                 </div>
 
                 <div class="modal-body">
-                    @*<p>@club.ClubName</p>
+                    <p>@club.ClubName</p>
                     <p>@club.ClubDescription</p>
-                    <p>@club.ClubMembership</p>*@
+                    <p>@club.ClubMembership</p>
                 </div>
 
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dissmiss="modal">Close</button>
-                </div>
+              
 
             </div>
 
@@ -191,7 +187,7 @@ else
 
     </div>
 
-@*}*@
+}*@
 
 
 

@@ -9,8 +9,8 @@
     @Scripts.Render("~/bundles/modernizr")
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
     @* if issues starts to happen comment out these 2 below *@
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>*@
 
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="~/Content/bootstrap.css" />
@@ -44,8 +44,15 @@
               
                 @if (Request.IsAuthenticated)
                 {
-                    <li>@Html.Encode(User.Identity.Name)</li>
-                    <li>@Html.ActionLink("Sign out", "Logout", "Customer")</li>
+                    @*<li>@Html.Encode(User.Identity.Name)</li>*@
+                    @*<li>@Html.ActionLink("Sign out", "Logout", "Customer")</li>*@
+                    <li><a href="#"><strong> Welcome: @User.Identity.Name</strong></a></li>
+
+                    <li>
+                        <a href="@Url.Action("CustomerLogout", "Customer")" class="btn btn-lg">
+                            <span class="glyphicon glyphicon-log-out" style="color:burlywood"></span>  Sign out
+                        </a>
+                    </li>
                 }
                 else
                 {

@@ -28,6 +28,8 @@ namespace JQueryAjaxInMVC2.Controllers
                     ClassID = x.ClassID,
                     ClubID = x.ClubID,
                     ClubName = x.Club.ClubName,
+                    ClubDescription = x.Club.ClubDescription,
+                    ClubMembership = x.Club.ClubMembership,
                     FirstName = x.Instructor.FirstName,
                     LastName = x.Instructor.LastName,
                     ClassDate = x.ClassDate,
@@ -46,6 +48,7 @@ namespace JQueryAjaxInMVC2.Controllers
 
         }
 
+        //use to display club detials into a patial view not working at the moment
         public ActionResult ClubInfo(int id)
         {
             DBModel db = new DBModel();
@@ -122,7 +125,6 @@ namespace JQueryAjaxInMVC2.Controllers
         }
 
         //Checks if customer exists first if not saves to database
-    
         [HttpPost]
         public ActionResult SaveCustomer(CustomerViewModel model)
         {
@@ -203,9 +205,8 @@ namespace JQueryAjaxInMVC2.Controllers
 
                     return RedirectToAction("Index", "Customer");
 
-                        //return Json(new { success = true, message = "Registered Successfully" }, JsonRequestBehavior.AllowGet);
 
-                        //return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "Index", GetAllClasses()), message = "Registered Successfully" },JsonRequestBehavior.AllowGet);  
+                    //return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "Index", GetAllClasses()), message = "Registered Successfully" },JsonRequestBehavior.AllowGet);  
                 }
 
             }
@@ -219,15 +220,16 @@ namespace JQueryAjaxInMVC2.Controllers
 
 
 
-
+        //Displays the login form
         [HttpGet]
         public ActionResult customerLogin()
         {
             return View();
         }
 
+        //checks if login details are correct and redirects to the relavent page
         [HttpPost]
-        public ActionResult CustomerLogin(CustomerViewModel customer)
+        public ActionResult CustomerLogin(CustomerPassword customer)
         {
             if(ModelState.IsValid)
             {
@@ -245,13 +247,15 @@ namespace JQueryAjaxInMVC2.Controllers
         }
 
 
-
+        //logs out user and takes them back to home page
         public ActionResult CustomerLogout()
         {
             FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Customer");
         }
 
+        //validates and matvhes the data the user enters with the data already existing 
+        //in the database
         private bool IsValid(string username, string password)
         {
             var crypto = new SimpleCrypto.PBKDF2();
