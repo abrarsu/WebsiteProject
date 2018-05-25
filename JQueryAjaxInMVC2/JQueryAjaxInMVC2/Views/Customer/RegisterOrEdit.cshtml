@@ -4,11 +4,6 @@
     Layout = "~/Views/Shared/_LayoutCustomer.cshtml";
 }
 
-<script>
-
-</script>
-
-
 
 <br />
 <br />
@@ -116,6 +111,17 @@
         </div>
 
     </div>
+}
+
+//doesnt work
+if(ViewBag.Message != null)
+{
+    <script>
+        $(document).ready(function () {
+            alert('@ViewBag.Message');
+        });
+    </script>
+
 }
 
 

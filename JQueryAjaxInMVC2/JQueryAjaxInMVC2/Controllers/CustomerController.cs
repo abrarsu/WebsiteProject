@@ -1,6 +1,7 @@
 ﻿using JQueryAjaxInMVC2.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -22,6 +23,18 @@ namespace JQueryAjaxInMVC2.Controllers
             {
                 IEnumerable<Class> classList = db.Classes.ToList();
                 //ClassViewModel classVM = new ClassViewModel();
+
+                var classList2 = from m in db.Classes select m;
+
+                //IEnumerable<ClassViewModel> classVMList;
+
+                //foreach (var l in classList2)
+                //{
+                //    ClassViewModel newModel = new ClassViewModel();
+                //    newModel.ClubID = l.ClubID;
+                //    newModel.ClubName = l.
+                //    classVMList.ToList().Add(l);
+                //}
 
                 IEnumerable<ClassViewModel> classVMList = classList.Select(x => new ClassViewModel
                 {
@@ -47,6 +60,7 @@ namespace JQueryAjaxInMVC2.Controllers
             }
 
         }
+
 
         //use to display club detials into a patial view not working at the moment
         public ActionResult ClubInfo(int id)
@@ -75,19 +89,26 @@ namespace JQueryAjaxInMVC2.Controllers
 
 
         [HttpPost]
-        public ActionResult AddBooking(BookingViewModel model)
+        public ActionResult AddBooking(BookingViewModel model, int id)
         {
             DBModel db = new DBModel();
-
+            int t = db.CustomerBookings.Count();
+            Debug.Write("DB info: " + t);
             CustomerBooking booking = new CustomerBooking();
-            booking.ClassID = model.ClassID;
-            booking.CustomerID = model.CustomerID;
-            booking.BookingTotalCost = model.ClassGIAGPrice;
+            //booking.ClassID = db.Classes.Where(x => x.ClassID == id).FirstOrDefault().ClassID;
+            var s = db.Classes.Where(x => x.ClassID == id);
+            foreach(var r in s)
+            {
+                booking.ClassID = r.ClassID;
+                booking.BookingTotalCost = r.ClassGIAGPrice;
+            }
+            booking.CustomerID = db.CustomerPasswords.Where(x => x.Username == System.Web.HttpContext.Current.User.Identity.Name).FirstOrDefault().CustomerID;
+            //booking.BookingTotalCost = db.Classes.Where(x => x.ClassGIAGPrice == id).FirstOrDefault().ClassGIAGPrice;
 
             db.CustomerBookings.Add(booking);
             db.SaveChanges();
 
-            return View();
+            return View(model);
             //return RedirectAction("Checkout", "Customer");
         }
 
@@ -203,7 +224,10 @@ namespace JQueryAjaxInMVC2.Controllers
                     db.CustomerPasswords.Add(customPswd);
                     db.SaveChanges();
 
+                    ViewBag.Message = "Registered Successfully";
+
                     return RedirectToAction("Index", "Customer");
+
 
 
                     //return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "Index", GetAllClasses()), message = "Registered Successfully" },JsonRequestBehavior.AllowGet);  

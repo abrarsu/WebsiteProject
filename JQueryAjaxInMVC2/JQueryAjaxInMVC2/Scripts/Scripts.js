@@ -324,7 +324,7 @@ function jQueryAjaxPostCustomer(form)
 }
 
 //Post - Add Booking 
-function JQueryAjaxPostBooking(url)
+function PostBooking(url)
 {
     if (confirm('Are you sure you want to Book this Class?') == true) {
         $.ajax({
@@ -332,7 +332,7 @@ function JQueryAjaxPostBooking(url)
             url: url,
             success: function (response) {
                 if (response.success) {
-                    $("#Index").html(response.html);
+                    $("#classTable").html(response.html);
                     //success message 
                     $.notify(response.message, "success");
                 }
