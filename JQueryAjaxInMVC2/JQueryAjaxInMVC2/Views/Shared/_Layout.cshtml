@@ -24,6 +24,7 @@
                     </button>
 
                     <a class="navbar-brand" href="#">Martial Arts Class Bookings</a>
+                    <a class="navbar-brand" href="#"><img alt="Brand" src="~/Content/Images/logo.jpg" height="30" width="30"></a>
                 </div>
 
             <div class="navbar-collapse collapse" id=".navbar-collapse">
@@ -47,16 +48,7 @@
                 }
                 else
                 {
-                    @*<ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("Clubs", "Index", "Club")</li>
-                        <li>@Html.ActionLink("Instructors", "Index", "Instructor")</li>
-                        <li>@Html.ActionLink("Classes", "Index", "Class")</li>
-                        <li>@Html.ActionLink("Bookings", "ViewBookingList", "BookingList")</li>
-                    </ul>*@
-
                     <ul class="nav navbar-nav">
-                        @*<li>@Html.Encode(User.Identity.Name)</li>*@
                         <li>@Html.ActionLink("Login", "LogIn", "User")</li>
                     </ul>
 
@@ -74,7 +66,7 @@
             @RenderBody()
             <hr />
             <footer>
-                <p>&copy; @DateTime.Now.Year - Booking Management Application</p>
+                <p>&copy; @DateTime.Now.Year - Martial Arts Class Booking Management Application</p>
             </footer>
         </div>
 

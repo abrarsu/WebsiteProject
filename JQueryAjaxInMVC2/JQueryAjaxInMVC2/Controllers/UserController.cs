@@ -59,7 +59,7 @@ namespace JQueryAjaxInMVC2.Controllers
 
             bool isValid = false;
 
-            using (var db = new Models.DBModel())
+            using (var db = new DBModel())
             {
                 var instructor = db.InstructorPasswords.FirstOrDefault(u => u.Username == username);
 

@@ -40,9 +40,12 @@ namespace JQueryAjaxInMVC2.Controllers
                 {
                     ClassID = x.ClassID,
                     ClubID = x.ClubID,
-                    ClubName = x.Club.ClubName,
-                    ClubDescription = x.Club.ClubDescription,
-                    ClubMembership = x.Club.ClubMembership,
+                    //ClubName = x.Club.ClubName,
+                    //ClubDescription = x.Club.ClubDescription,
+                    //ClubMembership = x.Club.ClubMembership,
+                    ClubName = db.Clubs.SingleOrDefault(y => y.ClubID == x.ClubID).ClubName,
+                    ClubDescription = db.Clubs.SingleOrDefault(y => y.ClubID == x.ClubID).ClubDescription,
+                    ClubMembership = db.Clubs.SingleOrDefault(y => y.ClubID == x.ClubID).ClubMembership,
                     FirstName = x.Instructor.FirstName,
                     LastName = x.Instructor.LastName,
                     ClassDate = x.ClassDate,
@@ -108,8 +111,8 @@ namespace JQueryAjaxInMVC2.Controllers
             db.CustomerBookings.Add(booking);
             db.SaveChanges();
 
-            return View(model);
-            //return RedirectAction("Checkout", "Customer");
+            //return View(model);
+            return RedirectToAction("AddBooking", "Customer");
         }
 
 
@@ -278,7 +281,7 @@ namespace JQueryAjaxInMVC2.Controllers
             return RedirectToAction("Index", "Customer");
         }
 
-        //validates and matvhes the data the user enters with the data already existing 
+        //validates and matches the data the user enters with the data already existing 
         //in the database
         private bool IsValid(string username, string password)
         {
