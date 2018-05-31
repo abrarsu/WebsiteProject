@@ -341,7 +341,9 @@ function PostBooking(url)
                 }
             }
         });
-
+        alert("Booking Successful");
     }
+
+    
 
 }

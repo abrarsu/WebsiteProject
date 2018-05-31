@@ -65,32 +65,6 @@ namespace JQueryAjaxInMVC2.Controllers
         }
 
 
-        //use to display club detials into a patial view not working at the moment
-        public ActionResult ClubInfo(int id)
-        {
-            DBModel db = new DBModel();
-            Club currentClub = new Club();
-
-            currentClub = db.Clubs.Find(id);
-
-            return PartialView("_ClubInfo", currentClub);
-        }
-
-        //this is to copy the selected classto a differet table to be saved to the da
-        public ActionResult SelectedClass(int id = 0)
-        {
-            DBModel db = new DBModel();
-            Class selectedClass = new Class();
-            ClassViewModel model = new ClassViewModel();
-            if (id != 0)
-            {   
-               selectedClass = db.Classes.SingleOrDefault(x => x.ClassID == id);
-
-            }
-            return View(selectedClass);
-        }
-
-
         [HttpPost]
         public ActionResult AddBooking(BookingViewModel model, int id)
         {
@@ -111,8 +85,48 @@ namespace JQueryAjaxInMVC2.Controllers
             db.CustomerBookings.Add(booking);
             db.SaveChanges();
 
+            //int latestBookingID = booking.BookingID;
+
+
             //return View(model);
-            return RedirectToAction("AddBooking", "Customer");
+            //return Json(new { Status = "success", Message = "Booking Successfully" });
+
+            
+            return RedirectToAction("BookingSummary", "Customer");
+        }
+
+        //Display Cusotmer Bookingsummary
+        public ActionResult BookingSummary()
+        {
+            //DBModel db = new DBModel();
+
+            //CustomerBooking bookedClass = db.CustomerBookings.OrderByDescending(x => x.BookingID).Last();
+
+
+            //BookingID = latestBookingID;
+            //ClassID = x.ClassID,
+            //ClubID = x.Class.ClubID,
+            //ClubName = x.Class.Club.ClubName,
+            //ClassDate = x.Class.ClassDate,
+            //ClassTime = x.Class.ClassTime,
+            //InstructorID = x.Class.InstructorID,
+            //instrFirstName = x.Class.Instructor.FirstName,
+            //instrLastName = x.Class.Instructor.LastName,
+            //CustomerID = x.CustomerID,
+            //FirstName = x.Customer.FirstName,
+            //LastName = x.Customer.LastName,
+            //BeltLevel = x.Customer.GradeBelt.BeltLevel,
+            //BeltLevelColour = x.Customer.GradeBelt.BeltLevelColour,
+            //ClassGIAGPrice = x.Class.ClassGIAGPrice,
+            //VenueName = x.Class.VenueName,
+            //AddressLine1 = x.Class.AddressLine1,
+            //AddressLine2 = x.Class.AddressLine2,
+            //Postcode = x.Class.Postcode
+
+
+
+
+            return View();
         }
 
 
@@ -229,17 +243,19 @@ namespace JQueryAjaxInMVC2.Controllers
 
                     ViewBag.Message = "Registered Successfully";
 
-                    return RedirectToAction("Index", "Customer");
+                    return Json(new { Status = "success", Message = "Registered Successfully" });
 
+                    //return RedirectToAction("Index", "Customer");
 
-
-                    //return Json(new { success = true, html = GlobalClass.RenderRazorViewToString(this, "Index", GetAllClasses()), message = "Registered Successfully" },JsonRequestBehavior.AllowGet);  
+                     
                 }
 
             }
             catch (Exception ex)
             {
-                return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+                //return Json(new { success = false, message = ex.Message }, JsonRequestBehavior.AllowGet);
+                return Json(new { Status = "error", Message = "Registered Failed" });
+
 
             }
             //return View();

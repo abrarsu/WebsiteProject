@@ -162,8 +162,8 @@
     </div>
 
 
-@foreach (var club in Model)
-{
+@*@foreach (var club in Model)
+{*@
     <div class="modal fade " id="bootstapmodal">
         <div class="modal-dialog">
 
@@ -177,9 +177,13 @@
                 </div>
 
                 <div class="modal-body">
+                    @foreach (var club in Model)
+                    {
+
                     <p>@club.ClubName</p>
                     <p>@club.ClubDescription</p>
-                    @*<p>@club.ClubMembership</p>*@
+
+                    }
                 </div>
 
              
@@ -193,7 +197,7 @@
         alert("hello");
     </script>*@
 
-}
+@*}*@
 
 
 
