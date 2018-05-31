@@ -1,5 +1,4 @@
 ﻿/// <autosync enabled="true" />
-/// <reference path="bootstrap.bundle.min.js" />
 /// <reference path="bootstrap.min.js" />
 /// <reference path="esm/popper.min.js" />
 /// <reference path="esm/popper-utils.min.js" />

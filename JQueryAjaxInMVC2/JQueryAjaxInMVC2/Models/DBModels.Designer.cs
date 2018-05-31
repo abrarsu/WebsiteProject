@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\Abrar\Documents\GitHub\WebsiteProject\JQueryAjaxInMVC2\JQueryAjaxInMVC2\Models\DBModels.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\Abrar\Desktop\WebsiteProjectRepo\JQueryAjaxInMVC2\JQueryAjaxInMVC2\Models\DBModels.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

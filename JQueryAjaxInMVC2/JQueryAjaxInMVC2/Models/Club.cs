@@ -11,8 +11,7 @@ namespace JQueryAjaxInMVC2.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-
+    
     public partial class Club
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,11 +22,8 @@ namespace JQueryAjaxInMVC2.Models
         }
     
         public int ClubID { get; set; }
-        [DisplayName("Club Name")]
         public string ClubName { get; set; }
-        [DisplayName("Club Descripton")]
         public string ClubDescription { get; set; }
-        [DisplayName("Club Membership")]
         public Nullable<decimal> ClubMembership { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
