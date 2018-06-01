@@ -17,32 +17,17 @@ namespace JQueryAjaxInMVC2.Controllers
             return View(GetAllClasses());
         }
 
+        //Displays list of all classes
         public IEnumerable<ClassViewModel> GetAllClasses()
         {
             using (DBModel db = new DBModel())
             {
                 IEnumerable<Class> classList = db.Classes.ToList();
-                //ClassViewModel classVM = new ClassViewModel();
-
-                var classList2 = from m in db.Classes select m;
-
-                //IEnumerable<ClassViewModel> classVMList;
-
-                //foreach (var l in classList2)
-                //{
-                //    ClassViewModel newModel = new ClassViewModel();
-                //    newModel.ClubID = l.ClubID;
-                //    newModel.ClubName = l.
-                //    classVMList.ToList().Add(l);
-                //}
 
                 IEnumerable<ClassViewModel> classVMList = classList.Select(x => new ClassViewModel
                 {
                     ClassID = x.ClassID,
                     ClubID = x.ClubID,
-                    //ClubName = x.Club.ClubName,
-                    //ClubDescription = x.Club.ClubDescription,
-                    //ClubMembership = x.Club.ClubMembership,
                     ClubName = db.Clubs.SingleOrDefault(y => y.ClubID == x.ClubID).ClubName,
                     ClubDescription = db.Clubs.SingleOrDefault(y => y.ClubID == x.ClubID).ClubDescription,
                     ClubMembership = db.Clubs.SingleOrDefault(y => y.ClubID == x.ClubID).ClubMembership,
@@ -57,8 +42,6 @@ namespace JQueryAjaxInMVC2.Controllers
                     Postcode = x.Postcode
                 }).ToList();
 
-
-                // return db.Classes.ToList<Class>();
                 return classVMList;
             }
 
@@ -72,7 +55,7 @@ namespace JQueryAjaxInMVC2.Controllers
             int t = db.CustomerBookings.Count();
             Debug.Write("DB info: " + t);
             CustomerBooking booking = new CustomerBooking();
-            //booking.ClassID = db.Classes.Where(x => x.ClassID == id).FirstOrDefault().ClassID;
+
             var s = db.Classes.Where(x => x.ClassID == id);
             foreach(var r in s)
             {
@@ -80,54 +63,14 @@ namespace JQueryAjaxInMVC2.Controllers
                 booking.BookingTotalCost = r.ClassGIAGPrice;
             }
             booking.CustomerID = db.CustomerPasswords.Where(x => x.Username == System.Web.HttpContext.Current.User.Identity.Name).FirstOrDefault().CustomerID;
-            //booking.BookingTotalCost = db.Classes.Where(x => x.ClassGIAGPrice == id).FirstOrDefault().ClassGIAGPrice;
 
             db.CustomerBookings.Add(booking);
             db.SaveChanges();
 
-            //int latestBookingID = booking.BookingID;
-
-
-            //return View(model);
-            //return Json(new { Status = "success", Message = "Booking Successfully" });
-
-            
-            return RedirectToAction("BookingSummary", "Customer");
+            return View(model);
         }
 
-        //Display Cusotmer Bookingsummary
-        public ActionResult BookingSummary()
-        {
-            //DBModel db = new DBModel();
 
-            //CustomerBooking bookedClass = db.CustomerBookings.OrderByDescending(x => x.BookingID).Last();
-
-
-            //BookingID = latestBookingID;
-            //ClassID = x.ClassID,
-            //ClubID = x.Class.ClubID,
-            //ClubName = x.Class.Club.ClubName,
-            //ClassDate = x.Class.ClassDate,
-            //ClassTime = x.Class.ClassTime,
-            //InstructorID = x.Class.InstructorID,
-            //instrFirstName = x.Class.Instructor.FirstName,
-            //instrLastName = x.Class.Instructor.LastName,
-            //CustomerID = x.CustomerID,
-            //FirstName = x.Customer.FirstName,
-            //LastName = x.Customer.LastName,
-            //BeltLevel = x.Customer.GradeBelt.BeltLevel,
-            //BeltLevelColour = x.Customer.GradeBelt.BeltLevelColour,
-            //ClassGIAGPrice = x.Class.ClassGIAGPrice,
-            //VenueName = x.Class.VenueName,
-            //AddressLine1 = x.Class.AddressLine1,
-            //AddressLine2 = x.Class.AddressLine2,
-            //Postcode = x.Class.Postcode
-
-
-
-
-            return View();
-        }
 
 
         //returns/displays the registeration form

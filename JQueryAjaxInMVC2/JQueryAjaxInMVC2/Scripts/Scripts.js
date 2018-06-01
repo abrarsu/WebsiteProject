@@ -294,6 +294,8 @@ function jQueryAjaxPostCustomer(form)
     $.validator.unobtrusive.parse(form);
     if($(form).valid())
     {
+        alert("Registration Successful");
+
         var ajaxConfig = {
             type: 'POST',
             url: form.action,
@@ -327,6 +329,7 @@ function jQueryAjaxPostCustomer(form)
 function PostBooking(url)
 {
     if (confirm('Are you sure you want to Book this Class?') == true) {
+        alert("Booking Successful");
         $.ajax({
             type: 'POST',
             url: url,
@@ -341,7 +344,6 @@ function PostBooking(url)
                 }
             }
         });
-        alert("Booking Successful");
     }
 
     
